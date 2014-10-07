@@ -1,2 +1,2 @@
-test
+Readme fast.
 ====
