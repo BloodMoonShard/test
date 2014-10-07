@@ -1,0 +1,91 @@
+.is_clickable {
+  cursor: hand;
+  cursor: pointer;
+}
+.nstSlider {
+    display: inline-block;
+  cursor: hand;
+  cursor: pointer;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  position: relative;
+  width: 148px;
+  height: 20px;
+    border: 1px solid #F7F7F7;
+  /*background: #113344;*/
+}
+.nstSlider .leftGrip.gripHighlighted {
+  background: #113344;
+}
+.nstSlider .rightGrip.gripHighlighted {
+  background: #113344;
+}
+.nstSlider .rightGrip,
+.nstSlider .leftGrip {
+  position: absolute;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+  width: 20px;
+  height: 20px;
+  background: #f5f5f5;
+    -webkit-box-shadow: 0px 0px 3px 1px rgba(0,0,0,0.2);
+    -moz-box-shadow: 0px 0px 3px 1px rgba(0,0,0,0.2);
+    box-shadow: 0px 0px 3px 1px rgba(0,0,0,0.2);
+}
+.nstSlider .bar {
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  position: absolute;
+
+    background-image: url('/assets/design_img/range-slider-bar.png');
+    background-repeat: repeat-x;
+    background-position: center;
+  height: 13px;
+  top: 4px;
+}
+.nstSlider .highlightPanel {
+  -webkit-transition: all 500ms ease-in-out;
+  -moz-transition: all 500ms ease-in-out;
+  -ms-transition: all 500ms ease-in-out;
+  -o-transition: all 500ms ease-in-out;
+  transition: all 500ms ease-in-out;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+  position: absolute;
+  background: #e87722;
+  height: 20px;
+  top: 0;
+}
+
+.leftLabel, .rightLabel {
+    display: inline-block;
+    width: 65px;
+    height: 20px;
+    line-height: normal;
+    padding: 0;
+    margin: 0;
+    color: #ec4942;
+    font-size: 14px;
+    text-align: center;
+    background-color: #f7f7f7;
+}
+
+.leftLabel {
+    float: left;
+    margin-right: 6px;
+}
+
+.rightLabel {
+    float: right;
+}
+
+.leftLabel span, .rightLabel span {
+    line-height: normal;
+    padding: 0;
+    margin: 0;
+    display: inline-block;
+}
