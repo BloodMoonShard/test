@@ -8,6 +8,12 @@ class My_Controller extends CI_Controller{
     }
 
     function render($tpl_name, $data){
+        $this->load->library('seo');
+        $url = $this->uri->uri_string();
+        switch ($this->uri->segment(1)) {
+            default:
+                $data['seodata'] = $this->seo->get_static_seo($url);
+        }
         $this->load->view('/web/header', $data);
         $this->load->view($tpl_name, $data);
         $this->load->view('/web/footer', $data);

@@ -2,7 +2,6 @@
 <html lang="en">
 
 <head>
-
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -55,9 +54,7 @@
 </head>
 
 <body>
-
 <div id="wrapper">
-
 <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
 <div class="navbar-header">
     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -139,6 +136,11 @@
                 <a href="/admin/ctrl_vacancy" <?php $flag=$this->uri->segment(2); if ($flag=='ctrl_vacancy') {
                     echo 'class="active"';
                 }?>><i class="fa fa-briefcase"></i> Вакансии</a>
+            </li>
+            <li>
+                <a href="/admin/ctrl_seo" <?php $flag=$this->uri->segment(2); if ($flag=='ctrl_seo') {
+                    echo 'class="active"';
+                }?>><i class="fa fa-globe"></i> SEO</a>
             </li>
         </ul>
     </div>

@@ -550,26 +550,6 @@ header .order-call .btn-order-call:hover {
     height: auto;
 }
 
-@media (max-width: 1020px) {
-    .wrapper-block-services {
-        padding-left: 15%;
-    }
-}
-
-@media (max-width: 800px) {
-    .wrapper-block-services {
-        padding-left: 30%;
-
-    }
-}
-
-@media (max-width: 600px) {
-    .wrapper-block-services {
-        padding-left: 15%;
-
-    }
-}
-
 .block-services {
     position: relative;
     height: 220px;

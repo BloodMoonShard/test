@@ -8,6 +8,7 @@ class Common_model extends My_Model{
     }
 
     function getVacancy() {
+        $this->db->where('display', 1);
         $result = $this->db->get('vacancy')->result_array();
         return $result;
     }

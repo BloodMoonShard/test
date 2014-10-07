@@ -17,6 +17,7 @@
                                     <th>Имя</th>
                                     <th>Номер телефона</th>
                                     <th>Дата создания заявки</th>
+                                    <th>Тема (откуда заявка)</th>
                                     <th>Действия</th>
                                 </tr>
                                 </thead>
@@ -27,9 +28,10 @@
                                         <th><?php echo $d['name'] ?></th>
                                         <th><?php echo $d['phone_number'] ?></th>
                                         <th><?php echo $d['date'] ?></th>
+                                        <th class="text-info"><?php echo $d['theme'] ?></th>
                                         <th>
                                             <?php if($d['submit'] != 1) {?>
-                                            <a href="/admin/ctrl_callback/submit_callback/<?php echo $d['id'] ?>" class="text-success">Обработано</a>
+                                            <a href="/admin/ctrl_callback/submit_callback/<?php echo $d['id'] ?>" class="text-success">Звонок обработан</a>
                                             <?php } else { ?>
                                             <a style="color: red;" href="/admin/ctrl_callback/delete_callback/<?php echo $d['id'] ?>" onclick="return confirm('Точно удалить?')">Удалить</a></th>
                                             <?php } ?>

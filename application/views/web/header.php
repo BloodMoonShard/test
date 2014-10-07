@@ -2,9 +2,9 @@
 <html lang="ru">
 <head>
     <meta charset="utf-8">
-    <meta name="description" content="description">
-    <meta name="keywords" content="keywords, separated, by, comma">
-    <title>Avantelt</title>
+    <meta name="description" content="<?php if (sizeof($seodata)>0) echo $seodata['description'] ?>">
+    <meta name="keywords" content="<?php if (sizeof($seodata)>0) echo $seodata['keywords'] ?>"/>
+    <title>Avantelt <?php if (sizeof($seodata)>0) echo '&mdash; ' . $seodata['title'] ?></title>
     <link rel="shortcut icon" href="favicon.ico">
     <link rel="stylesheet" href="/assets/w/css/reset.css">
     <link rel="stylesheet" href="/assets/w/css/barusel.css">
@@ -12,7 +12,6 @@
     <!--<link rel="stylesheet" href="css/print.css" media="print">-->
 
     <!-- jquery -->
-
     <script type="text/javascript" src="/assets/w/js/jquery-1.11.1.min.js"></script>
     <script type="text/javascript" src="/assets/w/js/design-js.js"></script>
 
