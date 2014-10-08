@@ -33,7 +33,7 @@
                                         <td><?= $d['name']?></td>
                                         <td>
                                             <a href="/admin/sub_category_value/add_category/<?= $d['id_subcategory_value']?>"><i class="glyphicon glyphicon-pencil"></i></a>
-                                            <a href="/admin/sub_category_value/rm_category/<?= $d['id_subcategory_value']?>"><i class="glyphicon glyphicon-remove"></i></a>
+                                            <?php if($d['public'] == 1){?><a href="/admin/sub_category_value/rm_category/<?= $d['id_subcategory_value']?>"><i class="glyphicon glyphicon-remove"></i></a><?php } ?>
                                         </td>
                                     </tr>
                                 <?php }

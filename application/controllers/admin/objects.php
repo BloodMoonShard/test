@@ -162,10 +162,12 @@ class Objects extends My_Controller {
             $data_value = $this->object_options_model->object_value($id);
             $data_value_parsed = array();
             foreach($data_value as $val){
-                if(strlen($val['id_subcategory_value_input']) == 0){
+                if(($val['format'] != 'input') && ($val['format'] != 'textarea')){
                     $data_value_parsed[$val['id_subcategory']][$val['id_subcategory_value']] = (string)$val['id_subcategory_value'];
                 }else{
-                    $data_value_parsed[$val['id_subcategory']][$val['id_subcategory_value']] = $val['id_subcategory_value_input'];
+                    $data_value_parsed[$val['id_subcategory']][$val['id_subcategory_value']] = $val['id_subcategory_value'];
+                    $data_value_parsed[$val['id_subcategory']]['value'] = $val['id_subcategory_value_input'];
+
                 }
             }
             $data['highway_direction']=$this->generate_highway_direction($data['city_id']);

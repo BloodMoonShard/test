@@ -17,11 +17,10 @@ function generate_input($data, $selected = false)
             }
             $selected_str = "";
             if($selected){
-                    if(strlen($selected[$dt['id_subcategory']][$dt['id_subcategory_value']])>0){
-                        $selected_str = "selected=selected";
-                        $content .= "<input class='form-control' type='input' value='" . $selected[$dt['id_subcategory']][$dt['id_subcategory_value']] . "' name='gdata_input_". $dt['id_subcategory'] ."_".$dt['id_subcategory_value']."'>";
+                    if(isset($selected[$dt['id_subcategory']]['value'])){
+                        $content .= "<input class='form-control' type='input' value='" . $selected[$dt['id_subcategory']]['value'] . "' name='gdata_input_". $dt['id_subcategory'] ."_".$dt['id_subcategory_value']."'>";
                     }else{
-                        $content .= "<input class='form-control' type='input' value='" . $selected_str . "' name='gdata_input_". $dt['id_subcategory'] ."_".$dt['id_subcategory_value']."'>";
+                        $content .= "<input class='form-control' type='input' value='' name='gdata_input_". $dt['id_subcategory'] ."_".$dt['id_subcategory_value']."'>";
                     }
             }else{
                 $content .= "<input class='form-control' type='input' value='" . $selected_str . "' name='gdata_input_". $dt['id_subcategory'] ."_".$dt['id_subcategory_value']."'>";
@@ -67,10 +66,9 @@ function generate_textarea($data, $selected = false)
             if (strlen($content) == 0) {
                 $content = '<div class="form-group">';
             }
-            $selected_str = "";
             if($selected){
-                    if(strlen($selected[$dt['id_subcategory']][$dt['id_subcategory_value']])> 0){
-                        $content .= "<textarea rows='3' class='form-control' name='gdata_input_". $dt['id_subcategory'] ."_".$dt['id_subcategory_value']."'>".$selected[$dt['id_subcategory']][$dt['id_subcategory_value']]."</textarea>";
+                    if(isset($selected[$dt['id_subcategory']]['value'])){
+                        $content .= "<textarea rows='3' class='form-control' name='gdata_input_". $dt['id_subcategory'] ."_".$dt['id_subcategory_value']."'>".$selected[$dt['id_subcategory']]['value']."</textarea>";
                     }else{
                         $content .= "<textarea rows='3' class='form-control' name='gdata_input_". $dt['id_subcategory'] ."_".$dt['id_subcategory_value']."'></textarea>";
                     }

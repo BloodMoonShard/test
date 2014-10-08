@@ -8,7 +8,7 @@ class Subcategory_model extends My_Model{
     public $type_sort = 'ASC';
 
     function get_list_sub_category(){
-        $this->db->select('*, subcategory.name as subcatname');
+        $this->db->select('*, subcategory.name as subcatname, subcategory.public as public');
         $this->db->from($this->table_name);
         $this->db->join('category', 'category.id_category=subcategory.parent');
         $this->db->where('inner_parent', 0);
