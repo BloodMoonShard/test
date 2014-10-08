@@ -19,31 +19,14 @@ class Ctrl_seo extends My_Controller {
         $this->render_adm('admin/seo_view.php', $option);
     }
 
-//    public function add_vacancy() {
-//        $post=$this->input->post();
-//        if ($post) {
-//            $this->vacancy_model->vacancyAdd($post);
-//            redirect('/admin/ctrl_vacancy');
-//        }
-//        $this->render_adm('/admin/add_vacancy', false);
-//    }
-//
-//    public function edit_vacancy($id) {
-//        $option['data'] = $this->vacancy_model->oneVacancyGet($id);
-//        $post = $this->input->post();
-//        if ($post) {
-//            if (!isset($post['display'])) {
-//                $post['display'] = 0;
-//            }
-//            $this->vacancy_model->vacancyUpdate($id, $post);
-//            redirect('/admin/ctrl_vacancy');
-//        }
-//
-//        $this->render_adm('/admin/edit_vacancy' ,$option);
-//    }
-//
-//    public function delete_vacancy($id) {
-//        $this->vacancy_model->vacancyDelete($id);
-//        redirect('/admin/ctrl_vacancy');
-//    }
+    public function edit_seo($id) {
+        $option['data'] = $this->seo_model->oneSeoGet($id);
+        $post = $this->input->post();
+        if ($post) {
+            $this->seo_model->seoUpdate($id, $post);
+            redirect('/admin/ctrl_seo');
+        }
+
+        $this->render_adm('/admin/seo_edit' ,$option);
+    }
 }
