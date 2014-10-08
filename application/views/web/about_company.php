@@ -51,16 +51,18 @@
                             <p>
                                 Остались вопросы?  Наши менеджеры ответят на них:
                             </p>
-                            <form action="" method="POST" class="clearfix">
+                            <form method="POST" id="form_callback_v2" action="javascript:void(null);" onsubmit="callback_send_v2()" class="clearfix">
                                 <div class="left-side-form">
+                                    <div class="success-img-v2"></div>
                                     <div class="form-element">
                                         <label for="name">Ваше имя:</label>
                                         <input type="text" name="name" id="name">
                                     </div>
                                     <div class="form-element">
-                                        <label for="phone">Ваш телефон:</label>
-                                        <input type="text" name="phone" id="phone">
+                                        <label for="phone_number">Ваш телефон:</label>
+                                        <input type="text" name="phone_number" id="phone_number">
                                     </div>
+                                    <input type="text" name="theme" hidden="hidden" value="О Компании">
                                 </div>
                                 <div class="right-side-form">
                                     <input type="submit" value="Перезвоните мне">
