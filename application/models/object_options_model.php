@@ -7,8 +7,11 @@ class Object_options_model extends My_Model{
 
 
     function object_value($id){
+        $this->db->select('*, '.$this->table_name.'.id_subcategory_value_input as id_subcategory_value_input');
+        $this->db->from($this->table_name);
+        $this->db->join('subcategory', 'subcategory.id_subcategory='.$this->table_name.'.id_subcategory');
         $this->db->where('id_objects', $id);
-        $result = $this->db->get($this->table_name);
+        $result = $this->db->get();
         if($result->num_rows() > 0){
             return $result->result_array();
         }

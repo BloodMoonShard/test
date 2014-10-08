@@ -35,7 +35,7 @@
                                         <td><?= parse_format($d['format'])?></td>
                                         <td>
                                             <a href="/admin/sub_category/add_category/<?= $d['id_subcategory']?>"><i class="glyphicon glyphicon-pencil"></i></a>
-                                            <a href="/admin/sub_category/rm_category/<?= $d['id_subcategory']?>"><i class="glyphicon glyphicon-remove"></i></a>
+                                            <?php if($d['public'] == 1){?><a href="/admin/sub_category/rm_category/<?= $d['id_subcategory']?>"><i class="glyphicon glyphicon-remove"></i></a><?php } ?>
                                         </td>
                                     </tr>
                                 <?php }

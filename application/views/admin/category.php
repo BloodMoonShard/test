@@ -31,7 +31,7 @@
                                         <td><?= $d['name']?></td>
                                         <td>
                                             <a href="/admin/category/add_category/<?= $d['id_category']?>"><i class="glyphicon glyphicon-pencil"></i></a>
-                                            <a href="/admin/category/rm_category/<?= $d['id_category']?>"><i class="glyphicon glyphicon-remove"></i></a>
+                                            <?php if($d['public'] != 0){?><a href="/admin/category/rm_category/<?= $d['id_category']?>"><i class="glyphicon glyphicon-remove"></i></a><?php }?>
                                         </td>
                                     </tr>
                                 <?php }
