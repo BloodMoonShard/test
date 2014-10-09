@@ -265,6 +265,41 @@ class Type extends My_Controller
         }
 
     }
+
+
+    public function details($id){
+        $this->load->model('object_model');
+        $result = $this->object_model->get_element($id);
+        $content = '<div class="row clearfix">';
+        $info = array();
+        $counts = 1;
+        if($data = $this->object_model->get_details($id)){
+            $old_category = "";
+            foreach($this->object_model->get_details($id) as $v){
+                if(($v['name'] != $old_category) && ($old_category != "")){
+                    if($counts % 2){
+                        $content .= '</div><div class="row clearfix">';
+                    }
+                    $content .= $this->load->view('common/item_card_item', array_merge($info, array('count_category'=>$counts)), true);
+                    $info = array();
+                    $counts++;
+                }
+                $info['category_name'] = $v['name'];
+                if(($v['format'] != 'input') && ($v['format'] != 'textarea')){
+                    $info['subcategory'][$v['subcatname']] = $v['value'];
+                }else{
+                    $info['subcategory'][$v['subcatname']] = $v['id_subcategory_value_input'];
+                }
+                $old_category = $v['name'];
+            }
+        }
+        $content .= "</div>";
+        $this->data['content'] = $content;
+
+        $this->render('/web/item_card', $this->data);
+
+
+    }
 }
 
 /* End of file welcome.php */
