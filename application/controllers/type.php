@@ -8,10 +8,11 @@ class Type extends My_Controller
     {
         parent::__construct();
         $this->load->model('type_model');
+        $this->load->model('building_model');
         $this->load->library('pagination');
     }
 
-    public function index($object_type = false)
+    public function index($object_type = false, $id_obj = false)
     {
         $data = array();
         $config["base_url"] = base_url() . "type/$object_type";
@@ -250,14 +251,21 @@ class Type extends My_Controller
             case 'overseas_real_estate':
 
                 break;
-            case 'legal_services':
+            case 'building':
+                if ($id_obj) {
+                    $data = $this->building_model->oneBuildingGet($id_obj);
+                    $data['images'] = $this->building_model->buildingImgGet($data['id']);
+                    $option['data'] = $data;
 
-                break;
-            case 'credit_broker':
-
-                break;
-            case 'partners':
-
+                    $this->render('web/building_advanced', $option);
+                } else {
+                    $data = $this->building_model->buildingGet();
+                    foreach ($data as $key=>$value) {
+                        $data[$key]['images'] = $this->building_model->buildingImgGet($data[$key]['id']);
+                    }
+                    $option['data'] = $data;
+                    $this->render('web/building', $option);
+                }
                 break;
             default:
                 $this->render('web/oops', false);

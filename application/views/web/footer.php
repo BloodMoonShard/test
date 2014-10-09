@@ -13,7 +13,7 @@
                 <li><a href="#">Квартиры</a></li>
             </ul>
             <ul class="footer-nav-block">
-                <li><a href="#">Строительство</a></li>
+                <li><a href="/type/building">Строительство</a></li>
                 <li><a href="#">Коммерческая недвижимость</a></li>
                 <li><a href="#">Зарубежная недвижимость</a></li>
             </ul>

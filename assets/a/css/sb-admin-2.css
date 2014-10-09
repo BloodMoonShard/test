@@ -348,3 +348,12 @@ table.dataTable thead .sorting:after {
     max-height: 200px;
     max-width: 200px;
 }
+
+.panel-body.building_img_small {
+   text-align: center;
+}
+
+.panel-body.building_img_small img {
+    max-width: 90%;
+    max-height: 150px;
+}

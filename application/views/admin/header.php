@@ -123,6 +123,11 @@
                 <!-- /.nav-second-level -->
             </li>
             <li>
+                <a href="/admin/ctrl_building" <?php $flag=$this->uri->segment(2); if ($flag=='ctrl_building') {
+                    echo 'class="active"';
+                }?>><i class="fa fa-building"></i> Строительство</a>
+            </li>
+            <li>
                 <a href="/admin/ctrl_partners" <?php $flag=$this->uri->segment(2); if ($flag=='ctrl_partners') {
                     echo 'class="active"';
                 }?>><i class="fa fa-users"></i> Партнеры</a>

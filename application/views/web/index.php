@@ -29,7 +29,7 @@
                     </div>
                 </div>
                 </a>
-                <a href="#">
+                <a href="/type/building">
                 <div class="block-services">
                     <div class="img-service building">
                         <div class="text">

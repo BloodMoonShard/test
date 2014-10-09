@@ -24,6 +24,15 @@ class Ajax extends CI_Controller{
         echo json_encode(array('status'=>true));
     }
 
+    function remove_bimg($id){
+        $this->load->model('building_model');
+        $img_name = $this->building_model->buildingOneImgGet($id);
+        $img_name = $img_name['img_name'];
+        $status = $this->building_model->buildingOneImgDelete($id);
+        unlink($_SERVER['DOCUMENT_ROOT'] . '/upload_files/building_img/' . $img_name);
+        echo json_encode($status);
+    }
+
     function get_list_subcategory(){
         $this->load->model('subcategory_model');
         $content = "";
