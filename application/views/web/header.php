@@ -72,7 +72,7 @@
                             </div>
                             <li class="nulled-margin"><img src="/assets/w/design_img/map.png"><a href="#" class="show_map"">Карта</a></li>
                         </ul>
-                        <form class="search" action="" method="POST">
+                        <form class="search" action="/welcome/search_header" method="POST">
                             <input type="submit">
                             <input type="text" name="search_query" id="search_query" placeholder="Введите артикул или населенный пункт">
                         </form>

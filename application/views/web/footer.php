@@ -36,7 +36,7 @@
                 <a href="#"><div class="social-link twitter"></div></a>
             </div>
             <p class="copyright">&copy; 2014 ООО &laquo; Авантэлт &raquo;. Все права защищены.</p>
-            <form class="search" action="" method="POST">
+            <form class="search" action="/welcome/search_header" method="POST">
                 <input type="submit">
                 <input type="text" name="search_query" id="search_query-f" placeholder="Введите артикул или населенный пункт">
             </form>

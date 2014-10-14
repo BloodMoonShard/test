@@ -78,7 +78,7 @@
 <div class="sub-navigation">
     <div class="container">
         <ul class="clearfix">
-            <li class="current-page"><h1>Добротный 3-х уровневый кирпичный коттедж</h1></li>
+            <li class="current-page"><h1><?=$result['name_object'];?></h1></li>
             <li class="delimiter"></li>
             <li class="home-link"><img src="/assets/w/design_img/home.png" alt="Домой"><a href="#">Главная</a></li>
             <li class="search-link"><img src="/assets/w/design_img/search_black.png" alt="Поиск объектов"><a href="#">Поиск объектов</a></li>
@@ -87,11 +87,11 @@
 </div>
 <div class="container">
     <ul class="breadcrumbs">
-        <li><a href="#">Главная</a></li>
+        <li><a href="/">Главная</a></li>
         <li> > </li>
-        <li><a href="#">Квартиры</a></li>
+        <li><a href="/type/<?=$result['uri_name'];?>"><?=$result['type_object'];?></a></li>
         <li> > </li>
-        <li class="active-crumb">Добротный 3-х уровневый кирпичный коттедж</li>
+        <li class="active-crumb"><?=$result['name_object'];?></li>
     </ul>
 </div>
 <section class="item-card">
@@ -148,43 +148,47 @@
 
     </div>
     <div class="general-info clearfix">
-        <p><span class="item-card-general-head">Добротный 3-х уровневый кирпичный коттедж</span></p>
+        <p><span class="item-card-general-head"><?=$result['name_object'];?></span></p>
         <div class="info-block">
             <p><span class="secondary-head">Общая информация:</span></p>
             <table>
                 <tbody>
+                <?php if(strlen($result['highway_name']) > 0){?>
                 <tr class="colored">
                     <td class="cat-name">Шоссе:</td>
-                    <td class="description">Ленинградское</td>
+                    <td class="description"><?=$result['highway_name'];?></td>
                 </tr>
+                <?php }?>
                 <tr>
                     <td class="cat-name">Удаленность:</td>
-                    <td class="description">У1 км. от МКАД </td>
+                    <td class="description"><?=$result['28'];?></td>
                 </tr>
                 <tr class="colored">
                     <td class="cat-name">Населенный пункт:</td>
-                    <td class="description">Химки</td>
+                    <td class="description"><?=$result['city'];?></td>
                 </tr>
                 <tr>
                     <td class="cat-name">Площадь дома:</td>
-                    <td class="description">360 кв.м.</td>
+                    <td class="description"><?=(int)$result['9'];?> кв.м.</td>
                 </tr>
                 <tr class="colored">
                     <td class="cat-name">Площадь участка:</td>
-                    <td class="description">6 сот.</td>
+                    <td class="description"><?=(int)$result['10'];?> сот.</td>
                 </tr>
+                <?php if(strlen($result['article']) > 0){?>
                 <tr>
                     <td class="cat-name">Артикул:</td>
-                    <td class="description">3587</td>
+                    <td class="description"><?=$result['article'];?></td>
                 </tr>
+                <?php } ?>
                 <tr class="colored">
                     <td class="cat-name">Тип застройки:</td>
-                    <td class="description">Дом</td>
+                    <td class="description"><?=$result['11'];?></td>
                 </tr>
                 </tbody>
             </table>
             <div class="price_place">
-                <p>Цена: 3 100 000 <del><span style="font-family: Arial;">P</span></del></p>
+                <p>Цена: <?=$result['29'];?> <del><span style="font-family: Arial;">P</span></del></p>
                 <p class="compare-check"><input type="checkbox" name="compare" id="compare"> <span>Сравнить</span></p>
             </div>
         </div>
@@ -193,52 +197,106 @@
 <div class="second-description">
     <p><span class="secondary-head">Общая информация:</span></p>
     <p>
-        Добротный 3-х уровневый кирпичный коттедж 360 м на участке 6 сот., 1 км до города Химки по Ленинградскому,
-        Дмитровское шоссе. Кровля мягкая, окна тройные стеклопакеты. Потолки 3 м., гараж.
-        Отдельное помещение для проживания.1 уровень: кухня, столовая, кабинет,
-        с/у;2 уровень: 2 комнаты, 2 с/у;3 уровень: свободная планировка.Эл-во,
-        газ магистральный, водоснабжение центральное, канализация, электричество,
-        телефон, интернет, круглогодичный асфальтированный подъезд. Видеонаблюдение.
-        Охраняемая территория.150 м до канала им. Москвы.(Ек)
+        <?=$result['31'];?>
     </p>
 
     <?=$content;?>
 </div>
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            initialize();
+        })
+        var geocoder;
+
+        function initialize() {
+            var styles = [
+                {
+                    featureType: "poi",
+                    elementType: "labels",
+                    stylers: [
+                        { visibility: "off" }
+                    ]
+                }
+            ];
+
+            var styledmap = new google.maps.StyledMapType(styles, {name: "Styled Map"});
+
+            geocoder = new google.maps.Geocoder();
+            geocoder.geocode({ 'address': '<?php echo $result['region']." область, ".$result['city']." ".$result['street']." ".$result['building'];?>'}, function (results, status) {
+                if (status == google.maps.GeocoderStatus.OK) {
+                    for(var locate in results[0].geometry.location){
+                        if(isFinite(results[0].geometry.location[locate])){
+                            if(locate == 'k'){
+                                var x = results[0].geometry.location[locate];
+                            }else{
+                                var y = results[0].geometry.location[locate];
+                            }
+                        }
+                    }
+
+                    var canvas = document.getElementById('current-location-map');
+
+
+                    var coords = new google.maps.LatLng(x, y);
+                    var options = {
+                        mapTypeControl: false,
+                        panControl: false,
+                        scaleControl: false,
+                        zoomControl: false,
+                        zoomControlOptions: {
+                            position: google.maps.ControlPosition.LEFT_TOP,
+                            style: google.maps.ZoomControlStyle.SMALL
+                        },
+                        streetViewControl: false,
+                        center: coords,
+                        zoom: 16,
+                        mapTypeId: google.maps.MapTypeId.ROADMAP,
+                        mapTypeControlOptions: {
+                            mapTypeIds: [google.maps.MapTypeId.ROADMAP, 'styled-map']
+                        },
+                        styles: styles
+                    }
+
+                    var map = new google.maps.Map(canvas, options);
+
+                    var marker = new google.maps.Marker({
+                        position: coords,
+                        map: map,
+                        icon: '/assets/w/design_img/marker-ico.png'
+                    });
+
+                    map.mapTypes.set('styled-map', styledmap);
+                    map.setMapTypeId('styled-map');
+                    var center = map.getCenter();
+                    google.maps.event.trigger(map, "resize");
+                    map.setCenter(center);
+                } else {
+                    alert('Geocode was not successful for the following reason: ' + status);
+                }
+            });
+        }
+        // end: Google Map
+    </script>
 <div class="item-location">
     <p>
         <span class="btn-map-img">Карта</span>
     </p>
-    <div class="current-location-map">
-        <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d71845.72347782149!2d37.63815977509428!3d55.75539511575265!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sru!2sru!4v1411720957717" width="790" height="395" frameborder="0" style="border:0"></iframe>
+    <div id="current-location-map" style="width: 926px; height: 395px;">
+<!--        <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d71845.72347782149!2d37.63815977509428!3d55.75539511575265!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sru!2sru!4v1411720957717" width="790" height="395" frameborder="0" style="border:0"></iframe>-->
     </div>
 </div>
 <div class="other-items clearfix">
     <p><span class="item-card-general-head">Другие объекты в этом районе</span></p>
-    <div class="other-items-element">
-        <img src="../../../assets/w/design_img/123.jpg" alt="">
-        <a href="#">Дом, Мышецкое Ленинградское ш. 15 км.500м2, 20соток</a>
-        <p class="price">3 100 000 <del><span style="font-family: Arial;">P</span></del></p>
-    </div>
-    <div class="other-items-element">
-        <img src="../../../assets/w/design_img/123.jpg" alt="">
-        <a href="#">Дом, Мышецкое Ленинградское ш. 15 км.500м2, 20соток</a>
-        <p class="price">3 100 000 <del><span style="font-family: Arial;">P</span></del></p>
-    </div>
-    <div class="other-items-element">
-        <img src="../../../assets/w/design_img/123.jpg" alt="">
-        <a href="#">Дом, Мышецкое Ленинградское ш. 15 км.500м2, 20соток</a>
-        <p class="price">3 100 000 <del><span style="font-family: Arial;">P</span></del></p>
-    </div>
-    <div class="other-items-element">
-        <img src="../../../assets/w/design_img/123.jpg" alt="">
-        <a href="#">Дом, Мышецкое Ленинградское ш. 15 км.500м2, 20соток</a>
-        <p class="price">3 100 000 <del><span style="font-family: Arial;">P</span></del></p>
-    </div>
-    <div class="other-items-element">
-        <img src="../../../assets/w/design_img/123.jpg" alt="">
-        <a href="#">Дом, Мышецкое Ленинградское ш. 15 км.500м2, 20соток</a>
-        <p class="price">3 100 000 <del><span style="font-family: Arial;">P</span></del></p>
-    </div>
+    <?php if($near_object){
+        foreach($near_object as $v){?>
+            <div class="other-items-element">
+                <img src="../../../assets/w/design_img/123.jpg" alt="">
+                <a href="/details/<?=$v['id_objects']?>"><?=$v['type_object'];?>, <?=$v['district'];?> <?=$v['city'];?> <?=$v['highway_name'];?>.<?=$v['9'];?>м2, <?=$v['10'];?> соток</a>
+                <p class="price"><?=$v['29'];?> <del><span style="font-family: Arial;">P</span></del></p>
+            </div>
+        <?}
+}?>
 </div>
 </div>
 </div>
