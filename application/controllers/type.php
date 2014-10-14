@@ -49,8 +49,7 @@ class Type extends My_Controller
 
         switch ($object_type) {
             case 'house':
-                //Get total counts
-//                $config["total_rows"] = $this->type_model->get_catalog_objects($object_type, $ses_data);
+
 
                 $data = unserialize($this->session->userdata($object_type));
                 if(!$data){
@@ -60,16 +59,8 @@ class Type extends My_Controller
                 $objects_all = $this->type_model->get_catalog_objects_per_page($object_type,false, false, false);
                 //Get result per page
 
-//                $objects = $this->type_model->get_catalog_objects_per_page($object_type, $ses_data, $page, $config["per_page"]);
-
                 $sort_filter = array();
                 $array_subcategory_criteria = array(9, 10, 28, 29, 31, 30);
-
-
-//                $list_active_objects = array();
-//                foreach ($objects as $s) {
-//                    $list_active_objects[] = $s['id_objects'];
-//                }
 
                 //Start Left block filter generate
                 $filter = $this->type_model->get_criteria_filter($object_type, array(9, 10, 29), $ses_data);
@@ -131,19 +122,7 @@ class Type extends My_Controller
                             if($v['id_subcategory'] == 30){
                                 $objects_all[$k]['type'] = $v['id_subcategory_value'];
                             }
-//                            //If objects place on the page
-//                            if (in_array($o['id_objects'], $list_active_objects)) {
-//                                if (strlen($v['id_subcategory_value_input']) > 0) {
-//                                    $objects_output[$o['id_objects']][$v['id_subcategory']] = $v['id_subcategory_value_input'];
-//                                } else {
-//                                    if (isset($objects_output[$o['id_objects']][$v['id_subcategory']])) {
-//                                        $objects_output[$o['id_objects']][$v['id_subcategory']] = ', ' . $v['value'];
-//                                    } else {
-//                                        $objects_output[$o['id_objects']][$v['id_subcategory']] = $v['value'];
-//                                    }
-//                                }
-//
-//                            }
+
                         }
                     }
                 }
@@ -231,12 +210,7 @@ class Type extends My_Controller
 
                 }
 
-//                if($page > 1){
-//                    $page--;
-//                }
-
                 $config["total_rows"] = sizeof($objects_filtered);
-
                 $this->pagination->initialize($config);
                 $this->data['filter'] = $sort_filter;
                 $this->data['objects'] = array_slice($objects_filtered, $page, $config["per_page"]);
@@ -271,6 +245,84 @@ class Type extends My_Controller
                 $this->render('web/oops', false);
                 break;
         }
+
+    }
+
+
+    public function details($id){
+        $this->load->model('object_model');
+        $result = $this->object_model->get_one_object($id);
+        $near_object = $this->object_model->get_objects(array('district'=>$result['district']), $result['id_objects']);
+        $content = '<div class="row clearfix">';
+        $info = array();
+        $counts = 1;
+        if($data = $this->object_model->get_details($id)){
+            $old_category = "";
+            foreach($this->object_model->get_details($id) as $v){
+                if(($v['name'] != $old_category) && ($old_category != "")){
+                    if($counts % 2){
+                        $content .= '</div><div class="row clearfix">';
+                    }
+                    $content .= $this->load->view('common/item_card_item', array_merge($info, array('count_category'=>$counts)), true);
+                    $info = array();
+                    $counts++;
+                }
+                $info['category_name'] = $v['name'];
+                if(($v['format'] != 'input') && ($v['format'] != 'textarea')){
+                    $info['subcategory'][$v['subcatname']] = $v['value'];
+                }else{
+                    $info['subcategory'][$v['subcatname']] = $v['id_subcategory_value_input'];
+                }
+                $old_category = $v['name'];
+            }
+        }
+        $array_subcategory_criteria = array(11,9,10, 28, 29, 31);
+            $objects_option = $this->type_model->get_objects_option($result['id_objects'], $array_subcategory_criteria);
+            if ($objects_option) {
+                foreach ($objects_option as $v) {
+                    if (strlen($v['id_subcategory_value_input']) > 0) {
+                        $result[$v['id_subcategory']] = $v['id_subcategory_value_input'];
+                    } else {
+                        if (isset($result[$v['id_subcategory']])) {
+                            $result[$v['id_subcategory']] = ', ' . $v['value'];
+                        } else {
+                            $result[$v['id_subcategory']] = $v['value'];
+                        }
+                    }
+                    if($v['id_subcategory'] == 30){
+                        $result['type'] = $v['id_subcategory_value'];
+                    }
+                }
+            }
+        if($near_object){
+            foreach($near_object as $k=>$v){
+                $objects_option = $this->type_model->get_objects_option($v['id_objects'], $array_subcategory_criteria);
+                if ($objects_option) {
+                    foreach ($objects_option as $v) {
+                        if (strlen($v['id_subcategory_value_input']) > 0) {
+                            $near_object[$k][$v['id_subcategory']] = $v['id_subcategory_value_input'];
+                        } else {
+                            if (isset($result[$v['id_subcategory']])) {
+                                $near_object[$k][$v['id_subcategory']] = ', ' . $v['value'];
+                            } else {
+                                $near_object[$k][$v['id_subcategory']] = $v['value'];
+                            }
+                        }
+                        if($v['id_subcategory'] == 30){
+                            $near_object[$k]['type'] = $v['id_subcategory_value'];
+                        }
+                    }
+                }
+            }
+            $this->data['near_object'] = $near_object;
+        }
+        $content .= "</div>";
+        $this->data['result'] = $result;
+        $this->data['content'] = $content;
+
+
+        $this->render('/web/item_card', $this->data);
+
 
     }
 }

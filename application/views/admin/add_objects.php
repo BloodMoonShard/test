@@ -14,9 +14,20 @@
             <div class="col-lg-6">
                 <form role="form" class="js-form-address" action="<?php if(isset($id_category)){ echo $id_category;}?>" method="post" onkeypress="if(event.keyCode == 13) return false;">
                     <div class="form-group">
-                        <label>Имя раздела</label>
+                        <label>Имя объекта</label>
                         <input class="form-control" name="name_object" value="<?php if(isset($name_object)){ echo $name_object;}?>">
-                        <p class="help-block">Это новый раздел описания объекта недвижимости (Основной, Дополнитльно и т.д)</p>
+                    </div>
+                    <div class="form-group">
+                        <label>Артикул</label>
+                        <input class="form-control" type="text" name="article" value="<?php if(isset($article)){ echo $article;}?>">
+                    </div>
+                    <div class="form-group">
+                        <label>Страна</label>
+                            <select class="form-control" name="country">
+                                <?php foreach($countries as $cs){?>
+                                    <option <?php if(isset($country) && ($country == $cs['country_id'])){ echo 'selected="selected"';}?> value="<?= $cs['country_id']?>"><?= $cs['name']?></option>
+                                <?php }?>
+                            </select>
                     </div>
                     <div class="form-group">
                         <label>Область</label>

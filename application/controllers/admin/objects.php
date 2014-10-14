@@ -34,6 +34,7 @@ class Objects extends My_Controller {
         $this->load->model('subcategory_value_model');
         $this->load->model('subcategory_model');
         $this->load->model('object_options_model');
+        $countries = $this->db->order_by('country_id')->get('countries')->result_array();
         $content = "";
         $list_category = $this->category_model->get_element();
         if($this->input->post()){
@@ -102,6 +103,7 @@ class Objects extends My_Controller {
         $data['status_notif'] = $this->status;
         $data['msg_notif'] = $this->msg;
         $data['content'] = $content;
+        $data['countries'] = $countries;
         $this->load->model('highway_direction_model');
         $data['highway_direction'] = "";
         $highway_direction = $this->highway_direction_model->get_element();
@@ -121,6 +123,8 @@ class Objects extends My_Controller {
         $this->load->model('subcategory_value_model');
         $this->load->model('subcategory_model');
         $this->load->model('object_options_model');
+        $countries = $this->db->order_by('country_id')->get('countries')->result_array();
+
         $content = "";
         $list_category = $this->category_model->get_element();
         if($this->input->post()){
@@ -208,6 +212,7 @@ class Objects extends My_Controller {
         $data['status_notif'] = $this->status;
         $data['msg_notif'] = $this->msg;
         $data['content'] = $content;
+        $data['countries'] = $countries;
 
         $this->render_adm('admin/add_objects', $data);
     }
