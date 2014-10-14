@@ -44,6 +44,9 @@ class Building_model extends My_Model{
         $this->db->where('id', $id);
         $this->db->set('title', $post['title']);
         $this->db->set('description', $post['description']);
+        $this->db->set('title_seo', $post['title_seo']);
+        $this->db->set('description_seo', $post['description_seo']);
+        $this->db->set('keywords_seo', $post['keywords_seo']);
         return $this->db->update('building_objects');
     }
 

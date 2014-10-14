@@ -10,10 +10,28 @@ class My_Controller extends CI_Controller{
     function render($tpl_name, $data){
         $this->load->library('seo');
         $url = $this->uri->uri_string();
-        switch ($this->uri->segment(1)) {
-            default:
-                $data['seodata'] = $this->seo->get_static_seo($url);
+        $url_segments = explode("/",$url);
+        $id_object = null;
+        if (isset($url_segments[2])) {
+            switch ($url_segments[1]) {
+                case 'building':
+                    $id_object = $url_segments[2];
+                    $table = 'building_objects';
+                    $data['seodata'] = $this->seo->get_seo_dynamic($table, $id_object);
+                    $data['seodata']['title'] = $data['seodata']['title_seo'];
+                    $data['seodata']['description'] = $data['seodata']['description_seo'];
+                    $data['seodata']['keywords'] = $data['seodata']['keywords_seo'];
+                    break;
+            }
+        } else {
+            switch ($this->uri->segment(1)) {
+                default:
+                    $data['seodata'] = $this->seo->get_static_seo($url);
+            }
         }
+
+
+
         $this->load->view('/web/header', $data);
         $this->load->view($tpl_name, $data);
         $this->load->view('/web/footer', $data);

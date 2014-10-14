@@ -30,7 +30,7 @@
     <!-- Custom Fonts -->
     <link href="/assets/a/font-awesome-4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="/assets/w/js/jquery-1.11.1.min.js"></script>
 
     <script src="/assets/jquery.kladr.min.js" type="text/javascript"></script>
     <script src="/assets/all.js" type="text/javascript"></script>
@@ -141,6 +141,11 @@
                 <a href="/admin/ctrl_vacancy" <?php $flag=$this->uri->segment(2); if ($flag=='ctrl_vacancy') {
                     echo 'class="active"';
                 }?>><i class="fa fa-briefcase"></i> Вакансии</a>
+            </li>
+            <li>
+                <a href="/admin/ctrl_resume" <?php $flag=$this->uri->segment(2); if ($flag=='ctrl_resume') {
+                    echo 'class="active"';
+                }?>><i class="fa fa-globe"></i> Резюме</a>
             </li>
             <li>
                 <a href="/admin/ctrl_seo" <?php $flag=$this->uri->segment(2); if ($flag=='ctrl_seo') {

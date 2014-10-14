@@ -30,9 +30,7 @@ function callback_send_v2() {
             alert('Возникла ошибка');
         }
     });
-
 }
-
 
 function show_hide (blockId)
 {
@@ -90,6 +88,18 @@ $(document).ready(function() {
         $("#shadow-wrapper").hide();
         $("#shadow-wrapper-body").hide();
         $("#callback").hide();
+    });
+
+    $('#btn_send_resume').click(function() {
+        $("#shadow-wrapper").show();
+        $("#shadow-wrapper-body").show();
+        $("#resume").show();
+    });
+
+    $('#close_resume').click(function() {
+        $("#shadow-wrapper").hide();
+        $("#shadow-wrapper-body").hide();
+        $("#resume").hide();
     });
 
     $(".filter-li-text").on("click", function () {

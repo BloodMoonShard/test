@@ -42,6 +42,7 @@ $route['default_controller'] = "welcome";
 $route['404_override'] = '';
 $route['admin'] = 'admin/dashboard';
 $route['type/(:any)'] = "type/index/$1";
+$route['admin/download_file/(:any)'] = "admin/download_file/index/$1";
 
 
 /* End of file routes.php */

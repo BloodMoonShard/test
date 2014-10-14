@@ -1225,7 +1225,7 @@ header .order-call .btn-order-call:hover {
 }
 
 .shadow-wrapper.show-me, .shadow-wrapper-body.show-me,
-.search-object.callback.show-me {
+.search-object.callback.show-me, .search-object.resume.show-me  {
     display: block;
 }
 
@@ -1526,6 +1526,7 @@ header .order-call .btn-order-call:hover {
 .catalog .catalog-content .block-services .img-service {
     width: 185px;
     height: 130px;
+    top: -210px;
     background-size: contain;
 }
 
@@ -1877,6 +1878,19 @@ header .order-call .btn-order-call:hover {
     margin-top: 20px;
 }
 
+.search-object.resume {
+    width: 470px;
+    height: 290px;
+    display: none;
+}
+
+.search-object.resume .long-label {
+    width: 180px;
+}
+
+.resume input[type="submit"] {
+    margin-top: 20px;
+}
 
 
 

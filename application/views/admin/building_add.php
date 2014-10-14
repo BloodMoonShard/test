@@ -27,6 +27,22 @@
                     <label>Загрузить изображения</label>
                     <input type="file" name="file[]" min="1" max="50" multiple="true">
                 </div>
+                <hr>
+                <p class="lead">SEO (title, description, keywords) для объекта</p>
+                <p class="help-block">Не заполняйте, если не знаете что это.</p>
+                <div class="form-group">
+                    <label for="title_seo">Заголовок (SEO)</label>
+                    <input type="text" class="form-control" id="title_seo" name="title_seo">
+                </div>
+                <div class="form-group">
+                    <label for="description_seo">Описание (SEO)</label>
+                    <textarea class="form-control" id="description_seo" name="description_seo"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="keywords_seo">Ключевые слова (SEO)</label>
+                    <input type="text" class="form-control" id="keywords_seo" name="keywords_seo">
+                </div>
+
 
                 <button type="submit" class="btn btn-success">Готово</button>
             </form>

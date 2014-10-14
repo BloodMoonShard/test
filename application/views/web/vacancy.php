@@ -1,4 +1,13 @@
-    <div class="grand-bg">
+<script>
+    $(document).ready(function() {
+        $('#form_resume').ajaxForm(function() {
+            $('#form_resume').hide();
+            $('.load-gif').delay(200).fadeIn(300).delay(1500).fadeOut(400);
+            $('.success-img').delay(2600).fadeIn(300);
+        });
+    });
+</script>
+<div class="grand-bg">
         <div class="sub-navigation">
             <div class="container">
                 <ul class="clearfix">
@@ -62,7 +71,7 @@
 
                         </div>
                         <div class="bottom-control clearfix">
-                            <a href="#" class="btn-send-resume">Отправить резюме</a>
+                            <a href="#" class="btn-send-resume" id="btn_send_resume">Отправить резюме</a>
                             <a href="#" class="btn-view-all">Посмотри все наши вакансии</a>
                         </div>
                     </div>
