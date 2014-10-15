@@ -145,7 +145,7 @@
             <li>
                 <a href="/admin/ctrl_resume" <?php $flag=$this->uri->segment(2); if ($flag=='ctrl_resume') {
                     echo 'class="active"';
-                }?>><i class="fa fa-globe"></i> Резюме</a>
+                }?>><i class="fa fa-envelope-o"></i> Резюме</a>
             </li>
             <li>
                 <a href="/admin/ctrl_seo" <?php $flag=$this->uri->segment(2); if ($flag=='ctrl_seo') {

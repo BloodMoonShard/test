@@ -71,6 +71,7 @@
             <div class="success-img"></div>
         </div>
     </div>
+
 </div>
 <div class="wrapper">
     <header> <!-- header -->

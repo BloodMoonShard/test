@@ -9,6 +9,7 @@ class Type extends My_Controller
         parent::__construct();
         $this->load->model('type_model');
         $this->load->model('building_model');
+        $this->load->model('common_model');
         $this->load->library('pagination');
     }
 
@@ -207,8 +208,8 @@ class Type extends My_Controller
                     if ($i >= 5) {
                         $objects_filtered[] = $v;
                     }
-
                 }
+
 
                 $config["total_rows"] = sizeof($objects_filtered);
                 $this->pagination->initialize($config);
@@ -217,6 +218,10 @@ class Type extends My_Controller
                 $this->session->set_userdata('objects', serialize($objects_all));
                 $this->data['counts'] = $this->type_model->get_catalog_objects($object_type);
                 $this->data["links"] = $this->pagination->create_links();
+
+                foreach ($this->data['objects'] as $key=>$value) {
+                    $this->data['objects'][$key]['ob_images'] = $this->common_model->objectsImgGet($this->data['objects'][$key]['id_objects']);
+                }
                 $this->render('/web/catalog.php', $this->data);
                 break;
             case 'land_area':
@@ -318,6 +323,8 @@ class Type extends My_Controller
         }
         $content .= "</div>";
         $this->data['result'] = $result;
+        $this->data['result']['ob_images'] = $this->common_model->objectsImgGet($this->data['result']['id_objects']);
+
         $this->data['content'] = $content;
 
 

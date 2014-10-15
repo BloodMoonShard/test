@@ -437,13 +437,13 @@
         </div>
     </div>
     <div class="catalog-objects">
-        <?php foreach ($objects as $v) { ?>
+        <?php foreach ($objects as $v) {?>
             <div class="one-object">
                 <div class="title">
                     <h2><?= $v['name_object'] ?></h2>
                 </div>
                 <div class="content clearfix">
-                    <img src="/assets/w/design_img/test-img.png" alt="">
+                    <img src="/upload_files/objects_img/<?php echo $v['ob_images'][0]['img_name'] ?>" alt="">
 
                     <div class="specifications">
                         <div class="spec-line">

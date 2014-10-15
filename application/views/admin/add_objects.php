@@ -1,4 +1,20 @@
-
+<script>
+    $(document).ready(function() {
+        $('a.remove_bimg').on('click', function() {
+            var elem = $(this).parent().parent().parent();
+            $.ajax({
+                url: $(this).attr('href'),
+                type: 'POST',
+                dataType: 'json',
+                success: function(r){
+                    console.log(r);
+                    elem.remove();
+                }
+            })
+            return false;
+        })
+    })
+</script>
 <div id="page-wrapper" style="min-height: 704px;">
     <div class="row">
         <div class="col-lg-12">
@@ -12,7 +28,7 @@
                 <!-- /.panel -->
             <?php }?>
             <div class="col-lg-6">
-                <form role="form" class="js-form-address" action="<?php if(isset($id_category)){ echo $id_category;}?>" method="post" onkeypress="if(event.keyCode == 13) return false;">
+                <form role="form" class="js-form-address" action="<?php if(isset($id_category)){ echo $id_category;}?>" method="post" onkeypress="if(event.keyCode == 13) return false;" enctype="multipart/form-data">
                     <div class="form-group">
                         <label>Имя объекта</label>
                         <input class="form-control" name="name_object" value="<?php if(isset($name_object)){ echo $name_object;}?>">
@@ -67,6 +83,45 @@
                         <p class="help-block">Это новый раздел описания объекта недвижимости (Основной, Дополнитльно и т.д)</p>
                     </div>
                     <?=$content;?>
+
+                    <?php if (isset($images) && sizeof($images)>0) {?>
+                    <label>Загруженные изображения</label>
+                    <div class="row">
+                        <div class="form-group">
+                            <?php foreach($images as $im) { ?>
+                                <div class="col-lg-4">
+                                    <div class="panel panel-default">
+                                        <div class="panel-body building_img_small">
+                                            <img src="/upload_files/objects_img/<?php echo $im['img_name']; ?>">
+                                            <a class="remove_bimg text-danger" href="/admin/ajax/remove_ob_img/<?php echo $im['id']; ?>"><i class="fa fa-times"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            <?php } ?>
+                        </div>
+                    </div>
+                    <?php } ?>
+
+                    <div class="form-group">
+                        <label>Загрузить изображения</label>
+                        <input type="file" name="file[]" min="1" max="50" multiple="true">
+                    </div>
+
+                    <hr>
+                    <p class="lead">SEO (title, description, keywords) для объекта</p>
+                    <p class="help-block">Не заполняйте, если не знаете что это.</p>
+                    <div class="form-group">
+                        <label for="title_seo">Заголовок (SEO)</label>
+                        <input type="text" class="form-control" id="title_seo" name="title_seo" value="<?php if(isset($title_seo)){ echo $title_seo;}?>">
+                    </div>
+                    <div class="form-group">
+                        <label for="description_seo">Описание (SEO)</label>
+                        <textarea class="form-control" id="description_seo" name="description_seo"><?php if(isset($description_seo)){ echo $description_seo;}?></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="keywords_seo">Ключевые слова (SEO)</label>
+                        <input type="text" class="form-control" id="keywords_seo" name="keywords_seo" value="<?php if(isset($keywords_seo)){ echo $keywords_seo;}?>">
+                    </div>
 
                     <a href="/admin/category" type="button" class="btn btn-info">Вернуться</a>
                     <button type="submit" class="btn btn-primary">Готово</button>

@@ -1224,6 +1224,10 @@ header .order-call .btn-order-call:hover {
     display: none;
 }
 
+#shadow-wrapper-v2 {
+    margin-top: -110px;
+}
+
 .shadow-wrapper.show-me, .shadow-wrapper-body.show-me,
 .search-object.callback.show-me, .search-object.resume.show-me  {
     display: block;
@@ -1245,8 +1249,7 @@ header .order-call .btn-order-call:hover {
 
 .shadow-wrapper-body .item-card-slider .barousel.barousel-center-window {
     margin: auto;
-    position: absolute;
-    top: 0; left: 0; bottom: 0; right: 0;
+    top: 100px; left: 0; bottom: 0; right: 0;
 }
 
 .barousel.barousel-center-window {

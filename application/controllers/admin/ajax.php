@@ -37,6 +37,16 @@ class Ajax extends CI_Controller
         echo json_encode($status);
     }
 
+    function remove_ob_img($id)
+    {
+        $this->load->model('common_model');
+        $img_name = $this->common_model->objectOneImgGet($id);
+        $img_name = $img_name['img_name'];
+        $status = $this->common_model->objectOneImgDelete($id);
+        unlink($_SERVER['DOCUMENT_ROOT'] . '/upload_files/objects_img/' . $img_name);
+        echo json_encode($status);
+    }
+
     function get_list_subcategory()
     {
         $this->load->model('subcategory_model');

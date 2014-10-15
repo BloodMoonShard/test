@@ -1,32 +1,24 @@
-
-<div class="shadow-wrapper" id="shadow-wrapper"></div>
-<div class="shadow-wrapper-body" id="shadow-wrapper-body">
+<div class="shadow-wrapper" id="shadow-wrapper-v2"></div>
+<div class="shadow-wrapper-body" id="shadow-wrapper-body-v2">
     <div class="item-card-slider shadow-slider">
         <!-- -->
         <div id="barousel_thslide_window" class="barousel barousel-center-window">
-
             <div class="barousel_image">
-                <a href="#" id="shadow-slider-close" class="shadow-slider-close" onclick="show_hide('#shadow-wrapper-body'); show_hide('#shadow-wrapper'); return false;">Close</a>
-                <!-- image 1 -->
-                <a href="#"><img src="/assets/slider_img/1.jpg" alt="" class="default" /></a>
-                <!-- image 2 -->
-                <a href="#"><img src="/assets/slider_img/2.jpg" alt="" /></a>
-                <!-- image 3 -->
-                <a href="#"><img src="/assets/slider_img/3.jpg" alt="" /></a>
+                <a href="#" id="shadow-slider-close" class="shadow-slider-close" onclick="show_hide('#shadow-wrapper-body-v2'); show_hide('#shadow-wrapper-v2'); return false;">Close</a>
+                <?php $img_count=0; foreach ($result['ob_images'] as $img) {
+                    if ($img_count==0) {
+                        echo '<a href="#"><img src="/upload_files/objects_img/'.$img['img_name'].'" alt="" class="default" /></a>';
+                    } else {
+                        echo '<a href="#"><img src="/upload_files/objects_img/'.$img['img_name'].'" alt=""/></a>';
+                    }
+                    $img_count++; } ?>
             </div>
             <div class="barousel_content">
-                <!-- content 1 -->
                 <div class="default">
-
                 </div>
-                <!-- content 2 -->
-                <div>
-
-                </div>
-                <!-- content 3 -->
-                <div>
-
-                </div>
+                <?php for ($i=0; $i<$img_count-1; $i++) {
+                    echo '<div></div>';
+                }?>
             </div>
             <div id="thslide_barousel_nav_window" class="thslide">
                 <div class="thslide_nav_previous">
@@ -34,10 +26,9 @@
                 </div>
                 <div class="thslide_list">
                     <ul>
-                        <li><a href="#"><img src="/assets/slider_img/1.jpg" alt="" /><span></span></a></li>
-                        <li><a href="#"><img src="/assets/slider_img/2.jpg" alt="" /><span></span></a></li>
-                        <li><a href="#"><img src="/assets/slider_img/3.jpg" alt="" /><span></span></a></li>
-
+                        <?php $img_count=0; foreach ($result['ob_images'] as $img) {
+                            echo '<li><a href="#"><img src="/upload_files/objects_img/'.$img['img_name'].'" alt=""/><span></span></a></li>';
+                            $img_count++; } ?>
                     </ul>
                 </div>
                 <div class="thslide_nav_next">
@@ -49,7 +40,6 @@
     </div>
 </div>
 <div class="wrapper">
-
 <script type="text/javascript">
     $(document).ready(function () {
         $('#barousel_thslide').barousel({
@@ -102,29 +92,24 @@
 <div class="top-description clearfix">
     <div class="item-card-slider">
         <!-- -->
-        <div class="increase" onclick="show_hide('#shadow-wrapper-body'); show_hide('#shadow-wrapper'); return false;"></div>
+        <div class="increase" onclick="show_hide('#shadow-wrapper-body-v2'); show_hide('#shadow-wrapper-v2');  return false;"></div>
         <div id="barousel_thslide" class="barousel">
             <div class="barousel_image">
-                <!-- image 1 -->
-                <a href="#"><img src="/assets/slider_img/1.jpg" alt="" class="default" /></a>
-                <!-- image 2 -->
-                <a href="#"><img src="/assets/slider_img/2.jpg" alt="" /></a>
-                <!-- image 3 -->
-                <a href="#"><img src="/assets/slider_img/3.jpg" alt="" /></a>
+                <?php $img_count=0; foreach ($result['ob_images'] as $img) {
+                    if ($img_count==0) {
+                        echo '<a href="#"><img src="/upload_files/objects_img/'.$img['img_name'].'" alt="" class="default" /></a>';
+                    } else {
+                        echo '<a href="#"><img src="/upload_files/objects_img/'.$img['img_name'].'" alt=""/></a>';
+                    }
+                $img_count++; } ?>
             </div>
             <div class="barousel_content">
                 <!-- content 1 -->
                 <div class="default">
-
                 </div>
-                <!-- content 2 -->
-                <div>
-
-                </div>
-                <!-- content 3 -->
-                <div>
-
-                </div>
+                <?php for ($i=0; $i<$img_count-1; $i++) {
+                    echo '<div></div>';
+                }?>
             </div>
 
 
@@ -134,9 +119,10 @@
                 </div>
                 <div class="thslide_list">
                     <ul>
-                        <li><a href="#"><img src="/assets/slider_img/1.jpg" alt="" /><span></span></a></li>
-                        <li><a href="#"><img src="/assets/slider_img/2.jpg" alt="" /><span></span></a></li>
-                        <li><a href="#"><img src="/assets/slider_img/3.jpg" alt="" /><span></span></a></li>
+                        <?php $img_count=0; foreach ($result['ob_images'] as $img) {
+                            echo '<li><a href="#"><img src="/upload_files/objects_img/'.$img['img_name'].'" alt=""/><span></span></a></li>';
+                            $img_count++; } ?>
+
                     </ul>
                 </div>
                 <div class="thslide_nav_next">

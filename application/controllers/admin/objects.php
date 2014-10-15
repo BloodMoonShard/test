@@ -29,6 +29,8 @@ class Objects extends My_Controller {
     }
 
     public function add_object($id = false){
+        $this->load->library('upload_ram');
+        $this->load->model('common_model');
         $this->load->model('category_model');
         $this->load->model('object_type_model');
         $this->load->model('subcategory_value_model');
@@ -38,6 +40,7 @@ class Objects extends My_Controller {
         $content = "";
         $list_category = $this->category_model->get_element();
         if($this->input->post()){
+
             $data_post = array();
             foreach($_POST as $key=>$value){
                 if(strpos($key, 'gdata_') !== false){
@@ -63,7 +66,16 @@ class Objects extends My_Controller {
 
                 }
             }
+            unset($_POST['file']);
             $id_objects = $this->object_model->set_element($_POST);
+
+            if(sizeof($_FILES['file']['name'])>0) {
+                $WhereAndWhat = 'objects_img'; /*в какую папку сохраняем изображение*/
+                $upload_data = $this->upload_ram->multiupload_image($WhereAndWhat);
+                foreach ($upload_data as $u) {
+                    $this->common_model->objectsImgAdd($id_objects, $u['data']);
+                }
+            }
 
             foreach($data_post as $value){
                 $this->object_options_model->set_element(array_merge($value, array('id_objects'=>$id_objects)));
@@ -118,6 +130,8 @@ class Objects extends My_Controller {
     }
 
     public function edit_object($id){
+        $this->load->library('upload_ram');
+        $this->load->model('common_model');
         $this->load->model('category_model');
         $this->load->model('object_type_model');
         $this->load->model('subcategory_value_model');
@@ -125,9 +139,18 @@ class Objects extends My_Controller {
         $this->load->model('object_options_model');
         $countries = $this->db->order_by('country_id')->get('countries')->result_array();
 
+
+
         $content = "";
         $list_category = $this->category_model->get_element();
         if($this->input->post()){
+            if(sizeof($_FILES['file']['name'])>0) {
+                $WhereAndWhat = 'objects_img'; /*в какую папку сохраняем изображение*/
+                $upload_data = $this->upload_ram->multiupload_image($WhereAndWhat);
+                foreach ($upload_data as $u) {
+                    $this->common_model->objectsImgAdd($id, $u['data']);
+                }
+            }
             $data_post = array();
             foreach($_POST as $key=>$value){
                 if(strpos($key, 'gdata_') !== false){
@@ -207,13 +230,12 @@ class Objects extends My_Controller {
                 }
             }
         }
-
+        $data['images'] = $this->common_model->objectsImgGet($id);
         $data['type_estate'] = $this->object_type_model->get_element();
         $data['status_notif'] = $this->status;
         $data['msg_notif'] = $this->msg;
         $data['content'] = $content;
         $data['countries'] = $countries;
-
         $this->render_adm('admin/add_objects', $data);
     }
 
