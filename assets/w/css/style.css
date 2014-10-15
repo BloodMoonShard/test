@@ -1233,6 +1233,14 @@ header .order-call .btn-order-call:hover {
     display: block;
 }
 
+#search_all {
+    display: none;
+}
+
+#search-apart {
+    display: none;
+}
+
 .shadow-wrapper-body {
     position: absolute;
     width: 100%;

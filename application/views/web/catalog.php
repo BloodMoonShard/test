@@ -259,7 +259,7 @@
             <li class="current-page">Найдено объектов: <?= $counts; ?></li>
             <li class="delimiter"></li>
             <li class="home-link"><img src="/assets/w/design_img/home.png" alt="Домой"><a href="#">Главная</a></li>
-            <li class="search-link"><img src="/assets/w/design_img/search_black.png" alt="Поиск объектов"><a href="#">Поиск
+            <li class="search-link" id="but-search-all"><img src="/assets/w/design_img/search_black.png" alt="Поиск объектов"><a href="#">Поиск
                     объектов</a></li>
             <li class="count-on-page">
                 <?php echo $get_per_page; ?>

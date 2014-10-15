@@ -102,6 +102,26 @@ $(document).ready(function() {
         $("#resume").hide();
     });
 
+    $('#but-search-all').click(function() {
+        $("#shadow-wrapper").show();
+        $("#shadow-wrapper-body").show();
+        $("#search-all").show();
+    });
+
+    $('#close-btn-search-all').click(function() {
+        $("#shadow-wrapper").hide();
+        $("#shadow-wrapper-body").hide();
+        $("#search-all").hide();
+    });
+
+    $('#close-btn-search-apart').click(function() {
+        $("#shadow-wrapper").hide();
+        $("#shadow-wrapper-body").hide();
+        $("#search-apart").hide();
+    });
+
+
+
     $(".filter-li-text").on("click", function () {
         $(this).parent().find(".hidden-filter-element");
 

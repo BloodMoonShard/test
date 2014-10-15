@@ -8,6 +8,7 @@
     <link rel="shortcut icon" href="favicon.ico">
     <link rel="stylesheet" href="/assets/w/css/reset.css">
     <link rel="stylesheet" href="/assets/w/css/barusel.css">
+    <link rel="stylesheet" href="/assets/w/css/jquery.formstyler.css">
     <link rel="stylesheet" href="/assets/w/css/style.css">
     <!--<link rel="stylesheet" href="css/print.css" media="print">-->
 
@@ -22,55 +23,303 @@
     <![endif]-->
 </head>
 <body>
+<script>
+    (function ($) {
+        $(function () {
+
+            $('.styled-select').styler();
+
+        })
+    })(jQuery)
+</script>
 <div class="shadow-wrapper" id="shadow-wrapper"></div>
 <div class="shadow-wrapper-body" id="shadow-wrapper-body">
-    <div class="search-object callback" id="callback">
-        <div class="close-btn" id="close-callback"></div>
+<div class="search-object" id="search-apart">
+    <div class="close-btn" id="close-btn-search-apart"></div>
+    <form action="" method="POST">
         <div class="inner-padding">
-            <h3>Закажите обратный звонок</h3>
-            <form method="POST" id="form_callback" action="javascript:void(null);" onsubmit="callback_send()">
-                <div class="callback-form-line">
-                    <label>Ваше имя:</label>
-                    <input name="name" type="text">
-                </div>
-                <div class="callback-form-line">
-                    <label>Ваш телефон:</label>
-                    <input name="phone_number" type="text">
-                </div>
-                <input type="text" name="theme" hidden="hidden" value="С шапки сайта (обычный звонок)">
-                <input type="submit" value="Отправить">
-            </form>
-            <div class="load-gif">
-                <img src="/assets/w/design_img/loading-gif.GIF" alt="Подождите, отправка">
+            <h3>Поиск объектов</h3>
+
+            <p>
+                <input type="radio" name="buy_rent" value="buy"><span class="radio-text"> Я хочу купить </span>
+                <input type="radio" name="buy_rent" value="rent"><span class="radio-text">  Снять </span>
+            </p>
+
+            <div class="form-line first">
+                <label>Регион:</label>
+                <select class="styled-select">
+                    <option>Москва</option>
+                    <option>Москва Москва Москва Москва</option>
+                </select>
             </div>
-            <div class="success-img"></div>
+            <div class="form-line">
+                <label>Метро:</label>
+                <select class="styled-select">
+                    <option>-</option>
+                </select>
+            </div>
+            <div class="form-line">
+                <label>Улица:</label>
+                <input type="text">
+                <span class="spec-text"> дом </span>
+                <input type="text">
+            </div>
+            <div class="form-line">
+                <label>Комнат</label>
+                <select class="styled-select small">
+                    <option>-</option>
+                </select>
+            </div>
+
         </div>
-    </div>
-    <div class="search-object resume" id="resume">
-        <div class="close-btn" id="close_resume"></div>
+        <div class="style-form-line">
+            <div class="inner-padding">
+                <span class="spec-text param2">Площадь квартиры, <Br/> кв м:</span>
+
+                <p class="fix-padding">
+                    От
+                    <input type="text">
+                    До
+                    <input type="text">
+                    <span class="spec-text param1">Цена: </span>
+                    От
+                    <input type="text">
+                    До
+                    <input type="text">
+                    <input type="radio" name="valuta" checked> Руб
+                    <input type="radio" name="valuta"> $
+                    <input type="radio" name="valuta"> &euro;
+                </p>
+
+            </div>
+        </div>
+        <input type="submit" value="Найти объект">
+    </form>
+</div>
+
+<div class="search-object" id="search-all">
+    <div class="close-btn" id="close-btn-search-all"></div>
+    <form action="" method="POST">
         <div class="inner-padding">
-            <h3>Отправить резюме</h3>
-            <form method="POST" id="form_resume" action="/admin/ajax/resume">
-                <div class="callback-form-line">
-                    <label>Ваше имя:</label>
-                    <input name="name" type="text">
-                </div>
-                <div class="callback-form-line">
-                    <label>Ваш телефон:</label>
-                    <input name="phone_number" type="text">
-                </div>
-                <div class="callback-form-line">
-                    <label class="long-label">Прикрепить резюме:</label>
-                    <input name="file_resume" type="file">
-                </div>
-                <input type="submit" value="Отправить">
-            </form>
-            <div class="load-gif">
-                <img src="/assets/w/design_img/loading-gif.GIF" alt="Подождите, отправка">
+            <h3>Поиск объектов</h3>
+
+            <p class="fix-margin-1">
+                <input type="radio" name="buy_rent" value="buy"><span class="radio-text"> Я хочу купить </span>
+                <input type="radio" name="buy_rent" value="rent"><span class="radio-text">  Снять </span>
+            </p>
+
+            <p class="fix-margin-1">
+                <span class="spec-text"> Объект: </span>
+                <input type="checkbox" value="1"><span class="radio-text"> Дом </span>
+                <input type="checkbox" value="1"><span class="radio-text"> Участок </span>
+<!--                <input type="checkbox" value="1"><span class="radio-text"> Квартира </span>-->
+            </p>
+
+            <p class="fix-margin-1">
+                <span class="spec-text"> Шоссе / Направление </span>
+            </p>
+
+            <div class="checkbox-block">
+                <p><input type="checkbox">Любое</p>
+
+                <p><input type="checkbox">Боровское</p>
+
+                <p><input type="checkbox">Киевское</p>
+
+                <p><input type="checkbox">Калужское</p>
+
+                <p><input type="checkbox">Можайское</p>
+
+                <p><input type="checkbox">Минское</p>
+
+                <p><input type="checkbox">Рублево-Успенское</p>
+
+                <p><input type="checkbox">Сколковское</p>
+
+                <p><input type="checkbox">Ильинское</p>
             </div>
-            <div class="success-img"></div>
+            <div class="checkbox-block">
+                <p><input type="checkbox">Любое</p>
+
+                <p><input type="checkbox">Боровское</p>
+
+                <p><input type="checkbox">Киевское</p>
+
+                <p><input type="checkbox">Калужское</p>
+
+                <p><input type="checkbox">Можайское</p>
+
+                <p><input type="checkbox">Минское</p>
+
+                <p><input type="checkbox">Рублево-Успенское</p>
+
+                <p><input type="checkbox">Сколковское</p>
+
+                <p><input type="checkbox">Ильинское</p>
+            </div>
+            <div class="checkbox-block">
+                <p><input type="checkbox">Любое</p>
+
+                <p><input type="checkbox">Боровское</p>
+
+                <p><input type="checkbox">Киевское</p>
+
+                <p><input type="checkbox">Калужское</p>
+
+                <p><input type="checkbox">Можайское</p>
+
+                <p><input type="checkbox">Минское</p>
+
+                <p><input type="checkbox">Рублево-Успенское</p>
+
+                <p><input type="checkbox">Сколковское</p>
+
+                <p><input type="checkbox">Ильинское</p>
+            </div>
+            <div class="checkbox-block">
+                <p><input type="checkbox">Любое</p>
+
+                <p><input type="checkbox">Боровское</p>
+
+                <p><input type="checkbox">Киевское</p>
+
+                <p><input type="checkbox">Калужское</p>
+
+                <p><input type="checkbox">Можайское</p>
+
+                <p><input type="checkbox">Минское</p>
+
+                <p><input type="checkbox">Рублево-Успенское</p>
+
+                <p><input type="checkbox">Сколковское</p>
+
+                <p><input type="checkbox">Ильинское</p>
+            </div>
+            <ul class="directions clearfix">
+                <li><a href="#">Юго-Запад</a></li>
+                <li><a href="#">Запад</a></li>
+                <li><a href="#">Северо-Запад</a></li>
+                <li><a href="#">Север</a></li>
+                <li><a href="#">Восток</a></li>
+                <li><a href="#">Юго-Восток</a></li>
+                <li><a href="#">Москва</a></li>
+                <li><a href="#">Убрать все</a></li>
+            </ul>
         </div>
+        <div class="style-form-line">
+            <div class="inner-padding clearfix">
+                <div class="left-side">
+                    <span class="spec-text fix-padding-1">Удаленность, км от МКАД: </span>
+                    От
+                    <input type="text">
+                    До
+                    <input type="text">
+                </div>
+                <div class="right-side have-height">
+                    <span class="spec-text fix-padding-1">Цена: </span>
+                    От
+                    <input type="text">
+                    До
+                    <input type="text">
+
+                    <div class="valuta-block">
+                        <input type="radio" name="valuta" checked> Руб
+                        <input type="radio" name="valuta"> $
+                        <input type="radio" name="valuta"> &euro;
+                    </div>
+                </div>
+
+                <!--<span class="spec-text param2">Удаленность, км от МКАД:</span>-->
+                <!--<p class="fix-padding">-->
+                <!--От-->
+                <!--<input type="text">-->
+                <!--До-->
+                <!--<input type="text">-->
+
+                <!--<span class="spec-text param1">Цена: </span>-->
+                <!--От-->
+                <!--<input type="text">-->
+                <!--До-->
+                <!--<input type="text">-->
+                <!--<input type="radio" name="valuta"> Руб-->
+                <!--<input type="radio" name="valuta"> $-->
+                <!--<input type="radio" name="valuta"> &euro;-->
+                <!--</p>-->
+
+            </div>
+        </div>
+        <div class="style-form-line">
+            <div class="inner-padding clearfix">
+                <div class="left-side">
+                    <span class="spec-text fix-padding-1">Площадь дома, кв м: </span>
+                    От
+                    <input type="text">
+                    До
+                    <input type="text">
+                </div>
+                <div class="right-side">
+                    <span class="spec-text fix-padding-1">Площадь участка, сотки: </span>
+                    От
+                    <input type="text">
+                    До
+                    <input type="text">
+                </div>
+            </div>
+        </div>
+        <input type="submit" value="Найти объект">
+    </form>
+</div>
+
+
+<div class="search-object callback" id="callback">
+    <div class="close-btn" id="close-callback"></div>
+    <div class="inner-padding">
+        <h3>Закажите обратный звонок</h3>
+
+        <form method="POST" id="form_callback" action="javascript:void(null);" onsubmit="callback_send()">
+            <div class="callback-form-line">
+                <label>Ваше имя:</label>
+                <input name="name" type="text">
+            </div>
+            <div class="callback-form-line">
+                <label>Ваш телефон:</label>
+                <input name="phone_number" type="text">
+            </div>
+            <input type="text" name="theme" hidden="hidden" value="С шапки сайта (обычный звонок)">
+            <input type="submit" value="Отправить">
+        </form>
+        <div class="load-gif">
+            <img src="/assets/w/design_img/loading-gif.GIF" alt="Подождите, отправка">
+        </div>
+        <div class="success-img"></div>
     </div>
+</div>
+<div class="search-object resume" id="resume">
+    <div class="close-btn" id="close_resume"></div>
+    <div class="inner-padding">
+        <h3>Отправить резюме</h3>
+
+        <form method="POST" id="form_resume" action="/admin/ajax/resume">
+            <div class="callback-form-line">
+                <label>Ваше имя:</label>
+                <input name="name" type="text">
+            </div>
+            <div class="callback-form-line">
+                <label>Ваш телефон:</label>
+                <input name="phone_number" type="text">
+            </div>
+            <div class="callback-form-line">
+                <label class="long-label">Прикрепить резюме:</label>
+                <input name="file_resume" type="file">
+            </div>
+            <input type="submit" value="Отправить">
+        </form>
+        <div class="load-gif">
+            <img src="/assets/w/design_img/loading-gif.GIF" alt="Подождите, отправка">
+        </div>
+        <div class="success-img"></div>
+    </div>
+</div>
 
 </div>
 <div class="wrapper">

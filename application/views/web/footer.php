@@ -50,5 +50,6 @@
 <script type="text/javascript" src="/assets/w/js/jquery.barousel.js"></script>
 <script type="text/javascript" src="/assets/w/js/jquery.thslide.js"></script>
 <script type="text/javascript" src="/assets/w/js/jquery.nstSlider.js"></script>
+<script type="text/javascript" src="/assets/w/js/jquery.formstyler.min.js"></script>
 </body>
 </html>
