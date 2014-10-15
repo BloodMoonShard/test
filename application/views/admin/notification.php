@@ -8,7 +8,7 @@
                         <?= $msg_notif; ?>
                     </div>
                 </div>
-                <a href="javascript:window.history.back();" class="btn btn-info">Вернуться</a>
+                <a href="<?php echo $back_link; ?>" class="btn btn-info">Вернуться</a>
                 <!-- .panel-body -->
             </div>
         </div>

@@ -123,7 +123,7 @@
                         <input type="text" class="form-control" id="keywords_seo" name="keywords_seo" value="<?php if(isset($keywords_seo)){ echo $keywords_seo;}?>">
                     </div>
 
-                    <a href="/admin/category" type="button" class="btn btn-info">Вернуться</a>
+                    <a href="/admin/objects" type="button" class="btn btn-info">Вернуться</a>
                     <button type="submit" class="btn btn-primary">Готово</button>
                 </form>
             </div>

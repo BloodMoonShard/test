@@ -105,19 +105,30 @@
                 <a href="index.html"><i class="fa fa-dashboard fa-fw"></i> Главная</a>
             </li>
             <li>
-                <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Объекты<span class="fa arrow"></span></a>
-                <ul class="nav nav-second-level collapse in">
+                <a href="#"><i class="fa fa-university"></i> Объекты<span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level collapse <?php
+                    $flag=$this->uri->segment(2); if (in_array($flag, array('category','sub_category', 'sub_category_value', 'objects'))   ) {
+                    echo 'in';
+                }?>">
                     <li>
-                        <a class="active" href="/admin/category">Главные категории объекта</a>
+                        <a <?php $flag=$this->uri->segment(2); if ($flag=='category') {
+                            echo 'class="active"';
+                        }?> href="/admin/category">Главные категории объекта</a>
                     </li>
                     <li>
-                        <a class="active" href="/admin/sub_category">Подкатегории объекта</a>
+                        <a <?php $flag=$this->uri->segment(2); if ($flag=='sub_category') {
+                            echo 'class="active"';
+                        }?> href="/admin/sub_category">Подкатегории объекта</a>
                     </li>
                     <li>
-                        <a class="active" href="/admin/sub_category_value">Значение подкатегории объекта</a>
+                        <a <?php $flag=$this->uri->segment(2); if ($flag=='sub_category_value') {
+                            echo 'class="active"';
+                        }?> href="/admin/sub_category_value">Значение подкатегории объекта</a>
                     </li>
                     <li>
-                        <a href="/admin/objects">Список объектов недвижимости</a>
+                        <a <?php $flag=$this->uri->segment(2); if ($flag=='objects') {
+                            echo 'class="active"';
+                        }?> href="/admin/objects">Список объектов недвижимости</a>
                     </li>
                 </ul>
                 <!-- /.nav-second-level -->

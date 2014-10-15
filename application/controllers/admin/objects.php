@@ -68,8 +68,7 @@ class Objects extends My_Controller {
             }
             unset($_POST['file']);
             $id_objects = $this->object_model->set_element($_POST);
-
-            if(sizeof($_FILES['file']['name'])>0) {
+            if(strlen($_FILES['file']['name'][0])>0) {
                 $WhereAndWhat = 'objects_img'; /*в какую папку сохраняем изображение*/
                 $upload_data = $this->upload_ram->multiupload_image($WhereAndWhat);
                 foreach ($upload_data as $u) {
@@ -82,6 +81,7 @@ class Objects extends My_Controller {
             }
             $this->status = "success";
             $this->msg = "Объект успешно добавлен";
+            $this->render_adm('admin/notification', array('status_notif'=>$this->status, 'msg_notif'=>$this->msg, 'back_link' => '/admin/objects'));
         }
         foreach($list_category as $lc){
             $content .= "<h4>".$lc['name']."</h4>";
@@ -242,12 +242,12 @@ class Objects extends My_Controller {
     public function rm_object($id){
         if($this->object_model->delete_object($id)){
             $this->status = 'success';
-            $this->msg = 'Категория упешно удалена';
+            $this->msg = 'Объект упешно удален';
         }else{
             $this->status = 'error';
             $this->msg = 'Что-то пошло не так...';
         }
-        $this->render_adm('admin/notification', array('status_notif'=>$this->status, 'msg_notif'=>$this->msg));
+        $this->render_adm('admin/notification', array('status_notif'=>$this->status, 'msg_notif'=>$this->msg, 'back_link' => '/admin/objects'));
     }
 }
 

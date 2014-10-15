@@ -63,7 +63,7 @@ class Category extends My_Controller {
             $this->status = 'error';
             $this->msg = 'Что-то пошло не так...';
         }
-        $this->render_adm('admin/notification', array('status_notif'=>$this->status, 'msg_notif'=>$this->msg));
+        $this->render_adm('admin/notification', array('status_notif'=>$this->status, 'msg_notif'=>$this->msg, 'back_link' => '/admin/category'));
     }
 }
 
