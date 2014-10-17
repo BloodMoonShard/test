@@ -39,7 +39,7 @@
 .barousel_image
 {
     position:absolute;
-    z-index:10;
+    /*z-index:10;*/
     width:496px;
     height:346px;
     background-color: #fff;
@@ -61,12 +61,12 @@
 
 .barousel_image img.current
 {
-    z-index:10;
+    /*z-index:10;*/
 }
 
 .barousel_image img.previous
 {
-    z-index:5;
+    /*z-index:5;*/
 }
 
 .barousel_content
