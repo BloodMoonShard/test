@@ -46,6 +46,28 @@ class My_Controller extends CI_Controller
 
         }
 
+        $this->load->model('highway_model');
+        $highway = $this->highway_model->get_list_highway();
+        $highway_direction = array();
+        $data['highway'] = '<div class="checkbox-block">';
+        if($highway){
+            $i = 0;
+            foreach($highway as $v){
+                if(((($i) % 8) == 0) && ($i != 0)){
+                    $data['highway'] .= '</div><div class="checkbox-block">';
+                }
+                if(!isset($highway_direction[$v['highway_direction_name']])){
+                    $highway_direction[$v['highway_direction_name']] = $v['id_highway_direction'];
+                }
+                $data['highway'] .= "<p><input type='checkbox' name='highway_list[]' class='direction_".$v['id_highway_direction']."'>".$v['highway_name']."</p>";
+                $i++;
+            }
+        }
+        $data['highway'] .= '</div>';
+        $data['highway_direction'] = '';
+        foreach($highway_direction as $key=>$hd){
+            $data['highway_direction'] .= '<li><a href="#" attr-id-direction="'.$hd.'" class="directionAction">'.$key.'</a></li>';
+        }
 
         $this->load->view('/web/header', $data);
         $this->load->view($tpl_name, $data);

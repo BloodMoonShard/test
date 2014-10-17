@@ -443,7 +443,7 @@
                     <h2><?= $v['name_object'] ?></h2>
                 </div>
                 <div class="content clearfix">
-                    <img src="/upload_files/objects_img/<?php echo $v['ob_images'][0]['img_name'] ?>" alt="">
+                    <img src="/upload_files/objects_img/<?php echo @$v['ob_images'][0]['img_name'] ?>" alt="">
 
                     <div class="specifications">
                         <div class="spec-line">

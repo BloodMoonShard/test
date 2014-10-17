@@ -119,92 +119,106 @@
                 <span class="spec-text"> Шоссе / Направление </span>
             </p>
 
-            <div class="checkbox-block">
-                <p><input type="checkbox">Любое</p>
-
-                <p><input type="checkbox">Боровское</p>
-
-                <p><input type="checkbox">Киевское</p>
-
-                <p><input type="checkbox">Калужское</p>
-
-                <p><input type="checkbox">Можайское</p>
-
-                <p><input type="checkbox">Минское</p>
-
-                <p><input type="checkbox">Рублево-Успенское</p>
-
-                <p><input type="checkbox">Сколковское</p>
-
-                <p><input type="checkbox">Ильинское</p>
-            </div>
-            <div class="checkbox-block">
-                <p><input type="checkbox">Любое</p>
-
-                <p><input type="checkbox">Боровское</p>
-
-                <p><input type="checkbox">Киевское</p>
-
-                <p><input type="checkbox">Калужское</p>
-
-                <p><input type="checkbox">Можайское</p>
-
-                <p><input type="checkbox">Минское</p>
-
-                <p><input type="checkbox">Рублево-Успенское</p>
-
-                <p><input type="checkbox">Сколковское</p>
-
-                <p><input type="checkbox">Ильинское</p>
-            </div>
-            <div class="checkbox-block">
-                <p><input type="checkbox">Любое</p>
-
-                <p><input type="checkbox">Боровское</p>
-
-                <p><input type="checkbox">Киевское</p>
-
-                <p><input type="checkbox">Калужское</p>
-
-                <p><input type="checkbox">Можайское</p>
-
-                <p><input type="checkbox">Минское</p>
-
-                <p><input type="checkbox">Рублево-Успенское</p>
-
-                <p><input type="checkbox">Сколковское</p>
-
-                <p><input type="checkbox">Ильинское</p>
-            </div>
-            <div class="checkbox-block">
-                <p><input type="checkbox">Любое</p>
-
-                <p><input type="checkbox">Боровское</p>
-
-                <p><input type="checkbox">Киевское</p>
-
-                <p><input type="checkbox">Калужское</p>
-
-                <p><input type="checkbox">Можайское</p>
-
-                <p><input type="checkbox">Минское</p>
-
-                <p><input type="checkbox">Рублево-Успенское</p>
-
-                <p><input type="checkbox">Сколковское</p>
-
-                <p><input type="checkbox">Ильинское</p>
-            </div>
+<!--            <div class="checkbox-block">-->
+<!--                <p><input type="checkbox">Любое</p>-->
+<!---->
+<!--                <p><input type="checkbox">Боровское</p>-->
+<!---->
+<!--                <p><input type="checkbox">Киевское</p>-->
+<!---->
+<!--                <p><input type="checkbox">Калужское</p>-->
+<!---->
+<!--                <p><input type="checkbox">Можайское</p>-->
+<!---->
+<!--                <p><input type="checkbox">Минское</p>-->
+<!---->
+<!--                <p><input type="checkbox">Рублево-Успенское</p>-->
+<!---->
+<!--                <p><input type="checkbox">Сколковское</p>-->
+<!---->
+<!--                <p><input type="checkbox">Ильинское</p>-->
+<!--            </div>-->
+<!--            <div class="checkbox-block">-->
+<!--                <p><input type="checkbox">Любое</p>-->
+<!---->
+<!--                <p><input type="checkbox">Боровское</p>-->
+<!---->
+<!--                <p><input type="checkbox">Киевское</p>-->
+<!---->
+<!--                <p><input type="checkbox">Калужское</p>-->
+<!---->
+<!--                <p><input type="checkbox">Можайское</p>-->
+<!---->
+<!--                <p><input type="checkbox">Минское</p>-->
+<!---->
+<!--                <p><input type="checkbox">Рублево-Успенское</p>-->
+<!---->
+<!--                <p><input type="checkbox">Сколковское</p>-->
+<!---->
+<!--                <p><input type="checkbox">Ильинское</p>-->
+<!--            </div>-->
+<!--            <div class="checkbox-block">-->
+<!--                <p><input type="checkbox">Любое</p>-->
+<!---->
+<!--                <p><input type="checkbox">Боровское</p>-->
+<!---->
+<!--                <p><input type="checkbox">Киевское</p>-->
+<!---->
+<!--                <p><input type="checkbox">Калужское</p>-->
+<!---->
+<!--                <p><input type="checkbox">Можайское</p>-->
+<!---->
+<!--                <p><input type="checkbox">Минское</p>-->
+<!---->
+<!--                <p><input type="checkbox">Рублево-Успенское</p>-->
+<!---->
+<!--                <p><input type="checkbox">Сколковское</p>-->
+<!---->
+<!--                <p><input type="checkbox">Ильинское</p>-->
+<!--            </div>-->
+<!--            <div class="checkbox-block">-->
+<!--                <p><input type="checkbox">Любое</p>-->
+<!---->
+<!--                <p><input type="checkbox">Боровское</p>-->
+<!---->
+<!--                <p><input type="checkbox">Киевское</p>-->
+<!---->
+<!--                <p><input type="checkbox">Калужское</p>-->
+<!---->
+<!--                <p><input type="checkbox">Можайское</p>-->
+<!---->
+<!--                <p><input type="checkbox">Минское</p>-->
+<!---->
+<!--                <p><input type="checkbox">Рублево-Успенское</p>-->
+<!---->
+<!--                <p><input type="checkbox">Сколковское</p>-->
+<!---->
+<!--                <p><input type="checkbox">Ильинское</p>-->
+<!--            </div>-->
+            <?php echo $highway;?>
             <ul class="directions clearfix">
-                <li><a href="#">Юго-Запад</a></li>
-                <li><a href="#">Запад</a></li>
-                <li><a href="#">Северо-Запад</a></li>
-                <li><a href="#">Север</a></li>
-                <li><a href="#">Восток</a></li>
-                <li><a href="#">Юго-Восток</a></li>
-                <li><a href="#">Москва</a></li>
-                <li><a href="#">Убрать все</a></li>
+                <?= $highway_direction;?>
+                <li><a class="uncheck_highway" href="#">Убрать все</a></li>
             </ul>
+            <script type="text/javascript">
+                $(document).ready(function(){
+                    $('.directionAction').on('click', function(){
+                        if($(this).attr('data-active') == 'true'){
+                            $('.direction_'+$(this).attr('attr-id-direction')).attr('checked', false);
+                            $(this).attr('data-active', 'false');
+                        }else{
+                            $(this).attr('data-active', 'true');
+                            $('.direction_'+$(this).attr('attr-id-direction')).attr('checked', true);
+//do select
+                        }
+                        return false;
+                    })
+                    $('.uncheck_highway').on('click', function(){
+                        $('.checkbox-block input[type="checkbox"]').attr('checked', false);
+                        return false;
+                    })
+                })
+            </script>
         </div>
         <div class="style-form-line">
             <div class="inner-padding clearfix">
