@@ -1,8 +1,5 @@
 <script>
-
-
     $(document).ready(function () {
-
         $('.nstSlider').nstSlider({
             "rounding": {
                 "100": "1000",
@@ -29,7 +26,6 @@
     });
 </script>
 
-
 <div class="grand-bg">
 <div class="sub-navigation">
     <div class="container">
@@ -51,7 +47,7 @@
     $(document).ready(function(){
         $('.filter').on('change', function(){
             $.ajax({
-                url: '/ajax/filter/house',
+                url: '/ajax/filter/room',
                 data: $(this).attr('class').split(' ')[1]+'='+$(this).val(),
                 type: 'post',
                 dataType: 'json',
@@ -190,10 +186,10 @@
                 <li> ></li>
                 <li><a href="#">Квартиры</a></li>
                 <li> ></li>
-                <li class="active-crumb">Коттеджи, дома</li>
+                <li class="active-crumb">Квартиры</li>
             </ul>
             <div class="catalog-content-headline">
-                <h1>Коттеджи, дома</h1>
+                <h1>Квартиры</h1>
             </div>
             <div class="choose-type">
                 <a class="btn <?php if ($this->session->userdata('sort') == 49) {

@@ -51,27 +51,13 @@
     $(document).ready(function(){
         $('.filter').on('change', function(){
             $.ajax({
-                url: '/ajax/filter/house',
+                url: '/ajax/filter/search',
                 data: $(this).attr('class').split(' ')[1]+'='+$(this).val(),
                 type: 'post',
                 dataType: 'json',
                 success: function(response){
                     console.log(response);
                     $('.catalog-objects').html(response.content);
-                }
-            })
-        })
-        $('.choose-type a').click(function(){
-            $.ajax({
-                url: '/ajax/change_type',
-                type: 'POST',
-                data: 'link='+window.location.href,
-                dataType: 'json',
-                success: function(response){
-                    if(response.status){
-                        console.log(response.link);
-                        window.location.href = response.link;
-                    }
                 }
             })
         })
@@ -83,7 +69,7 @@
         <a href="#">Очистить</a>
     </div>
     <ul>
-        <?php         $data_filter = @unserialize($this->session->userdata('house')); if(!$data_filter){$data_filter = array();}?>
+        <?php         $data_filter = @unserialize($this->session->userdata('search')); if(!$data_filter){$data_filter = array();}?>
         <li id="filter_district">
             <div class="filter-li-text"><span>Район</span>
 
@@ -188,30 +174,13 @@
             <ul class="breadcrumbs">
                 <li><a href="#">Главная</a></li>
                 <li> ></li>
-                <li><a href="#">Квартиры</a></li>
-                <li> ></li>
-                <li class="active-crumb">Коттеджи, дома</li>
+                <li><a href="#">Поиск</a></li>
+
             </ul>
             <div class="catalog-content-headline">
-                <h1>Коттеджи, дома</h1>
+                <h1>Результаты поиска</h1>
             </div>
-            <div class="choose-type">
-                <a class="btn <?php if ($this->session->userdata('sort') == 49) {
-                    echo 'active';
-                } ?>">
-                    <div class="active-arrow"></div>
-                    ПРОДАЖА</a>
-                <a class="btn <?php if ($this->session->userdata('sort') == 48) {
-                    echo 'active';
-                } ?>">
-                    <div class="active-arrow"></div>
-                    АРЕНДА</a>
-            </div>
-        </div>
-        <div class="right-side">
-            <div class="block-services">
-                <div class="img-service cottage-house"></div>
-            </div>
+
         </div>
     </div>
     <div class="catalog-objects">

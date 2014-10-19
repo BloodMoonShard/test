@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="/assets/w/css/barusel.css">
     <link rel="stylesheet" href="/assets/w/css/jquery.formstyler.css">
     <link rel="stylesheet" href="/assets/w/css/style.css">
+    <link rel="stylesheet" href="/assets/w/css/jquery.nstSlider.css">
     <!--<link rel="stylesheet" href="css/print.css" media="print">-->
 
     <!-- jquery -->
@@ -36,7 +37,7 @@
 <div class="shadow-wrapper-body" id="shadow-wrapper-body">
 <div class="search-object" id="search-apart">
     <div class="close-btn" id="close-btn-search-apart"></div>
-    <form action="" method="POST">
+    <form action="/type/search" method="POST">
         <div class="inner-padding">
             <h3>Поиск объектов</h3>
 
@@ -99,102 +100,25 @@
 
 <div class="search-object" id="search-all">
     <div class="close-btn" id="close-btn-search-all"></div>
-    <form action="" method="POST">
+    <form action="/search" method="POST">
         <div class="inner-padding">
             <h3>Поиск объектов</h3>
 
             <p class="fix-margin-1">
-                <input type="radio" name="buy_rent" value="buy"><span class="radio-text"> Я хочу купить </span>
-                <input type="radio" name="buy_rent" value="rent"><span class="radio-text">  Снять </span>
+                <input type="radio" name="30" value="49"><span class="radio-text"> Я хочу купить </span>
+                <input type="radio" name="30" value="48"><span class="radio-text">  Снять </span>
             </p>
 
             <p class="fix-margin-1">
                 <span class="spec-text"> Объект: </span>
-                <input type="checkbox" value="1"><span class="radio-text"> Дом </span>
-                <input type="checkbox" value="1"><span class="radio-text"> Участок </span>
+                <input type="checkbox" name="type[]" value="1"><span class="radio-text"> Дом </span>
+                <input type="checkbox" name="type[]" value="1"><span class="radio-text"> Участок </span>
 <!--                <input type="checkbox" value="1"><span class="radio-text"> Квартира </span>-->
             </p>
 
             <p class="fix-margin-1">
                 <span class="spec-text"> Шоссе / Направление </span>
             </p>
-
-<!--            <div class="checkbox-block">-->
-<!--                <p><input type="checkbox">Любое</p>-->
-<!---->
-<!--                <p><input type="checkbox">Боровское</p>-->
-<!---->
-<!--                <p><input type="checkbox">Киевское</p>-->
-<!---->
-<!--                <p><input type="checkbox">Калужское</p>-->
-<!---->
-<!--                <p><input type="checkbox">Можайское</p>-->
-<!---->
-<!--                <p><input type="checkbox">Минское</p>-->
-<!---->
-<!--                <p><input type="checkbox">Рублево-Успенское</p>-->
-<!---->
-<!--                <p><input type="checkbox">Сколковское</p>-->
-<!---->
-<!--                <p><input type="checkbox">Ильинское</p>-->
-<!--            </div>-->
-<!--            <div class="checkbox-block">-->
-<!--                <p><input type="checkbox">Любое</p>-->
-<!---->
-<!--                <p><input type="checkbox">Боровское</p>-->
-<!---->
-<!--                <p><input type="checkbox">Киевское</p>-->
-<!---->
-<!--                <p><input type="checkbox">Калужское</p>-->
-<!---->
-<!--                <p><input type="checkbox">Можайское</p>-->
-<!---->
-<!--                <p><input type="checkbox">Минское</p>-->
-<!---->
-<!--                <p><input type="checkbox">Рублево-Успенское</p>-->
-<!---->
-<!--                <p><input type="checkbox">Сколковское</p>-->
-<!---->
-<!--                <p><input type="checkbox">Ильинское</p>-->
-<!--            </div>-->
-<!--            <div class="checkbox-block">-->
-<!--                <p><input type="checkbox">Любое</p>-->
-<!---->
-<!--                <p><input type="checkbox">Боровское</p>-->
-<!---->
-<!--                <p><input type="checkbox">Киевское</p>-->
-<!---->
-<!--                <p><input type="checkbox">Калужское</p>-->
-<!---->
-<!--                <p><input type="checkbox">Можайское</p>-->
-<!---->
-<!--                <p><input type="checkbox">Минское</p>-->
-<!---->
-<!--                <p><input type="checkbox">Рублево-Успенское</p>-->
-<!---->
-<!--                <p><input type="checkbox">Сколковское</p>-->
-<!---->
-<!--                <p><input type="checkbox">Ильинское</p>-->
-<!--            </div>-->
-<!--            <div class="checkbox-block">-->
-<!--                <p><input type="checkbox">Любое</p>-->
-<!---->
-<!--                <p><input type="checkbox">Боровское</p>-->
-<!---->
-<!--                <p><input type="checkbox">Киевское</p>-->
-<!---->
-<!--                <p><input type="checkbox">Калужское</p>-->
-<!---->
-<!--                <p><input type="checkbox">Можайское</p>-->
-<!---->
-<!--                <p><input type="checkbox">Минское</p>-->
-<!---->
-<!--                <p><input type="checkbox">Рублево-Успенское</p>-->
-<!---->
-<!--                <p><input type="checkbox">Сколковское</p>-->
-<!---->
-<!--                <p><input type="checkbox">Ильинское</p>-->
-<!--            </div>-->
             <?php echo $highway;?>
             <ul class="directions clearfix">
                 <?= $highway_direction;?>
@@ -204,16 +128,17 @@
                 $(document).ready(function(){
                     $('.directionAction').on('click', function(){
                         if($(this).attr('data-active') == 'true'){
-                            $('.direction_'+$(this).attr('attr-id-direction')).attr('checked', false);
+                            $('.direction_'+$(this).attr('attr-id-direction')).prop('checked', false);;
                             $(this).attr('data-active', 'false');
                         }else{
+                            console.log('.direction_'+$(this).attr('attr-id-direction'));
+                            $('.direction_'+$(this).attr('attr-id-direction')).prop('checked', true);
                             $(this).attr('data-active', 'true');
-                            $('.direction_'+$(this).attr('attr-id-direction')).attr('checked', true);
-//do select
                         }
                         return false;
                     })
                     $('.uncheck_highway').on('click', function(){
+                        $('.directionAction').attr('data-active', 'false');
                         $('.checkbox-block input[type="checkbox"]').attr('checked', false);
                         return false;
                     })
@@ -225,21 +150,21 @@
                 <div class="left-side">
                     <span class="spec-text fix-padding-1">Удаленность, км от МКАД: </span>
                     От
-                    <input type="text">
+                    <input name="28_min" type="text">
                     До
-                    <input type="text">
+                    <input name="28_max" type="text">
                 </div>
                 <div class="right-side have-height">
                     <span class="spec-text fix-padding-1">Цена: </span>
                     От
-                    <input type="text">
+                    <input name="29_min" type="text">
                     До
-                    <input type="text">
+                    <input name="29_max" type="text">
 
                     <div class="valuta-block">
-                        <input type="radio" name="valuta" checked> Руб
-                        <input type="radio" name="valuta"> $
-                        <input type="radio" name="valuta"> &euro;
+                        <input type="radio" value="51" name="32" checked> Руб
+                        <input type="radio" value="52" name="32"> $
+                        <input type="radio" value="53" name="32"> &euro;
                     </div>
                 </div>
 
@@ -267,16 +192,16 @@
                 <div class="left-side">
                     <span class="spec-text fix-padding-1">Площадь дома, кв м: </span>
                     От
-                    <input type="text">
+                    <input name="9_min" type="text">
                     До
-                    <input type="text">
+                    <input name="9_max" type="text">
                 </div>
                 <div class="right-side">
                     <span class="spec-text fix-padding-1">Площадь участка, сотки: </span>
                     От
-                    <input type="text">
+                    <input name="10_min" type="text">
                     До
-                    <input type="text">
+                    <input name="10_max" type="text">
                 </div>
             </div>
         </div>

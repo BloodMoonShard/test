@@ -59,7 +59,7 @@ class My_Controller extends CI_Controller
                 if(!isset($highway_direction[$v['highway_direction_name']])){
                     $highway_direction[$v['highway_direction_name']] = $v['id_highway_direction'];
                 }
-                $data['highway'] .= "<p><input type='checkbox' name='highway_list[]' class='direction_".$v['id_highway_direction']."'>".$v['highway_name']."</p>";
+                $data['highway'] .= "<p><input type='checkbox' value='".$v['id_highway']."' name='highway_list[]' class='direction_".$v['id_highway_direction']."'>".$v['highway_name']."</p>";
                 $i++;
             }
         }

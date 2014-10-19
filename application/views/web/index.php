@@ -11,7 +11,7 @@
                     </div>
                 </div>
                 </a>
-                <a href="#">
+                <a href="/type/land_area">
                 <div class="block-services">
                     <div class="img-service land">
                         <div class="text">
@@ -20,7 +20,7 @@
                     </div>
                 </div>
                 </a>
-                <a href="#">
+                <a href="/type/room">
                 <div class="block-services">
                     <div class="img-service aparts">
                         <div class="text">
