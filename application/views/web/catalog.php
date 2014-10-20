@@ -36,7 +36,7 @@
         <ul class="clearfix">
             <li class="current-page">Найдено объектов: <?= $counts; ?></li>
             <li class="delimiter"></li>
-            <li class="home-link"><img src="/assets/w/design_img/home.png" alt="Домой"><a href="#">Главная</a></li>
+            <li class="home-link"><img src="/assets/w/design_img/home.png" alt="Домой"><a href="/">Главная</a></li>
             <li class="search-link" id="but-search-all"><img src="/assets/w/design_img/search_black.png" alt="Поиск объектов"><a href="#">Поиск
                     объектов</a></li>
             <li class="count-on-page">
@@ -186,9 +186,7 @@
     <div class="sub-head clearfix">
         <div class="left-side">
             <ul class="breadcrumbs">
-                <li><a href="#">Главная</a></li>
-                <li> ></li>
-                <li><a href="#">Квартиры</a></li>
+                <li><a href="/">Главная</a></li>
                 <li> ></li>
                 <li class="active-crumb">Коттеджи, дома</li>
             </ul>
@@ -211,6 +209,9 @@
         <div class="right-side">
             <div class="block-services">
                 <div class="img-service cottage-house"></div>
+                <div class="text">
+                    Коттеджи, дома
+                </div>
             </div>
         </div>
     </div>
@@ -249,7 +250,16 @@
                                     <span class="price">Цена: <?= $v['29']; ?>
                                         <del><span style="font-family: Arial;">P</span></del></span>
 
-                        <p><?= $v['31']; ?></p>
+                        <p>
+                            <?php
+                                if (strlen($v['31'])>80) {
+                                    echo mb_substr(strip_tags($v['31']), 0, 80) . ' ...';
+                                } else {
+                                    echo mb_substr(strip_tags($v['31']), 0, 80);
+                                }
+
+                            ?>
+                        </p>
 
                         <div class="more-info">
                             <a href="/details/<?= $v['id_objects'] ?>">Подробнее</a>

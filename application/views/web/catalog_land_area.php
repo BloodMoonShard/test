@@ -182,14 +182,12 @@
     <div class="sub-head clearfix">
         <div class="left-side">
             <ul class="breadcrumbs">
-                <li><a href="#">Главная</a></li>
+                <li><a href="/">Главная</a></li>
                 <li> ></li>
-                <li><a href="#">Квартиры</a></li>
-                <li> ></li>
-                <li class="active-crumb">Квартиры</li>
+                <li class="active-crumb">Земельные участки</li>
             </ul>
             <div class="catalog-content-headline">
-                <h1>Квартиры</h1>
+                <h1>Земельные участки</h1>
             </div>
             <div class="choose-type">
                 <a class="btn <?php if ($this->session->userdata('sort') == 49) {
@@ -206,7 +204,10 @@
         </div>
         <div class="right-side">
             <div class="block-services">
-                <div class="img-service cottage-house"></div>
+                <div class="img-service land"></div>
+                <div class="text land-text-fix">
+                    Земельные участки
+                </div>
             </div>
         </div>
     </div>
