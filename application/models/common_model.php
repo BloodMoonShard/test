@@ -38,4 +38,14 @@ class Common_model extends My_Model{
         return $this->db->delete('objects_images');
     }
 
+    /* функции для подготовки данных для поиска */
+    function getHighway() {
+        return $this->db->get('highway')->result_array();
+    }
+
+    function getHighwayDirection() {
+        return $this->db->get('highway_direction')->result_array();
+    }
+
+
 }

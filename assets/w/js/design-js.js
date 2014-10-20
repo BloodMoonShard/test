@@ -107,11 +107,16 @@ $(document).ready(function() {
         $("#shadow-wrapper-body").show();
         $("#search-all").show();
     });
-
     $('#close-btn-search-all').click(function() {
         $("#shadow-wrapper").hide();
         $("#shadow-wrapper-body").hide();
         $("#search-all").hide();
+    });
+
+    $('#but-search-apart').click(function() {
+        $("#shadow-wrapper").show();
+        $("#shadow-wrapper-body").show();
+        $("#search-apart").show();
     });
 
     $('#close-btn-search-apart').click(function() {

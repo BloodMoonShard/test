@@ -1541,6 +1541,22 @@ header .order-call .btn-order-call:hover {
     background-size: contain;
 }
 
+.catalog .catalog-content .block-services .text {
+    bottom: 0;
+    display: inline-block;
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 20px;
+    padding-bottom: 27px;
+    position: absolute;
+    text-align: center;
+    width: 100%;
+}
+
+.catalog .catalog-content .block-services .text.land-text-fix {
+    padding-bottom: 31px;
+}
+
 
 .catalog .catalog-content .catalog-content-headline {
     font-size: 24px;
@@ -1704,6 +1720,7 @@ header .order-call .btn-order-call:hover {
     width: 960px;
     height: auto;
     background-color: #fff;
+    display: none;
 }
 
 .search-object .inner-padding {
