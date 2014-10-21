@@ -392,6 +392,25 @@ class Ajax extends My_Controller
         echo json_encode(array('content' => $content, 'size' => sizeof($this->data['objects'])));
 
     }
+
+    function comparison() {
+        $post = $this->input->post();
+        $id = $post['id'];
+        $flag = $post['flag'];
+
+        if (!$this->session->userdata('comparison')) {
+            $this->session->set_userdata('comparison', array());
+        }
+        $session_data = $this->session->userdata('comparison');
+        if ($flag ==  1) { /* $flag = 0 - убрать из сравнения; $flag = 1 - добавить в сравнение */
+            $session_data[$id] = $id;
+        } else {
+            unset($session_data[$id]);
+        }
+        $this->session->set_userdata('comparison', $session_data);
+        $session = $this->session->userdata('comparison');
+        var_dump($session);
+    }
 }
 
 /* End of file welcome.php */

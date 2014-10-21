@@ -28,7 +28,7 @@ class Objects extends My_Controller {
         $this->render_adm('admin/subcategory_change_position', $data, array('custom.css'));
     }
 
-    public function add_object($id = false){
+    public function add_object(){
         $this->load->library('upload_ram');
         $this->load->model('common_model');
         $this->load->model('category_model');
@@ -138,8 +138,6 @@ class Objects extends My_Controller {
         $this->load->model('subcategory_model');
         $this->load->model('object_options_model');
         $countries = $this->db->order_by('country_id')->get('countries')->result_array();
-
-
 
         $content = "";
         $list_category = $this->category_model->get_element();

@@ -39,6 +39,7 @@ function generate_select($data, $selected = false)
         foreach ($data as $dt) {
             if (strlen($content) == 0) {
                 $content = '<div class="form-group"><select class="form-control" name="gdata_' . $dt['id_subcategory'] . '">';
+                $content.='<option value="">Выбрать</option>';
             }
             $selected_str = "";
             if($selected){

@@ -32,6 +32,30 @@ function callback_send_v2() {
     });
 }
 
+function set_comparison(elem) {
+    var flag = 0;
+    var id = elem.val();
+    if (elem.prop("checked")) {
+        $("#label-" + id).text("Список сравнения");
+        flag = 1;
+    } else {
+        $("#label-" + id).text("Сравнить");
+        flag = 0;
+    }
+    console.log(id);
+    $.ajax({
+        type: 'POST',
+        url: '/ajax/comparison',
+        data: 'id='+id + '&flag='+flag,
+        success: function() {
+
+        },
+        error:  function(){
+            alert('Возникла ошибка');
+        }
+    });
+}
+
 function show_hide (blockId)
 {
     if ($(blockId).css('display') == 'none')
@@ -63,6 +87,10 @@ function show_hide_filter (blockId)
 }
 
 $(document).ready(function() {
+
+    $(".to-list").click(function() {
+        set_comparison($(this));
+    });
 
     $('.show_map').click(function() {
                 $("#map-window").css('visibility', 'visible');

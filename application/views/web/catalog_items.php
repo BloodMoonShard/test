@@ -32,16 +32,46 @@
                                     <span class="price">Цена: <?= $v['29']; ?>
                                         <del><span style="font-family: Arial;">P</span></del></span>
 
-                    <p><?= $v['31']; ?></p>
+                    <p>
+                        <?php
+                        if (strlen($v['31'])>80) {
+                            echo mb_substr(strip_tags($v['31']), 0, 80) . ' ...';
+                        } else {
+                            echo mb_substr(strip_tags($v['31']), 0, 80);
+                        }
+                        ?>
+                    </p>
 
+<!--                    <div class="more-info">-->
+<!--                        <a href="/details/--><?//= $v['id_objects'] ?><!--">Подробнее</a>-->
+<!---->
+<!--                        <form action="" method="post">-->
+<!--                            <input name="to-list" id="to-list" type="checkbox" value="1"><label-->
+<!--                                for="to-list">Сравнить</label>-->
+<!--                        </form>-->
+<!--                    </div>-->
+                    <?php $session_comparison = $this->session->userdata('comparison');?>
                     <div class="more-info">
                         <a href="/details/<?= $v['id_objects'] ?>">Подробнее</a>
-
-                        <form action="" method="post">
-                            <input name="to-list" id="to-list" type="checkbox" value="1"><label
-                                for="to-list">Сравнить</label>
-                        </form>
+                        <?php
+                            $in_comparison=false; foreach ($session_comparison as $s) {
+                            if ($s == $v['id_objects']) {
+                                $in_comparison = true;
+                                break;
+                            }
+                        } ?>
+                        <div class="in-comp">
+                            <input name="to-list" class="to-list"
+                                   id="to-list-<?php echo $v['id_objects'] ?>"
+                                   type="checkbox"
+                                   value="<?php echo $v['id_objects']; ?>"
+                                <?php if($in_comparison) echo 'checked' ?>>
+                            <label
+                                for="to-list-<?php echo $v['id_objects'] ?>"
+                                id="label-<?php echo $v['id_objects'] ?>" ><?php if($in_comparison) {echo 'Список сравнения'; }else { echo 'Сравнить';} ?></label>
+                        </div>
                     </div>
+
                 </div>
             </div>
         </div>
