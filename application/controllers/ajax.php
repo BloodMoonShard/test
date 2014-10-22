@@ -411,6 +411,15 @@ class Ajax extends My_Controller
         $session = $this->session->userdata('comparison');
         var_dump($session);
     }
+
+    function unset_comparison() {
+        $post = $this->input->post();
+        $id = $post['id'];
+        $session_data = $this->session->userdata('comparison');
+        unset($session_data[$id]);
+        $this->session->set_userdata('comparison', $session_data);
+        echo json_encode(array('status'=>'true'));
+    }
 }
 
 /* End of file welcome.php */

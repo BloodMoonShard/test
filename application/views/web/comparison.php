@@ -1,5 +1,4 @@
     <div class="grand-bg">
-        <?php var_dump($final_result); ?>
         <div class="sub-navigation">
             <div class="container">
                 <ul class="clearfix">
@@ -36,26 +35,50 @@
                                                 <span>&times;</span><a href="#">Очистить историю</a>
                                             </p>
                                         </td>
-                                        <td class="img"><div class="close-co"></div><img src="/assets/w/design_img/test-img.png" alt=""></td>
-                                        <td class="img"><div class="close-co"></div><img src="/assets/w/design_img/test-img.png" alt=""></td>
-                                        <td class="img"><div class="close-co"></div><img src="/assets/w/design_img/test-img.png" alt=""></td>
+                                        <?php foreach ($objects as $ob) {
+                                            if ($ob['ob_images'][0]['img_name']!= '') {
+                                                echo '<td class="img"><div class="close-co" id="'.$ob['id_objects'].'"></div><img src="/upload_files/objects_img/'.$ob['ob_images'][0]['img_name'].'" alt=""></td>';
+                                            } else {
+                                                echo '<td class="img"><div class="close-co"></div><img src="/upload_files/objects_img/default_img.gif" alt=""></td>';
+                                            }
+                                        }
+                                        ?>
                                     </tr>
-                                    <tr class="l-w">
-                                        <td class="desc">
-                                           Лот №:
-                                        </td>
-                                        <td>24921</td>
-                                        <td>24921</td>
-                                        <td>24921</td>
-                                    </tr>
-                                    <tr class="l-g">
-                                        <td class="desc">
-                                            Тип недвижимости:
-                                        </td>
-                                        <td>офисные помещения</td>
-                                        <td>офисные помещения</td>
-                                        <td>офисные помещения</td>
-                                    </tr>
+
+
+                                    <?php $counter=2; foreach ($cat_name as $key => $value) {
+                                        if ($counter%2 == 0) { ?>
+                                            <tr class="l-w">
+                                                <td class="desc">
+                                                    <?php echo $value.':'; ?>
+                                                </td>
+
+                                                <?php
+                                                   foreach ($objects as $ob) {
+                                                       if ($ob[$key] == '') { echo '<td class="object-'.$ob['id_objects'].'"> - </td>'; } else {
+                                                           echo '<td class="object-'.$ob['id_objects'].'">'.$ob[$key].'</td>';
+                                                       }
+                                                   }
+                                                ?>
+                                            </tr>
+                                    <?php } else { ?>
+                                            <tr class="l-g">
+                                                <td class="desc">
+                                                    <?php echo $value.':'; ?>
+                                                </td>
+
+                                                <?php
+                                                foreach ($objects as $ob) {
+                                                    if ($ob[$key] == '') { echo '<td class="object-'.$ob['id_objects'].'"> - </td>'; } else {
+                                                        echo '<td class="object-'.$ob['id_objects'].'">'.$ob[$key].'</td>';
+                                                    }
+                                                }
+                                                ?>
+                                            </tr>
+                                    <?php
+                                        } $counter++;}
+                                    ?>
+
                                 </tbody>
                             </table>
                         </div>

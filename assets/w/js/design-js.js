@@ -42,13 +42,31 @@ function set_comparison(elem) {
         $("#label-" + id).text("Сравнить");
         flag = 0;
     }
-    console.log(id);
     $.ajax({
         type: 'POST',
         url: '/ajax/comparison',
         data: 'id='+id + '&flag='+flag,
         success: function() {
 
+        },
+        error:  function(){
+            alert('Возникла ошибка');
+        }
+    });
+}
+
+function unset_comparison(id) {
+
+    $.ajax({
+        type: 'POST',
+        url: '/ajax/unset_comparison',
+        data: 'id='+id,
+        dataType: 'JSON',
+        success: function(response) {
+            if (response.status) {
+                $('#'+id).parent().remove();
+                $('.object-'+id).remove();
+            }
         },
         error:  function(){
             alert('Возникла ошибка');
@@ -90,6 +108,10 @@ $(document).ready(function() {
 
     $(".to-list").click(function() {
         set_comparison($(this));
+    });
+
+    $(".close-co").click(function() {
+        unset_comparison($(this).attr('id'));
     });
 
     $('.show_map').click(function() {
