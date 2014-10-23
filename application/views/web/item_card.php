@@ -199,14 +199,22 @@
                                type="checkbox"
                                value="<?php echo $result['id_objects']; ?>"
                             <?php if($in_comparison) echo 'checked' ?>>
-                        <label
-                            for="to-list-<?php echo $result['id_objects'] ?>"
-                            id="label-<?php echo $result['id_objects'] ?>" ><?php if($in_comparison) {echo 'Список сравнения (' . $size_comp . ')'; }else { echo 'Сравнить';} ?></label>
+                        <?php $style1=""; $style = ""; if($in_comparison) {
+                            $style = "display: inline-block";
+                        } else {$style1 = "display: inline-block";} ?>
+
+                        <label style="<?php echo $style1; ?>"
+                               for="to-list-<?php echo $result['id_objects'] ?>"
+                               id="label-<?php echo $result['id_objects'] ?>" >
+                            <?php if($in_comparison) {echo 'Список сравнения <span style="color: #EE4942;">(' . $size_comp . ')</span>'; }else { echo 'Сравнить';} ?>
+                        </label>
+
+                        <a style="<?php echo $style; ?>" href="/comparison" class="link_comp" id="not_label-<?php echo $result['id_objects'] ?>">
+                            <?php if($in_comparison) {echo 'Список сравнения <span style="color: #EE4942;">(' . $size_comp . ')</span>'; }else { echo 'Сравнить';} ?>
+                        </a>
+
                     </div>
                 </div>
-
-
-
             </div>
         </div>
     </div>

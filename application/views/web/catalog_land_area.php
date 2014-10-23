@@ -256,26 +256,9 @@
 
                             ?>
                         </p>
-                        <?php $session_comparison = $this->session->userdata('comparison');?>
-                        <div class="more-info">
-                            <a href="/details/<?= $v['id_objects'] ?>">Подробнее</a>
-                            <?php $in_comparison=false; foreach ($session_comparison as $s) {
-                                if ($s == $v['id_objects']) {
-                                    $in_comparison = true;
-                                    break;
-                                }
-                            } ?>
-                            <div class="in-comp">
-                                <input name="to-list" class="to-list"
-                                       id="to-list-<?php echo $v['id_objects'] ?>"
-                                       type="checkbox"
-                                       value="<?php echo $v['id_objects']; ?>"
-                                    <?php if($in_comparison) echo 'checked' ?>>
-                                <label
-                                    for="to-list-<?php echo $v['id_objects'] ?>"
-                                    id="label-<?php echo $v['id_objects'] ?>" ><?php if($in_comparison) {echo 'Список сравнения'; }else { echo 'Сравнить';} ?></label>
-                            </div>
-                        </div>
+
+                        <?php echo comparison_links($v['id_objects']); ?>
+
                     </div>
                 </div>
             </div>

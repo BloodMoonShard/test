@@ -64,4 +64,9 @@ class Comparison extends My_Controller {
 
         $this->render('web/comparison', $data);
     }
+
+    function clear_copmarison() {
+        $this->session->unset_userdata('comparison');
+        redirect('/comparison', 'refresh');
+    }
 }

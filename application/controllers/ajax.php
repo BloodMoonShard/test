@@ -409,7 +409,7 @@ class Ajax extends My_Controller
         }
         $this->session->set_userdata('comparison', $session_data);
         $session = $this->session->userdata('comparison');
-        var_dump($session);
+        echo json_encode(array('status'=>'true', 'size'=> sizeof($session_data)));
     }
 
     function unset_comparison() {
