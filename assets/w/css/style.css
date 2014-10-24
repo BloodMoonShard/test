@@ -1129,9 +1129,26 @@ header .order-call .btn-order-call:hover {
     padding-top: 12px;
 }
 
-.item-card .info-block .compare-check span {
-    text-decoration: underline;
+.item-card .info-block .compare-check label {
+    /*text-decoration: underline;*/
+    cursor: pointer;
+    display: none;
 }
+
+.link_comp {
+    color: #375676 !important;
+    text-decoration: none !important;
+}
+
+.link_comp:hover {
+    text-decoration: none !important;
+}
+
+.link_comp, .in-comp label {
+    display: none;
+}
+
+
 
 .item-card .second-description {
     position: relative;
@@ -1624,7 +1641,7 @@ header .order-call .btn-order-call:hover {
 }
 
 .catalog-objects .one-object .content .description {
-    width: 260px;
+    width: 275px;
     float: right;
 }
 
@@ -1661,16 +1678,17 @@ header .order-call .btn-order-call:hover {
     text-decoration: none;
 }
 
-.catalog-objects .one-object .content .description .more-info form {
+.catalog-objects .one-object .content .description .more-info .in-comp {
     display: inline-block;
-    margin-left: 20px;
+    margin-left: 10px;
     color: #375676;
-    text-decoration: underline;
+
 }
 
-.catalog-objects .one-object .content .description .more-info form label {
-    margin-left: 10px;
+.catalog-objects .one-object .content .description .more-info .in-comp label {
+    margin-left: 5px;
     cursor: pointer;
+    /*text-decoration: underline;*/
 }
 
 .catalog .catalog-content .bottom-block {

@@ -70,8 +70,8 @@
         <ul class="clearfix">
             <li class="current-page"><h1><?=$result['name_object'];?></h1></li>
             <li class="delimiter"></li>
-            <li class="home-link"><img src="/assets/w/design_img/home.png" alt="Домой"><a href="#">Главная</a></li>
-            <li class="search-link"><img src="/assets/w/design_img/search_black.png" alt="Поиск объектов"><a href="#">Поиск объектов</a></li>
+            <li class="home-link"><img src="/assets/w/design_img/home.png" alt="Домой"><a href="/">Главная</a></li>
+            <li class="search-link"><img src="/assets/w/design_img/search_black.png" alt="Поиск объектов"><a href="#" id="but-search-all">Поиск объектов</a></li>
         </ul>
     </div>
 </div>
@@ -153,10 +153,12 @@
                     <td class="cat-name">Населенный пункт:</td>
                     <td class="description"><?=$result['city'];?></td>
                 </tr>
+                <?php if ($result['type']!=2) {?>
                 <tr>
                     <td class="cat-name">Площадь дома:</td>
                     <td class="description"><?=(int)$result['9'];?> кв.м.</td>
                 </tr>
+                <?php } ?>
                 <tr class="colored">
                     <td class="cat-name">Площадь участка:</td>
                     <td class="description"><?=(int)$result['10'];?> сот.</td>
@@ -167,15 +169,52 @@
                     <td class="description"><?=$result['article'];?></td>
                 </tr>
                 <?php } ?>
+                <?php if ($result['type']!=2) {?>
                 <tr class="colored">
                     <td class="cat-name">Тип застройки:</td>
                     <td class="description"><?=$result['11'];?></td>
                 </tr>
+                <?php } ?>
                 </tbody>
             </table>
             <div class="price_place">
                 <p>Цена: <?=$result['29'];?> <del><span style="font-family: Arial;">P</span></del></p>
-                <p class="compare-check"><input type="checkbox" name="compare" id="compare"> <span>Сравнить</span></p>
+                <?php $session_comparison = $this->session->userdata('comparison');?>
+
+
+<!--                <p class="compare-check"><input type="checkbox" name="compare" id="compare"> <span>Сравнить</span></p>-->
+                <div class="compare-check">
+                    <?php
+                        $in_comparison=false;
+                        $size_comp = sizeof($session_comparison);
+                        foreach ($session_comparison as $s) {
+                        if ($s == $result['id_objects']) {
+                            $in_comparison = true;
+                            break;
+                        }
+                    } ?>
+                    <div class="in-comp">
+                        <input name="to-list" class="to-list"
+                               id="to-list-<?php echo $result['id_objects'] ?>"
+                               type="checkbox"
+                               value="<?php echo $result['id_objects']; ?>"
+                            <?php if($in_comparison) echo 'checked' ?>>
+                        <?php $style1=""; $style = ""; if($in_comparison) {
+                            $style = "display: inline-block";
+                        } else {$style1 = "display: inline-block";} ?>
+
+                        <label style="<?php echo $style1; ?>"
+                               for="to-list-<?php echo $result['id_objects'] ?>"
+                               id="label-<?php echo $result['id_objects'] ?>" >
+                            <?php if($in_comparison) {echo 'Список сравнения <span style="color: #EE4942;">(' . $size_comp . ')</span>'; }else { echo 'Сравнить';} ?>
+                        </label>
+
+                        <a style="<?php echo $style; ?>" href="/comparison" class="link_comp" id="not_label-<?php echo $result['id_objects'] ?>">
+                            <?php if($in_comparison) {echo 'Список сравнения <span style="color: #EE4942;">(' . $size_comp . ')</span>'; }else { echo 'Сравнить';} ?>
+                        </a>
+
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -183,7 +222,7 @@
 <div class="second-description">
     <p><span class="secondary-head">Общая информация:</span></p>
     <p>
-        <?=$result['31'];?>
+        <?=$result['31']; ?>
     </p>
 
     <?=$content;?>

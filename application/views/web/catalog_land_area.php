@@ -233,10 +233,10 @@
                             <div class="spec-label">Район:</div>
                             <div class="spec-text"><?= $v['district']; ?> район</div>
                         </div>
-                        <div class="spec-line">
-                            <div class="spec-label">Площадь:</div>
-                            <div class="spec-text"><?= $v['9']; ?> кв.м.</div>
-                        </div>
+<!--                        <div class="spec-line">-->
+<!--                            <div class="spec-label">Площадь:</div>-->
+<!--                            <div class="spec-text">--><?//= $v['9']; ?><!-- кв.м.</div>-->
+<!--                        </div>-->
                         <div class="spec-line">
                             <div class="spec-label">Площадь участка:</div>
                             <div class="spec-text"><?= $v['10']; ?> сот.</div>
@@ -246,16 +246,19 @@
                                     <span class="price">Цена: <?= $v['29']; ?>
                                         <del><span style="font-family: Arial;">P</span></del></span>
 
-                        <p><?= $v['31']; ?></p>
+                        <p>
+                            <?php
+                            if (strlen($v['31'])>80) {
+                                echo mb_substr(strip_tags($v['31']), 0, 80) . ' ...';
+                            } else {
+                                echo mb_substr(strip_tags($v['31']), 0, 80);
+                            }
 
-                        <div class="more-info">
-                            <a href="/details/<?= $v['id_objects'] ?>">Подробнее</a>
+                            ?>
+                        </p>
 
-                            <form action="" method="post">
-                                <input name="to-list" id="to-list" type="checkbox" value="1"><label
-                                    for="to-list">Сравнить</label>
-                            </form>
-                        </div>
+                        <?php echo comparison_links($v['id_objects']); ?>
+
                     </div>
                 </div>
             </div>

@@ -112,7 +112,7 @@
             <p class="fix-margin-1">
                 <span class="spec-text"> Объект: </span>
                 <input type="checkbox" name="type[]" value="1"><span class="radio-text"> Дом </span>
-                <input type="checkbox" name="type[]" value="1"><span class="radio-text"> Участок </span>
+                <input type="checkbox" name="type[]" value="2"><span class="radio-text"> Участок </span>
 <!--                <input type="checkbox" value="1"><span class="radio-text"> Квартира </span>-->
             </p>
 

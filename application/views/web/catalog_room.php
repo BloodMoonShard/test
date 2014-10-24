@@ -237,10 +237,10 @@
                             <div class="spec-label">Площадь:</div>
                             <div class="spec-text"><?= $v['9']; ?> кв.м.</div>
                         </div>
-                        <div class="spec-line">
-                            <div class="spec-label">Площадь участка:</div>
-                            <div class="spec-text"><?= $v['10']; ?> сот.</div>
-                        </div>
+<!--                        <div class="spec-line">-->
+<!--                            <div class="spec-label">Площадь участка:</div>-->
+<!--                            <div class="spec-text">--><?//= $v['10']; ?><!-- сот.</div>-->
+<!--                        </div>-->
                     </div>
                     <div class="description">
                                     <span class="price">Цена: <?= $v['29']; ?>
@@ -257,14 +257,8 @@
                             ?>
                         </p>
 
-                        <div class="more-info">
-                            <a href="/details/<?= $v['id_objects'] ?>">Подробнее</a>
-
-                            <form action="" method="post">
-                                <input name="to-list" id="to-list" type="checkbox" value="1"><label
-                                    for="to-list">Сравнить</label>
-                            </form>
-                        </div>
+                        <?php echo comparison_links($v['id_objects']); ?>
+                        
                     </div>
                 </div>
             </div>

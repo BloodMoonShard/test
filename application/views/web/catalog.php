@@ -1,6 +1,4 @@
 <script>
-
-
     $(document).ready(function () {
 
         $('.nstSlider').nstSlider({
@@ -28,8 +26,6 @@
         });
     });
 </script>
-
-
 <div class="grand-bg">
 <div class="sub-navigation">
     <div class="container">
@@ -58,6 +54,9 @@
                 success: function(response){
                     console.log(response);
                     $('.catalog-objects').html(response.content);
+                    $(".to-list").click(function() {
+                        set_comparison($(this));
+                    });
                 }
             })
         })
@@ -257,18 +256,16 @@
                                 } else {
                                     echo mb_substr(strip_tags($v['31']), 0, 80);
                                 }
-
                             ?>
                         </p>
 
-                        <div class="more-info">
-                            <a href="/details/<?= $v['id_objects'] ?>">Подробнее</a>
 
-                            <form action="" method="post">
-                                <input name="to-list" id="to-list" type="checkbox" value="1"><label
-                                    for="to-list">Сравнить</label>
-                            </form>
-                        </div>
+
+                        <?php echo comparison_links($v['id_objects']); ?>
+
+
+
+
                     </div>
                 </div>
             </div>

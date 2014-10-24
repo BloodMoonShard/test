@@ -32,16 +32,18 @@
                                     <span class="price">Цена: <?= $v['29']; ?>
                                         <del><span style="font-family: Arial;">P</span></del></span>
 
-                    <p><?= $v['31']; ?></p>
+                    <p>
+                        <?php
+                        if (strlen($v['31'])>80) {
+                            echo mb_substr(strip_tags($v['31']), 0, 80) . ' ...';
+                        } else {
+                            echo mb_substr(strip_tags($v['31']), 0, 80);
+                        }
+                        ?>
+                    </p>
 
-                    <div class="more-info">
-                        <a href="/details/<?= $v['id_objects'] ?>">Подробнее</a>
+                    <?php echo comparison_links($v['id_objects']); ?>
 
-                        <form action="" method="post">
-                            <input name="to-list" id="to-list" type="checkbox" value="1"><label
-                                for="to-list">Сравнить</label>
-                        </form>
-                    </div>
                 </div>
             </div>
         </div>

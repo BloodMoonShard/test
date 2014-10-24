@@ -44,6 +44,7 @@
                         </table>
                     </div>
                     <!-- /.table-responsive -->
+
                     <a href="/admin/objects/add_object" class="btn btn-primary">Добавить</a>
                 </div>
                 <!-- /.panel-body -->

@@ -39,6 +39,7 @@ function generate_select($data, $selected = false)
         foreach ($data as $dt) {
             if (strlen($content) == 0) {
                 $content = '<div class="form-group"><select class="form-control" name="gdata_' . $dt['id_subcategory'] . '">';
+                $content.='<option value="">Выбрать</option>';
             }
             $selected_str = "";
             if($selected){
@@ -132,5 +133,60 @@ function generate_checkbox($data, $selected = false)
         return $content;
     }
     return '';
+}
+
+function comparison_links($id_object)
+{
+   $CI = get_instance();
+    $session_comparison = $CI->session->userdata('comparison');
+    $size_comp = sizeof($session_comparison);
+    $content = '';
+    $content .= '<div class="more-info">';
+    $content .= '<a href="/details/' . $id_object . '">Подробнее</a>';
+
+
+    $in_comparison = false;
+    foreach ($session_comparison as $s) {
+        if ($s == $id_object) {
+            $in_comparison = true;
+            break;
+        }
+    }
+    $content .= '<div class="in-comp">';
+    $content .= '<input name="to-list" class="to-list"';
+    $content .= 'id="to-list-' . $id_object . '" type="checkbox" ';
+    $content .= 'value="' . $id_object . '"';
+    if ($in_comparison) {$content .= ' checked >';} else {$content .= ' >';}
+    $style1 = "";
+    $style = "";
+    if ($in_comparison) {
+        $style = "display: inline-block";
+    } else {
+        $style1 = "display: inline-block";
+    }
+
+
+    $content .= '<label style="' . $style1 . '"
+                   for="to-list-' . $id_object . '"
+                   id="label-' . $id_object . '" >';
+    if ($in_comparison) {
+        $content .= 'Список сравнения <span style="color: #EE4942;">(' . $size_comp . ')</span>';
+    } else {
+        $content .= 'Сравнить';
+    }
+
+    $content .= '</label>';
+
+    $content .= '<a style="' . $style . '" href="/comparison" class="link_comp" id="not_label-' . $id_object . '">';
+
+    if ($in_comparison) {
+        $content .= 'Список сравнения <span style="color: #EE4942;">(' . $size_comp . ')</span>';
+    } else {
+        $content .= 'Сравнить';
+    }
+    $content .= '</a>
+        </div>
+    </div>';
+    return $content;
 }
 
