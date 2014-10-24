@@ -37,7 +37,7 @@
 <div class="shadow-wrapper-body" id="shadow-wrapper-body">
 <div class="search-object" id="search-apart">
     <div class="close-btn" id="close-btn-search-apart"></div>
-    <form action="/type/search" method="POST">
+    <form action="/search_room" method="POST">
         <div class="inner-padding">
             <h3>Поиск объектов</h3>
 

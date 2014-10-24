@@ -43,6 +43,9 @@ $route['404_override'] = '';
 $route['admin'] = 'admin/dashboard';
 $route['type/(:any)'] = "type/index/$1";
 $route['search/(:any)'] = "search/index/$1";
+$route['search_room'] = "search/search_room";
+$route['search_room/(:any)'] = "search/search_room/$1";
+
 $route['admin/download_file/(:any)'] = "admin/download_file/index/$1";
 $route['details/(:num)'] = "type/details/$1";
 
