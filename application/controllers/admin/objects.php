@@ -67,6 +67,7 @@ class Objects extends My_Controller {
                 }
             }
             unset($_POST['file']);
+            $_POST['id_users'] = $this->auth->get_user_id();
             $id_objects = $this->object_model->set_element($_POST);
             if(strlen($_FILES['file']['name'][0])>0) {
                 $WhereAndWhat = 'objects_img'; /*в какую папку сохраняем изображение*/
@@ -77,6 +78,9 @@ class Objects extends My_Controller {
             }
 
             foreach($data_post as $value){
+                if($value['id_subcategory_value'] == ''){
+                    continue;
+                }
                 $this->object_options_model->set_element(array_merge($value, array('id_objects'=>$id_objects)));
             }
             $this->status = "success";
@@ -109,6 +113,7 @@ class Objects extends My_Controller {
             }
         }
         $data['highway_direction']=$this->generate_highway_direction();
+        $data['underground']=$this->generate_underground();
         $data['region_list'] = $this->generate_region();
         $data['highway'] = $this->generate_highway();
         $data['type_estate'] = $this->object_type_model->get_element();
@@ -177,6 +182,9 @@ class Objects extends My_Controller {
             $this->object_model->edit_element($id, $_POST);
             $this->object_options_model->object_value_rm_all($id);
             foreach($data_post as $value){
+                if($value['id_subcategory_value'] == ''){
+                    continue;
+                }
                 $this->object_options_model->set_element(array_merge($value, array('id_objects'=>$id)));
             }
             $this->status = "success";
@@ -198,10 +206,14 @@ class Objects extends My_Controller {
             $data['highway_direction']=$this->generate_highway_direction($data['city_id']);
             $data['region_list'] = $this->generate_region($data['city_id'], $data['region_list']);
             $data['highway'] = $this->generate_highway($data['city_id'], $data['highway_list']);
+            $data['underground']=$this->generate_underground($data['city_id'], $data['underground']);
+
         }else{
             $data['highway_direction']=$this->generate_highway_direction();
             $data['region_list'] = $this->generate_region();
             $data['highway'] = $this->generate_highway();
+            $data['underground']=$this->generate_underground();
+
         }
         foreach($list_category as $lc){
             $content .= "<h4>".$lc['name']."</h4>";

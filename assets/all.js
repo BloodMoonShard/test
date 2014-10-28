@@ -15,7 +15,9 @@ $(function () {
                 $('#id_city_hidden').val($(this).attr('data-kladr-id'));
                 ajax_get_list_highway($('#id_city').attr('data-kladr-id'));
                 ajax_get_list_region_city($('#id_city').attr('data-kladr-id'));
-                ajax_get_list_highway_direction($('#id_city').attr('data-kladr-id'))
+                ajax_get_list_highway_direction($('#id_city').attr('data-kladr-id'));
+                ajax_get_list_underground($('#id_city').attr('data-kladr-id'));
+
             }
             $tooltip.hide();
         },

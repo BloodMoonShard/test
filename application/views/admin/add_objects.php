@@ -59,6 +59,7 @@
                         <input class="form-control" type="text" name="city" value="<?php if(isset($city)){ echo $city;}?>" id="id_city">
                         <input class="form-control" type="hidden" name="city_id" value="<?php if(isset($city_id)){ echo $city_id;}?>" id="id_city_hidden">
                     </div>
+                    <?= $underground;?>
                     <?= $region_list;?>
 
 
@@ -191,6 +192,28 @@
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal">Отмена</button>
                             <button type="button" class="btn btn-primary" id="btn_create_highway_direction">Создать</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade" id="myModal4" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                            <h4 class="modal-title" id="myModalLabel">Форма добавления метро</h4>
+                        </div>
+                        <div class="modal-body">
+                            <form role="form" method="post" >
+                                <div class="form-group">
+                                    <label>Имя метро</label>
+                                    <input class="form-control" type="text" name="name" id="name_underground">
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Отмена</button>
+                            <button type="button" class="btn btn-primary" id="btn_create_underground">Создать</button>
                         </div>
                     </div>
                 </div>

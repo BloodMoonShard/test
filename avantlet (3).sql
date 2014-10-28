@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.0.10
+-- version 4.0.6
 -- http://www.phpmyadmin.net
 --
--- Хост: 127.0.0.1:3306
--- Время создания: Окт 15 2014 г., 11:36
--- Версия сервера: 5.5.38-log
--- Версия PHP: 5.4.29
+-- Хост: localhost
+-- Время создания: Окт 28 2014 г., 13:52
+-- Версия сервера: 5.6.13
+-- Версия PHP: 5.4.24
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -17,7 +17,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 --
--- База данных: `avantelt`
+-- База данных: `avantlet`
 --
 
 -- --------------------------------------------------------
@@ -86,7 +86,14 @@ CREATE TABLE IF NOT EXISTS `callbacks` (
   `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `submit` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+
+--
+-- Дамп данных таблицы `callbacks`
+--
+
+INSERT INTO `callbacks` (`id`, `name`, `phone_number`, `theme`, `date`, `submit`) VALUES
+(1, 'фывфывфы', 'фывфыв', 'С шапки сайта (обычный звонок)', '2014-10-22 09:27:17', 0);
 
 -- --------------------------------------------------------
 
@@ -137,7 +144,7 @@ CREATE TABLE IF NOT EXISTS `ci_sessions` (
 --
 
 INSERT INTO `ci_sessions` (`session_id`, `ip_address`, `user_agent`, `last_activity`, `user_data`) VALUES
-('adf773cdf9a4a0bb06006ad487edb701', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:32.0) Gecko/20100101 Firefox/32.0', 1413358519, 'a:9:{s:9:"user_data";s:0:"";s:8:"per_page";i:2;s:9:"info_user";a:6:{s:8:"id_users";s:1:"1";s:8:"username";s:5:"admin";s:5:"email";s:15:"admin@admin.com";s:8:"password";s:32:"cdedab9b02d91a2efb52f9e270467620";s:11:"date_create";s:19:"2014-09-25 14:09:31";s:9:"user_role";s:1:"1";}s:8:"id_users";s:1:"1";s:8:"username";s:5:"admin";s:9:"user_role";s:1:"1";s:4:"sort";i:49;s:7:"objects";s:2198:"a:7:{i:0;a:12:{s:10:"id_objects";s:2:"21";s:11:"name_object";s:17:"С фтоками";s:4:"city";s:0:"";s:6:"region";s:0:"";s:8:"district";s:0:"";i:28;s:0:"";i:29;s:0:"";i:30;s:0:"";s:4:"type";s:2:"47";i:31;s:0:"";i:9;s:0:"";i:10;s:0:"";}i:1;a:12:{s:10:"id_objects";s:2:"20";s:11:"name_object";s:11:"afasfasfasf";s:4:"city";s:0:"";s:6:"region";s:0:"";s:8:"district";s:0:"";i:28;s:0:"";i:29;s:0:"";i:30;s:0:"";s:4:"type";s:2:"47";i:31;s:0:"";i:9;s:0:"";i:10;s:0:"";}i:2;a:12:{s:10:"id_objects";s:1:"9";s:11:"name_object";s:6:"Дом";s:4:"city";s:20:"Академиков";s:6:"region";s:20:"Московская";s:8:"district";s:35:"Сергиево-Посадский";i:28;s:3:"111";i:29;s:4:"1500";i:30;s:12:"Аренда";s:4:"type";s:2:"48";i:31;s:14:"вфывфыв";i:9;s:3:"155";i:10;s:3:"133";}i:3;a:12:{s:10:"id_objects";s:1:"8";s:11:"name_object";s:8:"Дом12";s:4:"city";s:14:"Ардатов";s:6:"region";s:16:"Мордовия";s:8:"district";s:22:"Ардатовский";i:28;s:6:"121212";i:29;s:8:"20500000";i:30;s:12:"Аренда";s:4:"type";s:2:"48";i:31;s:14:"20500000 12312";i:9;s:4:"1555";i:10;s:3:"125";}i:4;a:12:{s:10:"id_objects";s:1:"7";s:11:"name_object";s:9:"Дом 34";s:4:"city";s:27:"Сергиев Посад-7";s:6:"region";s:20:"Московская";s:8:"district";s:35:"Сергиево-Посадский";i:28;s:4:"1500";i:29;s:6:"500000";i:30;s:14:"Продажа";s:4:"type";s:2:"49";i:31;s:10:"1233123123";i:9;s:4:"6501";i:10;s:5:"15001";}i:5;a:12:{s:10:"id_objects";s:1:"6";s:11:"name_object";s:8:"Дом 2";s:4:"city";s:25:"Сергиев Посад";s:6:"region";s:20:"Московская";s:8:"district";s:35:"Сергиево-Посадский";i:28;s:2:"15";i:29;s:8:"15000000";i:30;s:14:"Продажа";s:4:"type";s:2:"49";i:31;s:25:"Крутой домяра";i:9;s:3:"500";i:10;s:4:"1000";}i:6;a:12:{s:10:"id_objects";s:1:"5";s:11:"name_object";s:28:"Дом на Витязево";s:4:"city";s:12:"Кирово";s:6:"region";s:44:"Северная Осетия - Алания";s:8:"district";s:0:"";i:28;s:1:"5";i:29;s:8:"13100000";i:30;s:14:"Продажа";s:4:"type";s:2:"49";i:31;s:19:"Крутой дом";i:9;s:3:"120";i:10;s:3:"200";}}";s:5:"house";s:68:"a:2:{s:8:"district";a:0:{}s:4:"city";a:1:{s:12:"Кирово";i:1;}}";}');
+('882eecd36873b3d94976770ada23d786', '127.0.0.1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/38.0.2125.111 Safari/537.36', 1414488002, 'a:11:{s:9:"user_data";s:0:"";s:8:"per_page";i:2;s:9:"info_user";a:6:{s:8:"id_users";s:1:"1";s:8:"username";s:5:"admin";s:5:"email";s:15:"admin@admin.com";s:8:"password";s:32:"cdedab9b02d91a2efb52f9e270467620";s:11:"date_create";s:19:"2014-09-25 14:09:31";s:9:"user_role";s:1:"1";}s:8:"id_users";s:1:"1";s:8:"username";s:5:"admin";s:9:"user_role";s:1:"1";s:4:"sort";i:49;s:7:"objects";s:572:"a:2:{i:0;a:12:{s:10:"id_objects";s:2:"24";s:11:"name_object";s:19:"#2 Квартира";s:4:"city";s:12:"Москва";s:6:"region";s:0:"";s:8:"district";s:0:"";s:11:"underground";s:1:"1";i:32;s:1:"P";i:29;s:7:"1122333";i:30;s:14:"Продажа";s:4:"type";s:2:"49";i:31;s:0:"";i:9;s:2:"15";}i:1;a:11:{s:10:"id_objects";s:2:"22";s:11:"name_object";s:21:"2Квартира№1";s:4:"city";s:12:"Москва";s:6:"region";s:0:"";s:8:"district";s:0:"";s:11:"underground";s:1:"3";i:29;s:8:"15000000";i:30;s:14:"Продажа";s:4:"type";s:2:"49";i:31;s:0:"";i:9;s:2:"50";}}";s:16:"search_room_post";s:28:"a:1:{s:6:"valuta";s:2:"on";}";s:11:"search_room";a:0:{}s:4:"room";s:56:"a:2:{s:4:"city";a:0:{}s:11:"underground";a:1:{i:3;i:1;}}";}');
 
 -- --------------------------------------------------------
 
@@ -428,7 +435,7 @@ CREATE TABLE IF NOT EXISTS `highway_direction` (
   `name` varchar(512) DEFAULT NULL,
   `id_city` varchar(512) DEFAULT NULL,
   PRIMARY KEY (`id_highway_direction`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9 ;
 
 --
 -- Дамп данных таблицы `highway_direction`
@@ -441,7 +448,8 @@ INSERT INTO `highway_direction` (`id_highway_direction`, `name`, `id_city`) VALU
 (4, 'Сыропятка', '5500000100000'),
 (5, 'Западное', '7700000000000'),
 (6, 'Южное', '7700000000000'),
-(7, 'Юго-восток', '2300300100000');
+(7, 'Юго-восток', '2300300100000'),
+(8, '123', '7700000000000');
 
 -- --------------------------------------------------------
 
@@ -469,23 +477,26 @@ CREATE TABLE IF NOT EXISTS `objects` (
   `title_seo` text,
   `description_seo` text,
   `keywords_seo` text,
+  `underground` int(11) DEFAULT NULL,
   PRIMARY KEY (`id_objects`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=22 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=25 ;
 
 --
 -- Дамп данных таблицы `objects`
 --
 
-INSERT INTO `objects` (`id_objects`, `type`, `date_add`, `public`, `id_users`, `name_object`, `city`, `region`, `district`, `street`, `building`, `highway_list`, `region_list`, `city_id`, `article`, `country`, `title_seo`, `description_seo`, `keywords_seo`) VALUES
-(5, 1, '2014-10-03 04:17:23', 0, NULL, 'Дом на Витязево', 'Кирово', 'Северная Осетия - Алания', '', 'Ворошилова', '', '0', '0', '6600000200000', '', 1, 'Пум пум пум', 'Опиасчние', 'Ключеыврыао'),
-(6, 1, '2014-10-06 05:35:18', 0, NULL, 'Дом 2', 'Сергиев Посад', 'Московская', 'Сергиево-Посадский', 'Гефсиманские пруды', '2а', 'Выберите шоссе', 'Выберите округ', '5003000500000', NULL, NULL, NULL, NULL, NULL),
-(7, 1, '2014-10-06 05:39:20', 0, NULL, 'Дом 34', 'Сергиев Посад-7', 'Московская', 'Сергиево-Посадский', 'Ленина', '15', '0', '0', '5003000600000', NULL, NULL, NULL, NULL, NULL),
-(8, 1, '2014-10-07 03:01:16', 0, NULL, 'Дом12', 'Ардатов', 'Мордовия', 'Ардатовский', 'Алатырская', '2', '0', '0', '1300200100000', NULL, NULL, NULL, NULL, NULL),
-(9, 1, '2014-10-07 03:03:04', 0, NULL, 'Дом', 'Академиков', 'Московская', 'Сергиево-Посадский', 'А а а а', '13', '0', '0', '5003000600000', '999', 1, NULL, NULL, NULL),
-(18, 1, '2014-10-14 09:17:42', 0, NULL, 'afasfasfasf', '', '', '', '', '', '0', '0', '', '', 1, 'asfasfasfasf', '', ''),
-(19, 1, '2014-10-14 09:17:59', 0, NULL, 'afasfasfasf', '', '', '', '', '', '0', '0', '', '', 1, 'asfasfasfasf', '', ''),
-(20, 1, '2014-10-14 09:18:49', 0, NULL, 'afasfasfasf', '', '', '', '', '', '0', '0', '', '', 1, 'asfasfasfasf', '', ''),
-(21, 1, '2014-10-14 09:43:29', 0, NULL, 'С фтоками', '', '', '', '', '', '0', '0', '', '', 1, 'фыафыафыа', '', '');
+INSERT INTO `objects` (`id_objects`, `type`, `date_add`, `public`, `id_users`, `name_object`, `city`, `region`, `district`, `street`, `building`, `highway_list`, `region_list`, `city_id`, `article`, `country`, `title_seo`, `description_seo`, `keywords_seo`, `underground`) VALUES
+(5, 1, '2014-10-03 04:17:23', 0, NULL, 'Дом на Витязево', 'Кирово', 'Северная Осетия - Алания', '', 'Ворошилова', '', '0', '0', '6600000200000', '', 1, 'Пум пум пум', 'Опиасчние', 'Ключеыврыао', NULL),
+(6, 1, '2014-10-06 05:35:18', 0, NULL, 'Дом 2', 'Сергиев Посад', 'Московская', 'Сергиево-Посадский', 'Гефсиманские пруды', '2а', 'Выберите шоссе', 'Выберите округ', '5003000500000', NULL, NULL, NULL, NULL, NULL, NULL),
+(7, 1, '2014-10-06 05:39:20', 0, NULL, 'Дом 34', 'Сергиев Посад-7', 'Московская', 'Сергиево-Посадский', 'Ленина', '15', '0', '0', '5003000600000', NULL, NULL, NULL, NULL, NULL, NULL),
+(8, 1, '2014-10-07 03:01:16', 0, NULL, 'Дом12', 'Ардатов', 'Мордовия', 'Ардатовский', 'Алатырская', '2', '0', '0', '1300200100000', NULL, NULL, NULL, NULL, NULL, NULL),
+(9, 1, '2014-10-07 03:03:04', 0, NULL, 'Дом', 'Академиков', 'Московская', 'Сергиево-Посадский', 'А а а а', '13', '0', '0', '5003000600000', '999', 1, NULL, NULL, NULL, NULL),
+(18, 1, '2014-10-14 09:17:42', 0, NULL, 'afasfasfasf', '', '', '', '', '', '0', '0', '', '', 1, 'asfasfasfasf', '', '', NULL),
+(19, 1, '2014-10-14 09:17:59', 0, NULL, 'afasfasfasf', '', '', '', '', '', '0', '0', '', '', 1, 'asfasfasfasf', '', '', NULL),
+(20, 1, '2014-10-14 09:18:49', 0, NULL, 'afasfasfasf', '', '', '', '', '', '0', '0', '', '', 1, 'asfasfasfasf', '', '', NULL),
+(21, 1, '2014-10-14 09:43:29', 0, NULL, 'С фтоками', '', '', '', '', '', '0', '0', '', '', 1, 'фыафыафыа', '', '', NULL),
+(22, 7, '2014-10-27 20:12:19', 0, 1, '2Квартира№1', 'Москва', '', '', 'Арбат', '20', '0', '0', '7700000000000', '123', 1, '', '', '', 3),
+(24, 7, '2014-10-28 08:59:27', 0, 1, '#2 Квартира', 'Москва', '', '', '', '', 'Выберите шоссе', 'Выберите округ', '7700000000000', '', 1, '', '', '', 1);
 
 -- --------------------------------------------------------
 
@@ -498,7 +509,7 @@ CREATE TABLE IF NOT EXISTS `objects_images` (
   `id_objects` int(11) NOT NULL,
   `img_name` varchar(512) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=13 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=21 ;
 
 --
 -- Дамп данных таблицы `objects_images`
@@ -512,7 +523,15 @@ INSERT INTO `objects_images` (`id`, `id_objects`, `img_name`) VALUES
 (9, 21, 'bigimage_1413344677.png'),
 (10, 21, 'img1_1413344677.png'),
 (11, 5, '123_1413346644.jpg'),
-(12, 5, 'buy-house_1413346644.png');
+(12, 5, 'buy-house_1413346644.png'),
+(13, 22, ''),
+(14, 23, ''),
+(15, 24, ''),
+(16, 25, ''),
+(17, 22, ''),
+(18, 22, ''),
+(19, 22, ''),
+(20, 22, '');
 
 -- --------------------------------------------------------
 
@@ -527,7 +546,7 @@ CREATE TABLE IF NOT EXISTS `objects_options` (
   `id_subcategory_value` int(11) NOT NULL,
   `id_subcategory_value_input` text,
   PRIMARY KEY (`id_objects_options`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1242 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1335 ;
 
 --
 -- Дамп данных таблицы `objects_options`
@@ -694,7 +713,39 @@ INSERT INTO `objects_options` (`id_objects_options`, `id_objects`, `id_subcatego
 (1238, 5, 19, 30, NULL),
 (1239, 5, 20, 33, NULL),
 (1240, 5, 23, 23, NULL),
-(1241, 5, 24, 35, 'спортивные площадки, детские площадки, освещенные улицы');
+(1241, 5, 24, 35, 'спортивные площадки, детские площадки, освещенные улицы'),
+(1303, 22, 25, 36, ''),
+(1304, 22, 26, 37, ''),
+(1305, 22, 27, 38, ''),
+(1306, 22, 33, 61, NULL),
+(1307, 22, 28, 45, ''),
+(1308, 22, 29, 46, '15000000'),
+(1309, 22, 30, 49, NULL),
+(1310, 22, 31, 50, ''),
+(1311, 22, 9, 13, '50'),
+(1312, 22, 10, 44, ''),
+(1313, 22, 14, 42, ''),
+(1314, 22, 13, 43, ''),
+(1315, 22, 22, 34, ''),
+(1316, 22, 17, 41, ''),
+(1317, 22, 18, 39, ''),
+(1318, 22, 24, 35, ''),
+(1319, 24, 25, 36, ''),
+(1320, 24, 26, 37, ''),
+(1321, 24, 27, 38, ''),
+(1322, 24, 28, 45, ''),
+(1323, 24, 32, 51, NULL),
+(1324, 24, 29, 46, '1122333'),
+(1325, 24, 30, 49, NULL),
+(1326, 24, 31, 50, ''),
+(1327, 24, 9, 13, '15'),
+(1328, 24, 10, 44, ''),
+(1329, 24, 14, 42, ''),
+(1330, 24, 13, 43, ''),
+(1331, 24, 22, 34, ''),
+(1332, 24, 17, 41, ''),
+(1333, 24, 18, 39, ''),
+(1334, 24, 24, 35, '');
 
 -- --------------------------------------------------------
 
@@ -707,7 +758,7 @@ CREATE TABLE IF NOT EXISTS `objects_type` (
   `name` varchar(512) DEFAULT NULL,
   `uri_name` varchar(512) DEFAULT NULL,
   PRIMARY KEY (`id_objects_type`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
 
 --
 -- Дамп данных таблицы `objects_type`
@@ -719,7 +770,8 @@ INSERT INTO `objects_type` (`id_objects_type`, `name`, `uri_name`) VALUES
 (3, 'Зарубежная недвижимость', 'overseas_real_estate'),
 (4, 'Юридические услуги', 'legal_services'),
 (5, 'Кредитный брокер', 'credit_broker'),
-(6, 'Партнеры', 'partners');
+(6, 'Партнеры', 'partners'),
+(7, 'Квартиры', 'room');
 
 -- --------------------------------------------------------
 
@@ -840,7 +892,7 @@ CREATE TABLE IF NOT EXISTS `subcategory` (
   `format` varchar(256) DEFAULT NULL,
   `public` int(11) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id_subcategory`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=32 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=34 ;
 
 --
 -- Дамп данных таблицы `subcategory`
@@ -867,10 +919,12 @@ INSERT INTO `subcategory` (`id_subcategory`, `name`, `parent`, `inner_parent`, `
 (25, 'Объекты до 5 км', 21, 0, NULL, 'input', 1),
 (26, 'Расстояние до леса', 22, 0, NULL, 'input', 1),
 (27, 'Водоем для купания', 22, 0, NULL, 'input', 1),
-(28, 'Удаленность от МКАД', 23, 0, NULL, 'input', 0),
-(29, 'Цена', 23, 0, NULL, 'input', 0),
-(30, 'Тип аренда/продажа', 23, 0, NULL, 'select', 0),
-(31, 'Описание', 23, 0, NULL, 'textarea', 0);
+(28, 'Удаленность от МКАД', 23, 0, 1, 'input', 0),
+(29, 'Цена', 23, 0, 3, 'input', 0),
+(30, 'Тип аренда/продажа', 23, 0, 4, 'select', 0),
+(31, 'Описание', 23, 0, 5, 'textarea', 0),
+(32, 'Валюта', 23, 0, 2, 'select', 0),
+(33, 'Количество комнат', 23, 0, NULL, 'select', 1);
 
 -- --------------------------------------------------------
 
@@ -885,7 +939,7 @@ CREATE TABLE IF NOT EXISTS `subcategory_value` (
   `sortable` int(11) DEFAULT NULL,
   `value` text COMMENT 'value if format_value text',
   PRIMARY KEY (`id_subcategory_value`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=51 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=63 ;
 
 --
 -- Дамп данных таблицы `subcategory_value`
@@ -934,7 +988,38 @@ INSERT INTO `subcategory_value` (`id_subcategory_value`, `id_subcategory`, `form
 (47, 30, NULL, NULL, ''),
 (48, 30, NULL, NULL, 'Аренда'),
 (49, 30, NULL, NULL, 'Продажа'),
-(50, 31, NULL, NULL, '');
+(50, 31, NULL, NULL, ''),
+(51, 32, NULL, NULL, 'P'),
+(52, 32, NULL, NULL, '$'),
+(53, 32, NULL, NULL, '€'),
+(57, 33, NULL, NULL, ''),
+(58, 33, NULL, NULL, '1'),
+(59, 33, NULL, NULL, '2'),
+(60, 33, NULL, NULL, '3'),
+(61, 33, NULL, NULL, '4'),
+(62, 33, NULL, NULL, '5');
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `underground`
+--
+
+CREATE TABLE IF NOT EXISTS `underground` (
+  `id_underground` int(11) NOT NULL AUTO_INCREMENT,
+  `name_underground` varchar(512) NOT NULL,
+  `id_city` bigint(20) NOT NULL,
+  PRIMARY KEY (`id_underground`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='Метро' AUTO_INCREMENT=4 ;
+
+--
+-- Дамп данных таблицы `underground`
+--
+
+INSERT INTO `underground` (`id_underground`, `name_underground`, `id_city`) VALUES
+(1, 'Новое', 7700000000000),
+(2, 'Новое2', 7700000000000),
+(3, 'Новое3', 7700000000000);
 
 -- --------------------------------------------------------
 

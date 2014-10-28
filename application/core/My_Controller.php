@@ -113,7 +113,7 @@ class My_Controller extends CI_Controller
     function generate_highway($id = false, $ids = false)
     {
         $this->load->model('highway_model');
-        $data['highway'] = '<div class="form-group"><label>Шоссе</label><select id="highway_list" class="form-control" name="highway_list"><option value=0>Направление</option>';
+        $data['highway'] = '<div class="form-group"><label>Шоссе</label><select id="highway_list" class="form-control" name="highway_list"><option value=0>Шоссе</option>';
         if ($id && $ids) {
             $highway_direction = $this->highway_model->get_result(array('id_city' => $id));
             if ($highway_direction) {
@@ -135,7 +135,7 @@ class My_Controller extends CI_Controller
     function generate_region($id = false, $ids = false)
     {
         $this->load->model('region_city_model');
-        $data['highway'] = '<div class="form-group"><label>Выберите округ</label><select id="region_list" class="form-control" name="region_list"><option value=0>Направление</option>';
+        $data['highway'] = '<div class="form-group"><label>Выберите округ</label><select id="region_list" class="form-control" name="region_list"><option value=0>Округ</option>';
         if ($id && $ids) {
             $highway_direction = $this->region_city_model->get_result(array('id_city' => $id));
             if ($highway_direction) {
@@ -152,6 +152,28 @@ class My_Controller extends CI_Controller
                                 <a class="btn btn-primary right" id="add_region" data-toggle="modal" data-target="#myModal">Добавить округ</a>
 </div>';
         return $data['highway'];
+    }
+
+    function generate_underground($id = false, $ids = false)
+    {
+        $this->load->model('underground_model');
+        $data['underground'] = '<div class="form-group"><label>Выберите метро</label><select id="underground_list" class="form-control" name="underground"><option value=0>...</option>';
+        if ($id && $ids) {
+            $highway_direction = $this->underground_model->get_result(array('id_city' => $id));
+            if ($highway_direction) {
+                foreach ($highway_direction as $value) {
+                    if ($value['id_underground'] == $ids) {
+                        $data['underground'] .= '<option selected=selected value="' . $value['id_underground'] . '">' . $value['name_underground'] . '</option>';
+                    } else {
+                        $data['underground'] .= '<option value="' . $value['id_region_city'] . '">' . $value['name_underground'] . '</option>';
+                    }
+                }
+            }
+        }
+        $data['underground'] .= '</select>
+                                <a class="btn btn-primary right" id="add_underground" data-toggle="modal" data-target="#myModal4">Добавить метро</a>
+</div>';
+        return $data['underground'];
     }
 
     function get_per_page()

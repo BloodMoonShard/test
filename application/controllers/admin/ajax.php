@@ -85,6 +85,22 @@ class Ajax extends CI_Controller
         echo json_encode(array('status' => true, 'content' => $this->region_city_model->get_result(array('id_city' => $city))));
     }
 
+    function add_underground()
+    {
+        $city = $_POST['id_city'];
+        $name = $_POST['name_underground'];
+        $data = array('id_city' => $city, 'name_underground' => $name);
+        $this->load->model('underground_model');
+        echo json_encode(array('status' => true, 'content' => $this->underground_model->set_element($data)));
+    }
+
+    function get_list_underground()
+    {
+        $city = $_POST['id_city'];
+        $this->load->model('underground_model');
+        echo json_encode(array('status' => true, 'content' => $this->underground_model->get_result(array('id_city' => $city))));
+    }
+
     function add_region_city()
     {
         $city = $_POST['id_city'];

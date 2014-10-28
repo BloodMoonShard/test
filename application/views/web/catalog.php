@@ -68,8 +68,11 @@
                 dataType: 'json',
                 success: function(response){
                     if(response.status){
-                        console.log(response.link);
-                        window.location.href = response.link;
+                        if(window.location.href == 'http:'+response.link){
+                            window.location.reload();
+                        }else{
+                            window.location.href = response.link
+                        }
                     }
                 }
             })

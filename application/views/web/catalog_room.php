@@ -65,8 +65,12 @@
                 dataType: 'json',
                 success: function(response){
                     if(response.status){
-                        console.log(response.link);
-                        window.location.href = response.link;
+
+                        if(window.location.href == 'http:'+response.link){
+                            window.location.reload();
+                        }else{
+                            window.location.href = response.link
+                        }
                     }
                 }
             })
@@ -111,29 +115,23 @@
             </div>
         </li>
         <li>
-            <div class="filter-li-text"><span>Площадь участка</span>
+            <div class="filter-li-text"><span>Метро</span>
 
                 <div class="toggle-filter-icon"></div>
             </div>
-            <div class="hidden-filter-element">
-                <div class="leftLabel"><span></span></div>
-                <span>-</span>
-
-                <div class="rightLabel"><span></span></div>
-                <input type="hidden" class="filter area_min" name="min_value"/>
-                <input type="hidden" class="filter area_max" name="max_value"/>
-                <div class="nstSlider" data-range_min="<?=(int)$filter['min_area'];?>" data-range_max="<?=(int)$filter['max_area'];?>"
-                     data-cur_min="<?php if(isset($data_filter['area_min'])){echo $data_filter['area_min'];}else{echo (int)$filter['min_area'];};?>"
-                     data-cur_max="<?php if(isset($data_filter['area_max'])){echo $data_filter['area_max'];}else{echo (int)$filter['max_area'];};?>">
-                    <div class="bar"></div>
-                    <div class="leftGrip"></div>
-                    <div class="rightGrip"></div>
-                </div>
-                <span class="currency">кв.м.</span>
+            <div class="list-town hidden-filter-element">
+                <?php foreach($filter['underground'] as $k=>$c){
+                    $checked = "";
+                    if(isset($data_filter['underground'][$k])){ $checked="checked=checked";}?>
+                    <div class="element">
+                        <input type="checkbox" <?=$checked;?> class="filter underground" value="<?=$k;?>" name="underground"> <?=$filter['underground_name'][$k];?> (<?=$c?>)
+                    </div>
+                <?php }?>
             </div>
         </li>
+
         <li>
-            <div class="filter-li-text"><span>Площадь дома</span>
+            <div class="filter-li-text"><span>Площадь</span>
 
                 <div class="toggle-filter-icon"></div>
             </div>
