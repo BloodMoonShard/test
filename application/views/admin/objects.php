@@ -23,6 +23,7 @@
                                 <th>Размещен</th>
                                 <th>Агент</th>
                                 <th>Действия</th>
+                                <th>Заказ</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -33,9 +34,12 @@
                                         <td><?= $d['name_object']?></td>
                                         <td><?php if($d['public'] == 0){echo 'Не опубликован';}else{echo "Опубликован";}?></td>
                                         <td><?= $d['id_users']?></td>
-                                        <td>
+                                        <td class="text-center">
                                             <a href="/admin/objects/edit_object/<?= $d['id_objects']?>"><i class="glyphicon glyphicon-pencil"></i></a>
                                             <a href="/admin/objects/rm_object/<?= $d['id_objects']?>"><i class="glyphicon glyphicon-remove"></i></a>
+                                        </td>
+                                        <td class="text-center">
+                                            <a class="<?php if($d['order_flag']!=0) {echo 'text-success';} ?>" href="/admin/objects/control_order/<?= $d['id_objects']?>"><i class="glyphicon glyphicon-eye-open"></i></a>
                                         </td>
                                     </tr>
                                 <?php }

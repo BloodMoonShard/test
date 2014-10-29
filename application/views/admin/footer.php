@@ -16,6 +16,8 @@
 <!-- Custom Theme JavaScript -->
 <script src="/assets/a/js/sb-admin-2.js"></script>
 
+
+
 <!-- jQuery Sortable -->
 <script src="/assets/a/js/jquery.sortable.js"></script>
 
