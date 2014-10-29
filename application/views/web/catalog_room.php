@@ -83,7 +83,7 @@
         <a href="#">Очистить</a>
     </div>
     <ul>
-        <?php         $data_filter = @unserialize($this->session->userdata('house')); if(!$data_filter){$data_filter = array();}?>
+        <?php         $data_filter = @unserialize($this->session->userdata('room')); if(!$data_filter){$data_filter = array();}?>
         <li id="filter_district">
             <div class="filter-li-text"><span>Район</span>
 
