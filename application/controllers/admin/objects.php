@@ -12,6 +12,7 @@ class Objects extends My_Controller {
             redirect('/login');
         }
         $this->load->model('object_model');
+        $this->load->helper('date');
     }
 
     public function index()
@@ -258,6 +259,22 @@ class Objects extends My_Controller {
             $this->msg = 'Что-то пошло не так...';
         }
         $this->render_adm('admin/notification', array('status_notif'=>$this->status, 'msg_notif'=>$this->msg, 'back_link' => '/admin/objects'));
+    }
+
+    public function control_order($id_object) {
+        if (!$id_object) {
+            redirect('admin/objects', 'refresh');
+        }
+        $data['status_options'] = $this->object_model->get_status_options();
+        $data['obj'] = $this->object_model->get_one_object($id_object);
+        $post = $this->input->post();
+
+        if ($post) {
+            $this->object_model->update_object_order($id_object, $post);
+            redirect('admin/objects/control_order/'.$id_object, 'refresh');
+        }
+
+        $this->render_adm('admin/order_view', $data);
     }
 }
 

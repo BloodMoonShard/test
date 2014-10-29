@@ -24,6 +24,9 @@
     <!-- Custom CSS -->
     <link href="/assets/a/css/sb-admin-2.css" rel="stylesheet">
 
+    <link href="/assets/a/css/datepicker.css" rel="stylesheet">
+    <link href="/assets/a/css/datepicker3.css" rel="stylesheet">
+
     <!-- Morris Charts CSS -->
     <link href="/assets/a/css/plugins/morris.css" rel="stylesheet">
 
@@ -31,6 +34,8 @@
     <link href="/assets/a/font-awesome-4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
     <script src="/assets/w/js/jquery-1.11.1.min.js"></script>
+    <script src="/assets/a/js/datepicker/bootstrap-datepicker.js"></script>
+    <script src="/assets/a/js/datepicker/locales/bootstrap-datepicker.ru.js"></script>
 
     <script src="/assets/jquery.kladr.min.js" type="text/javascript"></script>
     <script src="/assets/all.js" type="text/javascript"></script>
@@ -52,9 +57,15 @@
     <![endif]-->
 
 </head>
-
 <body>
-<div id="wrapper">
+<script>
+    $( document ).ready(function() {
+        $('.input-group.date').datepicker({
+            language: "ru",
+            format: "dd-mm-yyyy"
+        });
+    });
+</script><div id="wrapper">
 <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
 <div class="navbar-header">
     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -132,6 +143,12 @@
                     </li>
                 </ul>
                 <!-- /.nav-second-level -->
+            </li>
+
+            <li>
+                <a href="/admin/orders" <?php $flag=$this->uri->segment(2); if ($flag=='orders') {
+                    echo 'class="active"';
+                }?>><i class="fa fa-credit-card"></i> Заказы</a>
             </li>
             <li>
                 <a href="/admin/ctrl_building" <?php $flag=$this->uri->segment(2); if ($flag=='ctrl_building') {

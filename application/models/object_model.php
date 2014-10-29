@@ -55,4 +55,32 @@ class Object_model extends My_Model{
         }
         return false;
     }
+
+    function get_status_options() {
+        return $this->db->get('status_options')->result_array();
+    }
+
+    function get_objects_type_options() {
+        return $this->db->get('objects_type')->result_array();
+    }
+
+    function update_object_order($id_object, $post) {
+        $this->db->where('id_objects', $id_object);
+
+        if (isset($post['order_flag'])) {
+            $this->db->set('order_flag', $post['order_flag']);
+        }
+        if (isset($post['order_date'])) {
+            $this->db->set('order_date', $post['order_date']);
+        }
+
+        $this->db->set('buyer', $post['buyer']);
+        $this->db->set('buyer_email', $post['buyer_email']);
+        $this->db->set('buyer_phone', $post['buyer_phone']);
+        $this->db->set('additional_info', $post['additional_info']);
+        $this->db->set('comment', $post['comment']);
+        $this->db->set('status_obj', $post['status_obj']);
+        $this->db->set('comment', $post['comment']);
+        return $this->db->update('objects');
+    }
 }
