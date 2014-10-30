@@ -40,11 +40,32 @@ class Auth{
 
     public function registration($info){
 //        TODO: Validation rule
-        if($this->get_user_id()){
+        $role = $this->CI->session->userdata('role');
+        if($this->get_user_id() && ($role!=0)){
             redirect('/');
         }
+        $info['password'] = md5($info['password'].$this->salt);
         unset($info['password_confirmation']);
         return $this->CI->auth_model->register($info);
+    }
+
+    public function update_user_info($id_users, $info){
+//        TODO: Validation rule
+        if (strlen($info['password'])==0) {
+            unset($info['password']);
+        } else {
+            $info['password'] = md5($info['password'].$this->salt);
+        }
+        unset($info['password_confirmation']);
+        return $this->CI->auth_model->update_register_info($id_users, $info);
+    }
+
+    public function remove_user($id_users) {
+        $role = $this->CI->session->userdata('role');
+        if($role!=0){
+            redirect('/');
+        }
+        $this->CI->auth_model->remove_user($id_users);
     }
 
     function check_login(){
@@ -63,5 +84,9 @@ class Auth{
 
     function get_user_id(){
         return $this->CI->session->userdata('id_users');
+    }
+
+    function get_user_role() {
+        return $this->CI->session->userdata('user_role');
     }
 }

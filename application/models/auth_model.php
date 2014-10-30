@@ -39,7 +39,14 @@ class Auth_model extends CI_Model{
         return $this->db->insert($this->table_name, $data);
     }
 
-    public function edit_user($uid){
-        $this->db->where($uid);
+    public function update_register_info($id_users, $data) {
+        $this->db->where('id_users', $id_users);
+        $this->db->set($data);
+        return $this->db->update('users');
+    }
+
+    public function remove_user($id_users){
+        $this->db->where('id_users', $id_users);
+        return $this->db->delete('users');
     }
 }

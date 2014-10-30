@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col-lg-12">
             <?php if ($obj['order_flag']!=0) {
-                $obj['order_date'] = human_to_unix($obj['order_date']);
+//                $obj['order_date'] = human_to_unix($obj['order_date']);
 //                var_dump($obj['order_date']);
                 $obj['order_date'] = date("d-m-Y", $obj['order_date']);
                 echo '<h1>Заказ '.$obj['id_objects'].' от '.$obj['order_date'].'</h1>';
