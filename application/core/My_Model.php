@@ -2,7 +2,7 @@
 
 class My_Model extends CI_Model{
 
-    function get_element($id = false){
+    function get_element($id = false, $role_id = false){
         if($id){
             $this->db->where($this->primary_key, $id);
             $result = $this->db->get($this->table_name);
@@ -17,6 +17,13 @@ class My_Model extends CI_Model{
                     $this->type_sort = 'ASC';
                 }
                 $this->db->order_by($this->sortable, $this->type_sort);
+            }
+            if ($role_id) {
+                if (is_array($role_id)) {
+                    $this->db->where_in('id_users', $role_id);
+                } else {
+                    $this->db->where('id_users', $role_id);
+                }
             }
             $result = $this->db->get($this->table_name);
             if($result->num_rows() > 0){

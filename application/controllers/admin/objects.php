@@ -12,12 +12,29 @@ class Objects extends My_Controller {
             redirect('/login');
         }
         $this->load->model('object_model');
+        $this->load->model('users_model');
         $this->load->helper('date');
     }
 
     public function index()
     {
-        $data['data'] = $this->object_model->get_element();
+        $data['data'] = '';
+        $result_visible_manager = array();
+        $role_id = $this->auth->get_user_role();
+        $cur_user_id = $this->auth->get_user_id();
+        $result_visible_manager[] = $cur_user_id;
+        if ($role_id == 4) {
+            $managers_agents = $this->users_model->getMyAgents($cur_user_id);
+            foreach ($managers_agents as $m) {
+                $result_visible_manager[] = $m['id_agent'];
+            }
+            $data['data'] = $this->object_model->get_element(false, $result_visible_manager);
+        } elseif ($role_id == 3) {
+            $data['data'] = $this->object_model->get_element(false, $cur_user_id);
+        }
+        if ($role_id == 1) {
+            $data['data'] = $this->object_model->get_element();
+        }
         $this->render_adm('admin/objects', $data);
     }
 
