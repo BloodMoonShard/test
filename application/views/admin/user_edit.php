@@ -28,7 +28,7 @@
                     <p class="help-block">Оставьте пустым, если не хотите изменить пароль</p>
                 </div>
                 <div class="form-group">
-                    <label for="user_role" class="col-lg-2 control-label">Роль</label>
+                    <label for="user_role" class="control-label">Роль</label>
                     <select class="form-control" id="user_role" name="user_role">
                         <option value="">Выбрать</option>
                         <?php foreach ($roles as $r) {
