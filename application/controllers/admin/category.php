@@ -8,7 +8,7 @@ class Category extends My_Controller {
     function __construct()
     {
         parent::__construct();
-        if(!$this->auth->get_user_id() && !$this->auth->check_rule()){
+        if(!$this->auth->get_user_id()){
             redirect('/login');
         }
         $this->load->model('category_model');

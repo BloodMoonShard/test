@@ -18,25 +18,42 @@
                                     <th>E-mail</th>
                                     <th>Роль</th>
                                     <th>Действия</th>
-                                    <?php  if (($this->auth->get_user_role() == 1)) {
+                                    <?php  if (($this->auth->get_user_role() == 1)||($this->auth->get_user_role() == 4)) {
                                         echo ' <th>Агенты</th>';
                                     }?>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 <?php $counter=1; foreach ($users as $u) { ?>
+                                    <?php if ($this->auth->get_user_role() == 4) { ?>
                                     <tr>
-                                        <th><?php echo $counter; ?></th>
-                                        <th><?php echo $u['username']; ?></th>
-                                        <th><?php echo $u['email']; ?></th>
-                                        <th><?php echo $u['role']; ?></th>
-                                        <th><a href="/admin/ctrl_users/edit_user/<?php echo $u['id_users'] ?>">Редактировать</a> /
-                                            <a style="color: red;" href="/admin/ctrl_users/remove_user/<?php echo $u['id_users'] ?>" onclick="return confirm('Удалить пользователя?')">Удалить</a></th>
-                                        <?php  if (($this->auth->get_user_role() == 1) && ($u['id']==4)) {
-                                            echo '<th><a href="/admin/ctrl_users/manager_agents/'.$u['id_users'].'">Посмотреть/изменить ('.$u['count_agents'].')</a></th>';
-                                        }?>
+                                        <?php if(in_array($u['id_users'], $manager_vision)) { ?>
+                                            <th><?php echo $counter; ?></th>
+                                            <th><?php echo $u['username']; ?></th>
+                                            <th><?php echo $u['email']; ?></th>
+                                            <th><?php echo $u['role']; ?></th>
+                                            <th><a href="/admin/ctrl_users/edit_user/<?php echo $u['id_users'] ?>">Редактировать</a> /
+                                                <a style="color: red;" href="/admin/ctrl_users/remove_user/<?php echo $u['id_users'] ?>" onclick="return confirm('Удалить пользователя?')">Удалить</a></th>
+                                            <?php
+                                            if (((($this->auth->get_user_role() == 1) && ($u['id']==4))||(($u['id_users']==$this->auth->get_user_id())))&&($u['id_users'])!=1) {
+                                                echo '<th><a href="/admin/ctrl_users/manager_agents/'.$u['id_users'].'">Посмотреть/изменить ('.$u['count_agents'].')</a></th>';
+                                            }}?>
                                     </tr>
-                                    <?php $counter++;} ?>
+                                    <?php }else { ?>
+                                        <tr>
+
+                                                <th><?php echo $counter; ?></th>
+                                                <th><?php echo $u['username']; ?></th>
+                                                <th><?php echo $u['email']; ?></th>
+                                                <th><?php echo $u['role']; ?></th>
+                                                <th><a href="/admin/ctrl_users/edit_user/<?php echo $u['id_users'] ?>">Редактировать</a> /
+                                                    <a style="color: red;" href="/admin/ctrl_users/remove_user/<?php echo $u['id_users'] ?>" onclick="return confirm('Удалить пользователя?')">Удалить</a></th>
+                                                <?php
+                                                if (((($this->auth->get_user_role() == 1) && ($u['id']==4))||(($u['id_users']==$this->auth->get_user_id())))&&($u['id_users'])!=1) {
+                                                    echo '<th><a href="/admin/ctrl_users/manager_agents/'.$u['id_users'].'">Посмотреть/изменить ('.$u['count_agents'].')</a></th>';
+                                                }?>
+                                        </tr>
+                                    <?php } $counter++;} ?>
                                 </tbody>
                             </table>
                         </div>

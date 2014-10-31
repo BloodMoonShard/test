@@ -12,6 +12,11 @@ class Users_model extends CI_Model{
         return $this->db->get('users_privileges')->result_array();
     }
 
+    function getStatusName($status_obj) {
+        $this->db->where('id', $status_obj);
+        return $this->db->get('status_options')->row_array();
+    }
+
     function getUser($id_users) {
         $this->db->where('id_users', $id_users);
         return $this->db->get('users')->row_array();

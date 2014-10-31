@@ -73,14 +73,23 @@ class Object_model extends My_Model{
         if (isset($post['order_date'])) {
             $this->db->set('order_date', $post['order_date']);
         }
+        if (isset($post['performer'])) {
+            $this->db->set('performer', $post['performer']);
+        }
 
         $this->db->set('buyer', $post['buyer']);
         $this->db->set('buyer_email', $post['buyer_email']);
         $this->db->set('buyer_phone', $post['buyer_phone']);
         $this->db->set('additional_info', $post['additional_info']);
         $this->db->set('comment', $post['comment']);
-        $this->db->set('status_obj', $post['status_obj']);
+//        $this->db->set('status_obj', $post['status_obj']);
         $this->db->set('comment', $post['comment']);
         return $this->db->update('objects');
+    }
+
+    function getUsername($id_users) {
+        $this->db->where('id_users', $id_users);
+        $this->db->select('username');
+        return $this->db->get('users')->row_array();
     }
 }

@@ -58,24 +58,24 @@
                         <textarea class="form-control" rows="3"  id="additional_info" name="additional_info"><?php if (isset($obj['additional_info'])) {echo $obj['additional_info']; }?></textarea>
                     </div>
                 </div>
-                <hr>
-                <p class="lead">Информация о заказе</p>
-                <div class="form-group">
-                    <label for="status_obj" class="col-lg-2 control-label">Статус:</label>
-                    <div class="col-lg-2">
-                        <select class="form-control" id="status_obj" name="status_obj">
-                            <option value="">Выбрать</option>
-                            <?php foreach ($status_options as $so) {
-                                $check = '';
-                                if (isset($obj['status_obj'])) {
-                                    if ($obj['status_obj'] == $so['id'])
-                                    $check = 'selected';
-                                }
-                                echo '<option value="'.$so['id'].'" '.$check.' >'.$so['status'].'</option>';
-                            } ?>
-                        </select>
-                    </div>
-                </div>
+<!--                <hr>-->
+<!--                <p class="lead">Информация о заказе</p>-->
+<!--                <div class="form-group">-->
+<!--                    <label for="status_obj" class="col-lg-2 control-label">Статус:</label>-->
+<!--                    <div class="col-lg-2">-->
+<!--                        <select class="form-control" id="status_obj" name="status_obj">-->
+<!--                            <option value="">Выбрать</option>-->
+<!--                            --><?php //foreach ($status_options as $so) {
+//                                $check = '';
+//                                if (isset($obj['status_obj'])) {
+//                                    if ($obj['status_obj'] == $so['id'])
+//                                    $check = 'selected';
+//                                }
+//                                echo '<option value="'.$so['id'].'" '.$check.' >'.$so['status'].'</option>';
+//                            } ?>
+<!--                        </select>-->
+<!--                    </div>-->
+<!--                </div>-->
                 <hr>
                 <p class="lead">Комментарии</p>
                 <div class="form-group">
@@ -86,6 +86,7 @@
                 </div>
 
                 <?php if ($obj['order_flag']==0) {?>
+                <input name="performer" hidden="hidden" value="<?php $username = $this->object_model->getUsername($this->auth->get_user_id()); echo $username['username']; ?>">
                 <input name="order_date" hidden="hidden" value="<?php echo time(); ?>">
                 <input name="order_flag" hidden="hidden" value="1">
                 <?php } ?>
