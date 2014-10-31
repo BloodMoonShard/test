@@ -65,7 +65,8 @@
             format: "dd-mm-yyyy"
         });
     });
-</script><div id="wrapper">
+</script>
+<div id="wrapper">
 <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
 <div class="navbar-header">
     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -74,22 +75,23 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
     </button>
-    <a class="navbar-brand" href="index.html">Авантелт</a>
+    <a class="navbar-brand" href="/">Авантелт</a>
 </div>
 <!-- /.navbar-header -->
 
 <ul class="nav navbar-top-links navbar-right">
+    <li>Здравствуйте, <?php echo $this->auth->get_username(); ?></li>
 <li class="dropdown">
     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
         <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
     </a>
     <ul class="dropdown-menu dropdown-user">
-        <li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
-        </li>
-        <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
-        </li>
-        <li class="divider"></li>
-        <li><a href="/login/logout"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+<!--        <li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>-->
+<!--        </li>-->
+<!--        <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>-->
+<!--        </li>-->
+<!--        <li class="divider"></li>-->
+        <li><a href="/login/logout"><i class="fa fa-sign-out fa-fw"></i> Выйти</a>
         </li>
     </ul>
     <!-- /.dropdown-user -->
@@ -97,7 +99,9 @@
 <!-- /.dropdown -->
 </ul>
 <!-- /.navbar-top-links -->
-
+    <?php
+        $role = $this->auth->get_user_role();
+    ?>
 <div class="navbar-default sidebar" role="navigation">
     <div class="sidebar-nav navbar-collapse">
         <ul class="nav" id="side-menu">
@@ -113,19 +117,22 @@
                 <!-- /input-group -->
             </li>
             <li>
-                <a href="/"><i class="fa fa-dashboard fa-fw"></i> Главная</a>
+                <a href="/admin"><i class="fa fa-dashboard fa-fw"></i> Главная</a>
             </li>
+            <?php if($role != 3) { ?>
             <li>
                 <a href="/admin/ctrl_users" <?php $flag=$this->uri->segment(2); if ($flag=='ctrl_users') {
                     echo 'class="active"';
                 }?>><i class="fa fa-cogs"></i> Контроль пользователей</a>
             </li>
+            <?php } ?>
             <li>
                 <a href="#"><i class="fa fa-university"></i> Объекты<span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse <?php
                     $flag=$this->uri->segment(2); if (in_array($flag, array('category','sub_category', 'sub_category_value', 'objects'))   ) {
                     echo 'in';
                 }?>">
+                    <?php if($role != 3) { ?>
                     <li>
                         <a <?php $flag=$this->uri->segment(2); if ($flag=='category') {
                             echo 'class="active"';
@@ -141,6 +148,7 @@
                             echo 'class="active"';
                         }?> href="/admin/sub_category_value">Значение подкатегории объекта</a>
                     </li>
+                    <?php } ?>
                     <li>
                         <a <?php $flag=$this->uri->segment(2); if ($flag=='objects') {
                             echo 'class="active"';
@@ -149,12 +157,12 @@
                 </ul>
                 <!-- /.nav-second-level -->
             </li>
-
             <li>
                 <a href="/admin/orders" <?php $flag=$this->uri->segment(2); if ($flag=='orders') {
                     echo 'class="active"';
                 }?>><i class="fa fa-credit-card"></i> Заказы</a>
             </li>
+            <?php if($role == 1) { ?>
             <li>
                 <a href="/admin/ctrl_building" <?php $flag=$this->uri->segment(2); if ($flag=='ctrl_building') {
                     echo 'class="active"';
@@ -185,6 +193,7 @@
                     echo 'class="active"';
                 }?>><i class="fa fa-globe"></i> SEO</a>
             </li>
+            <?php } ?>
         </ul>
     </div>
     <!-- /.sidebar-collapse -->

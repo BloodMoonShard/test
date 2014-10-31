@@ -86,6 +86,10 @@ class Auth{
         return $this->CI->session->userdata('id_users');
     }
 
+    function get_username(){
+        return $this->CI->session->userdata('username');
+    }
+
     function get_user_role() {
         return $this->CI->session->userdata('user_role');
     }

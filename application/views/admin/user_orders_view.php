@@ -52,22 +52,22 @@ $search_result = $this->session->userdata('search_result');?>
                 </div>
 
                 <div class="col-lg-4">
-                    <div class="form-group">
-                        <label for="status_obj" class="col-lg-5 control-label">Статус заказа:</label>
-                        <div class="col-lg-7">
-                            <select class="form-control" id="status_obj" name="status_obj">
-                                <option value="">Неважно</option>
-                                <?php foreach ($status_options as $so) {
-                                    $check = '';
-                                    if (isset($options_s['status_obj'])) {
-                                        if ($options_s['status_obj'] == $so['id'])
-                                            $check = 'selected';
-                                    }
-                                    echo '<option value="'.$so['id'].'" '.$check.' >'.$so['status'].'</option>';
-                                } ?>
-                            </select>
-                        </div>
-                    </div>
+<!--                    <div class="form-group">-->
+<!--                        <label for="status_obj" class="col-lg-5 control-label">Статус заказа:</label>-->
+<!--                        <div class="col-lg-7">-->
+<!--                            <select class="form-control" id="status_obj" name="status_obj">-->
+<!--                                <option value="">Неважно</option>-->
+<!--                                --><?php //foreach ($status_options as $so) {
+//                                    $check = '';
+//                                    if (isset($options_s['status_obj'])) {
+//                                        if ($options_s['status_obj'] == $so['id'])
+//                                            $check = 'selected';
+//                                    }
+//                                    echo '<option value="'.$so['id'].'" '.$check.' >'.$so['status'].'</option>';
+//                                } ?>
+<!--                            </select>-->
+<!--                        </div>-->
+<!--                    </div>-->
                     <div class="form-group">
                         <label for="search_sort" class="col-lg-5 control-label">Сортировка:</label>
                         <div class="col-lg-7">
@@ -97,9 +97,6 @@ $search_result = $this->session->userdata('search_result');?>
                             </div>
                         </div>
                     </div>
-                </div>
-
-                <div class="col-lg-3">
                     <div class="form-group">
                         <label for="type_object" class="col-lg-5 control-label">Тип объекта:</label>
                         <div class="col-lg-7">
@@ -117,6 +114,7 @@ $search_result = $this->session->userdata('search_result');?>
                         </div>
                     </div>
                 </div>
+
             </form>
         </div>
         <div class="row">
@@ -129,10 +127,11 @@ $search_result = $this->session->userdata('search_result');?>
                                 <tr>
                                     <th>ID</th>
                                     <th>Покупатель</th>
-                                    <th>Статус</th>
+<!--                                    <th>Статус объекта</th>-->
                                     <th>Исполнитель</th>
                                     <th>Дополнительная информация</th>
                                     <th>Комментарии</th>
+                                    <th>Дата создания заказа</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -141,10 +140,11 @@ $search_result = $this->session->userdata('search_result');?>
                                     <tr>
                                         <th><a class="text-danger" href="/admin/objects/control_order/<?php echo $r['id_objects']; ?>"><?php echo $r['id_objects']; ?></a></th>
                                         <th><?php echo $r['buyer']; ?></th>
-                                        <th><?php echo $r['status_obj']; ?></th>
+<!--                                        <th>--><?php //echo $r['status_obj']; ?><!--</th>-->
                                         <th><?php echo $r['performer']; ?></th>
                                         <th><?php echo $r['additional_info']; ?></th>
                                         <th><?php echo $r['comment']; ?></th>
+                                        <th><?php echo date("d-m-Y", $r['order_date']); ?></th>
                                     </tr>
                                     <?php
                                 } ?>
