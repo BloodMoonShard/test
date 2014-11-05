@@ -66,6 +66,24 @@
                                     $('#underground').trigger('refresh');
                                 }
                             })
+                            $.ajax({
+                                url: '/ajax/get_list_street',
+                                data: 'id_city='+id_city,
+                                type: 'POST',
+                                dataType: 'json',
+                                success: function(response){
+                                    $('#search_street').html('<option value="">-</option>');
+                                    if(response.content){
+                                        for(var i = 0; i < response.content.length; i++){
+                                            if(response.content[i].street.length == 0) continue;
+                                            $('#search_street').append('<option value="'+response.content[i].street+'">'+response.content[i].street+'</option>');
+                                        }
+                                        $('#search_street').attr('disabled',false);
+                                        $('#search_building').attr('disabled',false);
+                                    }
+                                    $('#search_street').trigger('refresh');
+                                }
+                            })
                         })
                     })
 
@@ -84,9 +102,11 @@
             </div>
             <div class="form-line">
                 <label>Улица:</label>
-                <input type="text" name="street" value="">
+                <select class="styled-select" name="street" id="search_street">
+                    <option value="">-</option>
+                </select>
                 <span class="spec-text"> дом </span>
-                <input type="text" name="building" value="">
+                <input type="text" name="building" value="" id="search_building" disabled>
             </div>
             <div class="form-line">
                 <label>Комнат</label>
@@ -317,7 +337,7 @@
                                                                                                  class="show_map"">Карта</a>
                             </li>
                         </ul>
-                        <form class="search" action="/welcome/search_header" method="POST">
+                        <form class="search" action="/type/search_header" method="POST">
                             <input type="submit">
                             <input type="text" name="search_query" id="search_query"
                                    placeholder="Введите артикул или населенный пункт">

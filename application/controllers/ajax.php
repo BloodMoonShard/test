@@ -795,6 +795,15 @@ class Ajax extends My_Controller
         $this->load->model('underground_model');
         echo json_encode(array('status' => true, 'content' => $this->underground_model->get_result(array('id_city' => $city))));
     }
+
+    function get_list_street(){
+        $city = $_POST['id_city'];
+        $this->db->select('street');
+        $this->db->where('city_id', $city);
+        $this->db->group_by('street');
+        $result = $this->db->get('objects');
+        echo json_encode(array('status' => true, 'content' => $result->result_array()));
+    }
 }
 
 /* End of file welcome.php */

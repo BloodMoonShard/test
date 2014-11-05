@@ -461,7 +461,7 @@ class Search extends My_Controller {
             }
 
 
-            if ($i >= 5) {
+            if ($i >= 7) {
                 $object_finded[] = $v;
             }
         }
