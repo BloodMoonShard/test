@@ -8,8 +8,11 @@ class Ctrl_building extends My_Controller {
     function __construct()
     {
         parent::__construct();
-        if(!$this->auth->get_user_id() && !$this->auth->check_rule()){
+        if(!$this->auth->get_user_id()){
             redirect('/login');
+        }
+        if($this->auth->get_user_role() != 1) {
+            redirect('/admin');
         }
         $this->load->model('building_model');
         $this->load->library('upload_ram');

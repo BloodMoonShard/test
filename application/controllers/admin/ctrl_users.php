@@ -8,8 +8,11 @@ class Ctrl_users extends My_Controller {
     function __construct()
     {
         parent::__construct();
-        if(!$this->auth->get_user_id() && !$this->auth->check_rule()){
+        if(!$this->auth->get_user_id()){
             redirect('/login');
+        }
+        if($this->auth->get_user_role() == 3) {
+            redirect('/admin');
         }
         $this->load->model('users_model');
     }
@@ -20,6 +23,15 @@ class Ctrl_users extends My_Controller {
             if ($option['users'][$key]['user_role'] == 4) {
                 $option['users'][$key]['count_agents'] = $this->users_model->getCountAgentsOnManager($option['users'][$key]['id_users']);
             }
+        }
+        if ($this->auth->get_user_role() == 4) {
+            $agents_id = '';
+            $agents_list = $this->users_model->getMyAgents($this->auth->get_user_id());
+            foreach ($agents_list as $a) {
+                $agents_id[] = $a['id_agent'];
+            }
+            $agents_id[] = $this->auth->get_user_id();
+            $option['manager_vision'] = $agents_id;
         }
         $this->render_adm('admin/users_view.php', $option);
     }
@@ -35,6 +47,21 @@ class Ctrl_users extends My_Controller {
     }
 
     public function edit_user($id_users) {
+        $agents_id = '';
+        $agents_list = $this->users_model->getMyAgents($this->auth->get_user_id());
+        foreach ($agents_list as $a) {
+            $agents_id[] = $a['id_agent'];
+        }
+        $agents_id[] = $this->auth->get_user_id();
+
+        if($this->auth->get_user_id()!=1) {
+            if ((($this->auth->get_user_role() != 1)&&($id_users==1))||(!in_array($id_users, $agents_id))) {
+                redirect('/admin/ctrl_users', 'refresh');
+            }
+        }
+
+
+
         $option['roles'] = $this->users_model->getRoles();
         $option['userinfo'] = $this->users_model->getUser($id_users);
         $post = $this->input->post();
@@ -46,12 +73,27 @@ class Ctrl_users extends My_Controller {
     }
 
     public function remove_user($id_users) {
+        $agents_id = '';
+        $agents_list = $this->users_model->getMyAgents($this->auth->get_user_id());
+        foreach ($agents_list as $a) {
+            $agents_id[] = $a['id_agent'];
+        }
+        $agents_id[] = $this->auth->get_user_id();
+        if($this->auth->get_user_id()!=1) {
+            if ((($this->auth->get_user_role() != 1)&&($id_users==1))||(!in_array($id_users, $agents_id))) {
+                redirect('/admin/ctrl_users', 'refresh');
+            }
+        }
+
         $this->auth->remove_user($id_users);
         redirect('/admin/ctrl_users', 'refresh');
 
     }
 
     public function manager_agents($id_manager) {
+        if($this->auth->get_user_id() != $id_manager) {
+            redirect('/admin/ctrl_users');
+        }
         $username = $this->users_model->getUser($id_manager);
         $option['username'] = $username['username'];
         $option['id_manager'] = $id_manager;
@@ -65,6 +107,9 @@ class Ctrl_users extends My_Controller {
     }
 
     public function add_agent_to_manager($id_manager) {
+        if($this->auth->get_user_id() != $id_manager) {
+            redirect('/admin/ctrl_users');
+        }
         $option = '';
         $option['id_manager'] = $id_manager;
         $option['free_agents'] = $this->users_model->getFreeAgents();
@@ -85,6 +130,9 @@ class Ctrl_users extends My_Controller {
     public function setAgentFree($id_agent) {
         $id_manager = $this->users_model->getManagerId($id_agent);
         $id_manager = $id_manager['id_manager'];
+        if($this->auth->get_user_id() != $id_manager) {
+            redirect('/admin/ctrl_users');
+        }
         $this->users_model->setFreeAgent($id_agent);
         $this->users_model->unsetAgentToManager($id_agent);
         redirect('/admin/ctrl_users/manager_agents/'.$id_manager, 'refresh');

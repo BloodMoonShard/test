@@ -8,7 +8,7 @@ class Orders extends My_Controller {
     function __construct()
     {
         parent::__construct();
-        if(!$this->auth->get_user_id() && !$this->auth->check_rule()){
+        if(!$this->auth->get_user_id()){
             redirect('/login');
         }
         $this->load->model('orders_model');
@@ -34,9 +34,9 @@ class Orders extends My_Controller {
             if (strlen($post['buyer_phone'])==0) {
                 unset($post['buyer_phone']);
             }
-            if (strlen($post['status_obj'])==0) {
-                unset($post['status_obj']);
-            }
+//            if (strlen($post['status_obj'])==0) {
+//                unset($post['status_obj']);
+//            }
             if (strlen($post['search_sort'])==0) {
                 unset($post['search_sort']);
             }

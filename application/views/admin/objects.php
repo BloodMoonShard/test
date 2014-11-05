@@ -7,7 +7,7 @@
     </div>
     <!-- /.row -->
     <div class="row">
-        <div class="col-lg-6">
+        <div class="col-lg-8">
             <div class="panel panel-default">
                 <div class="panel-heading">
                     Объекты недвижимости
@@ -20,8 +20,8 @@
                             <tr>
                                 <th>#</th>
                                 <th>Имя</th>
-                                <th>Размещен</th>
-                                <th>Агент</th>
+                                <th>Статус объекта</th>
+                                <th>Разместил</th>
                                 <th>Действия</th>
                                 <th>Заказ</th>
                             </tr>
@@ -32,8 +32,8 @@
                                     <tr>
                                         <td><?= $d['id_objects']?></td>
                                         <td><?= $d['name_object']?></td>
-                                        <td><?php if($d['public'] == 0){echo 'Не опубликован';}else{echo "Опубликован";}?></td>
-                                        <td><?= $d['id_users']?></td>
+                                        <td><?php if($d['status_obj'] != null){echo $d['status_obj'];}else{echo "-";}?></td>
+                                        <td><?= $d['username']?></td>
                                         <td class="text-center">
                                             <a href="/admin/objects/edit_object/<?= $d['id_objects']?>"><i class="glyphicon glyphicon-pencil"></i></a>
                                             <a href="/admin/objects/rm_object/<?= $d['id_objects']?>"><i class="glyphicon glyphicon-remove"></i></a>

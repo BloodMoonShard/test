@@ -8,9 +8,10 @@ class Objects extends My_Controller {
     function __construct()
     {
         parent::__construct();
-        if(!$this->auth->get_user_id() && !$this->auth->check_rule()){
+        if(!$this->auth->get_user_id()){
             redirect('/login');
         }
+
         $this->load->model('object_model');
         $this->load->model('users_model');
         $this->load->helper('date');
@@ -35,6 +36,15 @@ class Objects extends My_Controller {
         if ($role_id == 1) {
             $data['data'] = $this->object_model->get_element();
         }
+        foreach ($data['data'] as $key => $value) {
+            if ($data['data'][$key]['status_obj']) {
+                $data['data'][$key]['status_obj'] = $this->users_model->getStatusName($data['data'][$key]['status_obj']);
+                $data['data'][$key]['status_obj'] = $data['data'][$key]['status_obj']['status'];
+            }
+            $data['data'][$key]['username'] = $this->object_model->getUsername($data['data'][$key]['id_users']);
+            $data['data'][$key]['username'] = $data['data'][$key]['username']['username'];
+        }
+
         $this->render_adm('admin/objects', $data);
     }
 
@@ -56,9 +66,12 @@ class Objects extends My_Controller {
         $this->load->model('object_options_model');
         $countries = $this->db->order_by('country_id')->get('countries')->result_array();
         $content = "";
+        $data['status_options'] = $this->object_model->get_status_options();
         $list_category = $this->category_model->get_element();
         if($this->input->post()){
-
+            if (!isset($_POST['status_obj'])) {
+                $_POST['status_obj'] = 1; /* 1 - на модерации */
+            }
             $data_post = array();
             foreach($_POST as $key=>$value){
                 if(strpos($key, 'gdata_') !== false){
@@ -161,11 +174,10 @@ class Objects extends My_Controller {
         $this->load->model('subcategory_model');
         $this->load->model('object_options_model');
         $countries = $this->db->order_by('country_id')->get('countries')->result_array();
-
         $content = "";
         $list_category = $this->category_model->get_element();
         if($this->input->post()){
-            if(sizeof($_FILES['file']['name'])>0) {
+            if(strlen($_FILES['file']['name'][0])>0) {
                 $WhereAndWhat = 'objects_img'; /*в какую папку сохраняем изображение*/
                 $upload_data = $this->upload_ram->multiupload_image($WhereAndWhat);
                 foreach ($upload_data as $u) {
@@ -258,6 +270,7 @@ class Objects extends My_Controller {
                 }
             }
         }
+        $data['status_options'] = $this->object_model->get_status_options();
         $data['images'] = $this->common_model->objectsImgGet($id);
         $data['type_estate'] = $this->object_type_model->get_element();
         $data['status_notif'] = $this->status;
