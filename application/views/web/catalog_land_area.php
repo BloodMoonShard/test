@@ -82,7 +82,7 @@
         <a href="#">Очистить</a>
     </div>
     <ul>
-        <?php         $data_filter = @unserialize($this->session->userdata('house')); if(!$data_filter){$data_filter = array();}?>
+        <?php         $data_filter = @unserialize($this->session->userdata('land_area')); if(!$data_filter){$data_filter = array();}?>
         <li id="filter_district">
             <div class="filter-li-text"><span>Район</span>
 
@@ -94,6 +94,21 @@
                     if(isset($data_filter['district'][$k])){ $checked="checked=checked";}?>
                     <div class="element">
                         <input type="checkbox" <?= $checked;?> class="filter district" value="<?=$k;?>"> <?=$k;?> (<?=$c?>)
+                    </div>
+                <?php }?>
+            </div>
+        </li>
+        <li>
+            <div class="filter-li-text"><span>Шоссе</span>
+
+                <div class="toggle-filter-icon"></div>
+            </div>
+            <div class="list-town hidden-filter-element">
+                <?php foreach($filter['highway_list'] as $k=>$c){
+                    $checked = "";
+                    if(isset($data_filter['highway_list'][$k])){ $checked="checked=checked";}?>
+                    <div class="element">
+                        <input type="checkbox" <?=$checked;?> class="filter highway_list" value="<?=$k;?>" name="highway_list"> <?=$filter['highway_name'][$k];?> (<?=$c?>)
                     </div>
                 <?php }?>
             </div>
@@ -128,28 +143,6 @@
                 <div class="nstSlider" data-range_min="<?=(int)$filter['min_area'];?>" data-range_max="<?=(int)$filter['max_area'];?>"
                      data-cur_min="<?php if(isset($data_filter['area_min'])){echo $data_filter['area_min'];}else{echo (int)$filter['min_area'];};?>"
                      data-cur_max="<?php if(isset($data_filter['area_max'])){echo $data_filter['area_max'];}else{echo (int)$filter['max_area'];};?>">
-                    <div class="bar"></div>
-                    <div class="leftGrip"></div>
-                    <div class="rightGrip"></div>
-                </div>
-                <span class="currency">кв.м.</span>
-            </div>
-        </li>
-        <li>
-            <div class="filter-li-text"><span>Площадь дома</span>
-
-                <div class="toggle-filter-icon"></div>
-            </div>
-            <div class="hidden-filter-element">
-                <div class="leftLabel"><span></span></div>
-                <span>-</span>
-
-                <div class="rightLabel"><span></span></div>
-                <input type="hidden" class="filter home_min" name="min_value"/>
-                <input type="hidden" class="filter home_max" name="max_value"/>
-                <div class="nstSlider" data-range_min="<?=(int)$filter['min_home'];?>" data-range_max="<?=(int)$filter['max_home'];?>"
-                     data-cur_min="<?php if(isset($data_filter['home_min'])){echo $data_filter['home_min'];}else{echo (int)$filter['min_home'];};?>"
-                     data-cur_max="<?php if(isset($data_filter['home_max'])){echo $data_filter['home_max'];}else{echo (int)$filter['max_home'];};?>">
                     <div class="bar"></div>
                     <div class="leftGrip"></div>
                     <div class="rightGrip"></div>
@@ -224,6 +217,10 @@
                     <img src="/upload_files/objects_img/<?php echo @$v['ob_images'][0]['img_name'] ?>" alt="">
 
                     <div class="specifications">
+                        <div class="spec-line">
+                            <div class="spec-label">Шоссе:</div>
+                            <div class="spec-text"><?= $v['highway_name']; ?></div>
+                        </div>
                         <div class="spec-line">
                             <div class="spec-label">Удаленность:</div>
                             <div class="spec-text"><?= $v[28]; ?> км от МКАД</div>

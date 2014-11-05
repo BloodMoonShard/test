@@ -2,10 +2,7 @@
     $(document).ready(function () {
 
         $('.nstSlider').nstSlider({
-            "rounding": {
-                "100": "1000",
-                "1000": "5000"
-            },
+
             "left_grip_selector": ".leftGrip",
             "right_grip_selector": ".rightGrip",
             "value_bar_selector": ".bar",
@@ -68,21 +65,6 @@
     </div>
     <ul>
         <?php         $data_filter = @unserialize($this->session->userdata('search_room')); if(!$data_filter){$data_filter = array();}?>
-        <li id="filter_district">
-            <div class="filter-li-text"><span>Район</span>
-
-                <div class="toggle-filter-icon"></div>
-            </div>
-            <div class="list-town hidden-filter-element">
-                <?php foreach($filter['district'] as $k=>$c){
-                    $checked = "";
-                    if(isset($data_filter['district'][$k])){ $checked="checked=checked";}?>
-                    <div class="element">
-                        <input type="checkbox" <?= $checked;?> class="filter district" value="<?=$k;?>"> <?=$k;?> (<?=$c?>)
-                    </div>
-                <?php }?>
-            </div>
-        </li>
         <li>
             <div class="filter-li-text"><span>Населенный пункт</span>
 
@@ -99,29 +81,22 @@
             </div>
         </li>
         <li>
-            <div class="filter-li-text"><span>Площадь участка</span>
+            <div class="filter-li-text"><span>Метро</span>
 
                 <div class="toggle-filter-icon"></div>
             </div>
-            <div class="hidden-filter-element">
-                <div class="leftLabel"><span></span></div>
-                <span>-</span>
-
-                <div class="rightLabel"><span></span></div>
-                <input type="hidden" class="filter area_min" name="min_value"/>
-                <input type="hidden" class="filter area_max" name="max_value"/>
-                <div class="nstSlider" data-range_min="<?=(int)$filter['min_area'];?>" data-range_max="<?=(int)$filter['max_area'];?>"
-                     data-cur_min="<?php if(isset($data_filter['area_min'])){echo $data_filter['area_min'];}else{echo (int)$filter['min_area'];};?>"
-                     data-cur_max="<?php if(isset($data_filter['area_max'])){echo $data_filter['area_max'];}else{echo (int)$filter['max_area'];};?>">
-                    <div class="bar"></div>
-                    <div class="leftGrip"></div>
-                    <div class="rightGrip"></div>
-                </div>
-                <span class="currency">кв.м.</span>
+            <div class="list-town hidden-filter-element">
+                <?php foreach($filter['underground'] as $k=>$c){
+                    $checked = "";
+                    if(isset($data_filter['underground'][$k])){ $checked="checked=checked";}?>
+                    <div class="element">
+                        <input type="checkbox" <?=$checked;?> class="filter underground" value="<?=$k;?>" name="underground"> <?=$filter['underground_name'][$k];?> (<?=$c?>)
+                    </div>
+                <?php }?>
             </div>
         </li>
         <li>
-            <div class="filter-li-text"><span>Площадь дома</span>
+            <div class="filter-li-text"><span>Площадь</span>
 
                 <div class="toggle-filter-icon"></div>
             </div>
@@ -133,8 +108,8 @@
                 <input type="hidden" class="filter home_min" name="min_value"/>
                 <input type="hidden" class="filter home_max" name="max_value"/>
                 <div class="nstSlider" data-range_min="<?=(int)$filter['min_home'];?>" data-range_max="<?=(int)$filter['max_home'];?>"
-                     data-cur_min="<?php if(isset($data_filter['home_min'])){echo $data_filter['home_min'];}else{echo (int)$filter['min_home'];};?>"
-                     data-cur_max="<?php if(isset($data_filter['home_max'])){echo $data_filter['home_max'];}else{echo (int)$filter['max_home'];};?>">
+                     data-cur_min="<?php if(isset($data_filter['home_min'])){echo $data_filter['home_min'];}else{echo (int)$filter['min_home'];}?>"
+                     data-cur_max="<?php if(isset($data_filter['home_max'])){echo $data_filter['home_max'];}else{echo (int)$filter['max_home'];}?>">
                     <div class="bar"></div>
                     <div class="leftGrip"></div>
                     <div class="rightGrip"></div>
@@ -155,8 +130,8 @@
                 <input type="hidden" class="filter price_min" name="min_value"/>
                 <input type="hidden" class="filter price_max" name="max_value"/>
                 <div class="nstSlider" data-range_min="<?=(int)$filter['min_price'];?>" data-range_max="<?=(int)$filter['max_price'];?>"
-                     data-cur_min="<?php if(isset($data_filter['price_min'])){echo $data_filter['price_min'];}else{echo (int)$filter['min_price'];};?>"
-                     data-cur_max="<?php if(isset($data_filter['price_max'])){echo $data_filter['price_max'];}else{echo (int)$filter['max_price'];};?>">
+                     data-cur_min="<?php if(isset($data_filter['price_min'])){echo $data_filter['price_min'];}else{echo (int)$filter['min_price'];}?>"
+                     data-cur_max="<?php if(isset($data_filter['price_max'])){echo $data_filter['price_max'];}else{echo (int)$filter['max_price'];}?>">
                     <div class="bar"></div>
                     <div class="leftGrip"></div>
                     <div class="rightGrip"></div>
@@ -191,26 +166,29 @@
                     <img src="/upload_files/objects_img/<?php echo @$v['ob_images'][0]['img_name'] ?>" alt="">
 
                     <div class="specifications">
+
                         <div class="spec-line">
-                            <div class="spec-label">Удаленность:</div>
-                            <div class="spec-text"><?= $v[28]; ?> км от МКАД</div>
+                            <div class="spec-label">Регион:</div>
+                            <div class="spec-text underline"><?php if($v['region'] != ''){echo $v['region'].' область, ';} ?><?php if($v['city'] != ''){echo $v['city'];} ?></div>
                         </div>
                         <div class="spec-line">
-                            <div class="spec-label">Населенный пункт:</div>
-                            <div class="spec-text underline"><?= $v['city']; ?></div>
+                            <div class="spec-label">Метро:</div>
+                            <div class="spec-text"><?= $v['name_underground']; ?></div>
                         </div>
                         <div class="spec-line">
-                            <div class="spec-label">Район:</div>
-                            <div class="spec-text"><?= $v['district']; ?> район</div>
+                            <div class="spec-label">Адрес:</div>
+                            <div class="spec-text">ул.<?= $v['street']; ?>, <?= $v['building']; ?></div>
                         </div>
                         <div class="spec-line">
                             <div class="spec-label">Площадь:</div>
                             <div class="spec-text"><?= $v['9']; ?> кв.м.</div>
                         </div>
+                        <?php if($v['33'] != ''){?>
                         <div class="spec-line">
-                            <div class="spec-label">Площадь участка:</div>
-                            <div class="spec-text"><?= $v['10']; ?> сот.</div>
+                            <div class="spec-label">Количество комнат:</div>
+                            <div class="spec-text"><?= $v['33']; ?></div>
                         </div>
+                        <?php } ?>
                     </div>
                     <div class="description">
                                     <span class="price">Цена: <?= $v['29']; ?>

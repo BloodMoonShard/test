@@ -234,10 +234,10 @@ class Type extends My_Controller
                 //Get result per page
 
                 $sort_filter = array();
-                $array_subcategory_criteria = array(9, 10, 28, 29, 31, 30, 32);
+                $array_subcategory_criteria = array(10, 28, 29, 31, 30, 32);
 
                 //Start Left block filter generate
-                $filter = $this->type_model->get_criteria_filter($object_type, array(9, 10, 29), $ses_data);
+                $filter = $this->type_model->get_criteria_filter($object_type, array(10, 29), $ses_data);
                 $list_parsed_id_object = array();
                 foreach ($filter as $v) {
                     if (!in_array($v['id_objects'], $list_parsed_id_object)) {
@@ -247,17 +247,13 @@ class Type extends My_Controller
                         if (strlen($v['city']) > 0) {
                             @$sort_filter['city'][$v['city']] += 1;
                         }
+                        if (strlen($v['highway_list']) > 0) {
+                            @$sort_filter['highway_list'][$v['id_highway']] += 1;
+                            @$sort_filter['highway_name'][$v['id_highway']] = $v['highway_name'];
+                        }
                         $list_parsed_id_object[] = $v['id_objects'];
                     }
 
-                    if ($v['id_subcategory'] == 9) {
-                        if (@$sort_filter['max_home'] < $v['id_subcategory_value_input']) {
-                            @$sort_filter['max_home'] = $v['id_subcategory_value_input'];
-                        }
-                        if (!isset($sort_filter['min_home']) || @$sort_filter['min_home'] > $v['id_subcategory_value_input']) {
-                            @$sort_filter['min_home'] = $v['id_subcategory_value_input'];
-                        }
-                    }
                     if ($v['id_subcategory'] == 10) {
                         if (@$sort_filter['max_area'] < $v['id_subcategory_value_input']) {
                             @$sort_filter['max_area'] = $v['id_subcategory_value_input'];
@@ -337,21 +333,7 @@ class Type extends My_Controller
                         $i++;
                     }
 
-                    if (isset($data['home_max']) && isset($data['home_min'])) {
-                        if (($data['home_min'] <= $v['9']) && ($v['9'] <= $data['home_max'])) {
-                            $i++;
-                        }
-                    } elseif (isset($data['home_max'])) {
-                        if ($data['home_max'] >= $v['9']) {
-                            $i++;
-                        }
-                    } elseif (isset($data['home_min'])) {
-                        if ($data['home_min'] <= $v['9']) {
-                            $i++;
-                        }
-                    } else {
-                        $i++;
-                    }
+
 
                     if (isset($data['city']) && sizeof($data['city']) > 0) {
                         foreach ($data['city'] as $f => $g) {
@@ -366,6 +348,16 @@ class Type extends My_Controller
                     if (isset($data['district']) && sizeof($data['district']) > 0) {
                         foreach ($data['district'] as $f => $g) {
                             if ($f == $v['district']) {
+                                $i++;
+                                break;
+                            }
+                        }
+                    } else {
+                        $i++;
+                    }
+                    if (isset($data['highway_list']) && sizeof($data['highway_list']) > 0) {
+                        foreach ($data['highway_list'] as $f => $g) {
+                            if ($f == $v['highway_list']) {
                                 $i++;
                                 break;
                             }
@@ -403,18 +395,14 @@ class Type extends My_Controller
                 }
                 $objects_all = $this->type_model->get_catalog_objects_per_page($object_type,false, false, false);
                 //Get result per page
-
                 $sort_filter = array();
-                $array_subcategory_criteria = array(9, 29, 31, 30, 32);
+                $array_subcategory_criteria = array(9, 29, 31, 30, 32, 33);
 
                 //Start Left block filter generate
                 $filter = $this->type_model->get_criteria_filter($object_type, array(9, 29), $ses_data);
                 $list_parsed_id_object = array();
                 foreach ($filter as $v) {
                     if (!in_array($v['id_objects'], $list_parsed_id_object)) {
-                        if (strlen($v['district']) > 0) {
-                            @$sort_filter['district'][$v['district']] += 1;
-                        }
                         if (strlen($v['city']) > 0) {
                             @$sort_filter['city'][$v['city']] += 1;
                         }
@@ -525,22 +513,13 @@ class Type extends My_Controller
                     } else {
                         $i++;
                     }
-                    if (isset($data['district']) && sizeof($data['district']) > 0) {
-                        foreach ($data['district'] as $f => $g) {
-                            if ($f == $v['district']) {
-                                $i++;
-                                break;
-                            }
-                        }
-                    } else {
-                        $i++;
-                    }
+
 
                     if ($v['type'] != $ses_data) {
                         continue;
                     }
 
-                    if ($i >= 5) {
+                    if ($i >= 4) {
                         $objects_filtered[] = $v;
                     }
                 }

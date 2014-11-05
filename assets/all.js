@@ -63,3 +63,21 @@ $(function () {
         $tooltip.show();
     }
 });
+
+function ajax_get_list_underground(id_city){
+    $.ajax({
+        url: '/ajax/get_list_underground',
+        data: 'id_city='+id_city,
+        type: 'POST',
+        dataType: 'json',
+        success: function(response){
+            $('#underground_list').html('<option value="">-</option>');
+            if(response.content){
+                console.log(response);
+                for(var i = 0; i < response.content.length; i++){
+                    $('#underground_list').append('<option value="'+response.content[i].id_underground+'">'+response.content[i].name_underground+'</option>');
+                }
+            }
+        }
+    })
+}

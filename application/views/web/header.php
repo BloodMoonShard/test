@@ -42,33 +42,57 @@
             <h3>Поиск объектов</h3>
 
             <p>
-                <input type="radio" name="buy_rent" value="buy"><span class="radio-text"> Я хочу купить </span>
-                <input type="radio" name="buy_rent" value="rent"><span class="radio-text">  Снять </span>
+                <input type="radio" name="30" value="49" checked><span class="radio-text"> Я хочу купить </span>
+                <input type="radio" name="30" value="48"><span class="radio-text">  Снять </span>
             </p>
 
             <div class="form-line first">
-                <label>Регион:</label>
-                <select class="styled-select">
-                    <option>Москва</option>
-                    <option>Москва Москва Москва Москва</option>
+                <script type="text/javascript">
+                    $(function(){
+                        $('#search_room_id').on('change', function(){
+                            var id_city = $(this).val();
+                            $.ajax({
+                                url: '/ajax/get_list_underground',
+                                data: 'id_city='+id_city,
+                                type: 'POST',
+                                dataType: 'json',
+                                success: function(response){
+                                    $('#underground').html('<option value="">-</option>');
+                                    if(response.content){
+                                        for(var i = 0; i < response.content.length; i++){
+                                            $('#underground').append('<option value="'+response.content[i].id_underground+'">'+response.content[i].name_underground+'</option>');
+                                        }
+                                    }
+                                    $('#underground').trigger('refresh');
+                                }
+                            })
+                        })
+                    })
+
+                </script>
+                <label>Город:</label>
+                <select class="styled-select" id="search_room_id" name="city">
+                    <option value="">-</option>
+                    <?= $list_city;?>
                 </select>
             </div>
             <div class="form-line">
                 <label>Метро:</label>
-                <select class="styled-select">
-                    <option>-</option>
+                <select class="styled-select" name="underground" id="underground">
+                    <option value="">-</option>
                 </select>
             </div>
             <div class="form-line">
                 <label>Улица:</label>
-                <input type="text">
+                <input type="text" name="street" value="">
                 <span class="spec-text"> дом </span>
-                <input type="text">
+                <input type="text" name="building" value="">
             </div>
             <div class="form-line">
                 <label>Комнат</label>
-                <select class="styled-select small">
-                    <option>-</option>
+                <select class="styled-select small" name="room">
+                    <option value="">-</option>
+                    <?= $list_room;?>
                 </select>
             </div>
 
@@ -79,14 +103,14 @@
 
                 <p class="fix-padding">
                     От
-                    <input type="text">
+                    <input type="text" name="area_min" value="">
                     До
-                    <input type="text">
+                    <input type="text" name="area_max" value="">
                     <span class="spec-text param1">Цена: </span>
                     От
-                    <input type="text">
+                    <input type="text" name="price_min" value="">
                     До
-                    <input type="text">
+                    <input type="text" name="price_max" value="">
                     <input type="radio" name="valuta" checked> Руб
                     <input type="radio" name="valuta"> $
                     <input type="radio" name="valuta"> &euro;

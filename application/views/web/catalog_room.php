@@ -84,21 +84,6 @@
     </div>
     <ul>
         <?php         $data_filter = @unserialize($this->session->userdata('room')); if(!$data_filter){$data_filter = array();}?>
-        <li id="filter_district">
-            <div class="filter-li-text"><span>Район</span>
-
-                <div class="toggle-filter-icon"></div>
-            </div>
-            <div class="list-town hidden-filter-element">
-                <?php foreach($filter['district'] as $k=>$c){
-                    $checked = "";
-                    if(isset($data_filter['district'][$k])){ $checked="checked=checked";}?>
-                    <div class="element">
-                        <input type="checkbox" <?= $checked;?> class="filter district" value="<?=$k;?>"> <?=$k;?> (<?=$c?>)
-                    </div>
-                <?php }?>
-            </div>
-        </li>
         <li>
             <div class="filter-li-text"><span>Населенный пункт</span>
 
@@ -219,26 +204,27 @@
                     <img src="/upload_files/objects_img/<?php echo @$v['ob_images'][0]['img_name'] ?>" alt="">
 
                     <div class="specifications">
+
                         <div class="spec-line">
-                            <div class="spec-label">Удаленность:</div>
-                            <div class="spec-text"><?= $v[28]; ?> км от МКАД</div>
+                            <div class="spec-label">Регион:</div>
+                            <div class="spec-text underline"><?php if($v['region'] != ''){echo $v['region'].' область, ';} ?><?php if($v['city'] != ''){echo $v['city'];} ?></div>
                         </div>
                         <div class="spec-line">
-                            <div class="spec-label">Населенный пункт:</div>
-                            <div class="spec-text underline"><?= $v['city']; ?></div>
+                            <div class="spec-label">Метро:</div>
+                            <div class="spec-text"><?= $v['name_underground']; ?></div>
                         </div>
                         <div class="spec-line">
-                            <div class="spec-label">Район:</div>
-                            <div class="spec-text"><?= $v['district']; ?> район</div>
+                            <div class="spec-label">Адрес:</div>
+                            <div class="spec-text">ул.<?= $v['street']; ?>, <?= $v['building']; ?></div>
                         </div>
                         <div class="spec-line">
                             <div class="spec-label">Площадь:</div>
                             <div class="spec-text"><?= $v['9']; ?> кв.м.</div>
                         </div>
-<!--                        <div class="spec-line">-->
-<!--                            <div class="spec-label">Площадь участка:</div>-->
-<!--                            <div class="spec-text">--><?//= $v['10']; ?><!-- сот.</div>-->
-<!--                        </div>-->
+                        <div class="spec-line">
+                            <div class="spec-label">Количество комнат:</div>
+                            <div class="spec-text"><?= $v['33']; ?></div>
+                        </div>
                     </div>
                     <div class="description">
                                     <span class="price">Цена: <?= $v['29']; ?>

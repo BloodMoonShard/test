@@ -69,6 +69,20 @@ class My_Controller extends CI_Controller
             $data['highway_direction'] .= '<li><a href="#" attr-id-direction="'.$hd.'" class="directionAction">'.$key.'</a></li>';
         }
 
+        $this->db->select('city, city_id');
+        $this->db->group_by('city');
+        $res = $this->db->get('objects');
+        foreach($res->result_array() as $k){
+            if($k['city'] == '') continue;
+            $data['list_city'] .=  "<option value='".$k['city_id']."'>".$k['city']."</option>";
+        }
+        $this->load->model('subcategory_value_model');
+        $list_room = $this->subcategory_value_model->get_result(array('id_subcategory'=>'33'));
+        foreach($list_room as $v){
+            if($v['value'] == '') continue;
+            $data['list_room'] .=  "<option value='".$v['id_subcategory_value']."'>".$v['value']."</option>";
+        }
+
         $this->load->view('/web/header', $data);
         $this->load->view($tpl_name, $data);
         $this->load->view('/web/footer', $data);

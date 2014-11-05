@@ -58,6 +58,24 @@ $(document).ready(function(){
             alert('Выберите город!');
         }
     })
+    $('#btn_create_underground').on('click', function(){
+        if($('#id_city_hidden').val() != ""){
+            $.ajax({
+                url: '/admin/ajax/add_underground',
+                data: 'id_city='+$('#id_city_hidden').val()+'&name_underground='+$('#name_underground').val(),
+                type: 'POST',
+                dataType: 'json',
+                success: function(response){
+                    if(response.content){
+                        ajax_get_list_underground($('#id_city_hidden').val());
+                        $('#myModal4').modal('hide');
+                    }
+                }
+            })
+        }else{
+            alert('Выберите город!');
+        }
+    })
 })
 
 function ajax_get_list_region_city(id_city){
@@ -67,7 +85,7 @@ function ajax_get_list_region_city(id_city){
         type: 'POST',
         dataType: 'json',
         success: function(response){
-            $('#region_list').html('<option>Выберите округ</option>');
+            $('#region_list').html('<option value="0">Выберите округ</option>');
             if(response.content){
                 for(var i = 0; i < response.content.length; i++){
                     $('#region_list').append('<option value="'+response.content[i].id_region_city+'">'+response.content[i].name+'</option>');
@@ -85,7 +103,7 @@ function ajax_get_list_highway(id_city){
         type: 'POST',
         dataType: 'json',
         success: function(response){
-            $('#highway_list').html('<option>Выберите шоссе</option>');
+            $('#highway_list').html('<option value="0">Выберите шоссе</option>');
             if(response.content){
                 for(var i = 0; i < response.content.length; i++){
                     $('#highway_list').append('<option value="'+response.content[i].id_highway+'">'+response.content[i].name+'</option>');
@@ -104,11 +122,28 @@ function ajax_get_list_highway_direction(id_city){
         dataType: 'json',
         success: function(response){
             console.log(response);
-            $('#list_highway_direction').html('<option>Выберите направление</option>');
+            $('#list_highway_direction').html('<option value="0">Выберите направление</option>');
             if(response.content){
                 for(var i = 0; i < response.content.length; i++){
                     $('#list_highway_direction').append('<option value="'+response.content[i].id_highway_direction+'">'+response.content[i].name+'</option>');
-                    console.log(response.content[i]);
+                }
+            }
+        }
+    })
+}
+
+function ajax_get_list_underground(id_city){
+    $.ajax({
+        url: '/admin/ajax/get_list_underground',
+        data: 'id_city='+id_city,
+        type: 'POST',
+        dataType: 'json',
+        success: function(response){
+            $('#underground_list').html('<option value="0">Выберите метро</option>');
+            if(response.content){
+                console.log(response);
+                for(var i = 0; i < response.content.length; i++){
+                    $('#underground_list').append('<option value="'+response.content[i].id_underground+'">'+response.content[i].name_underground+'</option>');
                 }
             }
         }

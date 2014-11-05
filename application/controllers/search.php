@@ -359,24 +359,11 @@ class Search extends My_Controller {
             $this->session->set_userdata('search_room', array());
         }
 
-
-        $list_results = array();
         $object_finded = array();
-
-
-
-        //get list by type
-        if(sizeof($data['type']) > 0){
-            if(sizeof($this->input->post('type')) > 0){
-                $this->db->where_in('type', $data['type']);
-            }
-            if(sizeof($data['highway_list']) > 0){
-                $this->db->where_in('highway_list', $data['highway_list']);
-            }
-            $list_results = $this->db->get('objects')->result_array();
-        }
-        $array_subcategory_criteria = array(9, 10, 28, 29, 31, 30, 32);
-
+        $this->load->model('type_model');
+        $list_results = $this->type_model->get_catalog_objects_per_page('room');
+        //Get result per page
+        $array_subcategory_criteria = array(9, 29, 31, 30, 32, 33);
         //Get attr for every object
         foreach ($list_results as $k => $o) {
             $objects_option = $this->type_model->get_objects_option($o['id_objects'], $array_subcategory_criteria);
@@ -398,74 +385,59 @@ class Search extends My_Controller {
                 }
             }
         }
-
         //Search
         foreach ($list_results as $k=>$v) {
             $i = 0;
-            if (isset($data['29_max']) && isset($data['29_min'])) {
-                if (($data['29_min'] <= $v['29']) && ($v['29'] <= $data['29_max'])) {
+
+            if (isset($data['price_max']) && isset($data['price_min'])) {
+                if (($data['price_min'] <= $v['29']) && ($v['29'] <= $data['price_max'])) {
                     $i++;
                 }
-            } elseif (isset($data['29_max'])) {
-                if ($data['29_max'] >= $v['29']) {
+            } elseif (isset($data['price_max'])) {
+                if ($data['price_max'] >= $v['29']) {
                     $i++;
                 }
-            } elseif (isset($data['29_min'])) {
-                if ($data['29_min'] <= $v['29']) {
+            } elseif (isset($data['price_min'])) {
+                if ($data['price_min'] <= $v['29']) {
                     $i++;
                 }
             } else {
                 $i++;
             }
 
-            if (isset($data['28_max']) && isset($data['28_min'])) {
-                if (($data['28_min'] <= @$v['28']) && (@$v['28'] <= $data['28_max'])) {
+
+            if (isset($data['home_max']) && isset($data['home_min'])) {
+                if (($data['home_min'] <= $v['9']) && ($v['9'] <= $data['home_max'])) {
                     $i++;
                 }
-            } elseif (isset($data['28_max'])) {
-                if ($data['28_max'] >= $v['28']) {
+            } elseif (isset($data['home_max'])) {
+                if ($data['home_max'] >= $v['9']) {
                     $i++;
                 }
-            } elseif (isset($data['28_min'])) {
-                if ($data['28_min'] <= $v['28']) {
+            } elseif (isset($data['home_min'])) {
+                if ($data['home_min'] <= $v['9']) {
                     $i++;
                 }
             } else {
                 $i++;
             }
 
-            if (isset($data['10_max']) && isset($data['10_min'])) {
-                if (($data['10_min'] <= $v['10']) && ($v['10'] <= $data['10_max'])) {
+            if (isset($data['city']) && sizeof($data['city']) > 0) {
+                if($data['city'] == $v['city_id']){
                     $i++;
                 }
-            } elseif (isset($data['10_max'])) {
-                if ($data['10_max'] >= $v['10']) {
-                    $i++;
-                }
-            } elseif (isset($data['10_min'])) {
-                if ($data['10_min'] <= $v['10']) {
+            } else {
+
+                $i++;
+            }
+
+            if (isset($data['underground']) && sizeof($data['underground']) > 0) {
+                if($data['underground'] == $v['underground']){
                     $i++;
                 }
             } else {
                 $i++;
             }
-
-            if (isset($data['9_max']) && isset($data['9_min'])) {
-                if (($data['9_min'] <= $v['9']) && ($v['9'] <= $data['9_max'])) {
-                    $i++;
-                }
-            } elseif (isset($data['9_max'])) {
-                if ($data['9_max'] >= $v['9']) {
-                    $i++;
-                }
-            } elseif (isset($data['9_min'])) {
-                if ($data['9_min'] <= $v['9']) {
-                    $i++;
-                }
-            } else {
-                $i++;
-            }
-
             if(isset($v['30'])){
                 if($v['30'] == $data['30']){
                     $i++;
@@ -473,6 +445,21 @@ class Search extends My_Controller {
             }else{
                 $i++;
             }
+            if(isset($data['room'])){
+                if($v['33'] == $data['room']){
+                    $i++;
+                }
+            }else{
+                $i++;
+            }
+            if(isset($data['street'])){
+                if($v['street'] == $data['street']){
+                    $i++;
+                }
+            }else{
+                $i++;
+            }
+
 
             if ($i >= 5) {
                 $object_finded[] = $v;
@@ -484,32 +471,31 @@ class Search extends My_Controller {
         $list_parsed_id_object = array();
         foreach($object_finded as $v){
             if (!in_array($v['id_objects'], $list_parsed_id_object)) {
-                if (strlen($v['district']) > 0) {
-                    @$sort_filter['district'][$v['district']] += 1;
-                }
+
                 if (strlen($v['city']) > 0) {
                     @$sort_filter['city'][$v['city']] += 1;
                 }
+                if (strlen($v['underground']) > 0) {
+                    @$sort_filter['underground'][$v['underground']] += 1;
+                    @$sort_filter['underground_name'][$v['underground']] = $v['name_underground'];
+                }
                 $list_parsed_id_object[] = $v['id_objects'];
             }
-
-            if (@$sort_filter['max_home'] < $v['9']) {
-                @$sort_filter['max_home'] = $v['9'];
+            if (isset($v['9'])) {
+                if (@$sort_filter['max_home'] < $v['9']) {
+                    @$sort_filter['max_home'] = $v['9'];
+                }
+                if (!isset($sort_filter['min_home']) || @$sort_filter['min_home'] > $v['9']) {
+                    @$sort_filter['min_home'] = $v['9'];
+                }
             }
-            if (!isset($sort_filter['min_home']) || @$sort_filter['min_home'] > $v['9']) {
-                @$sort_filter['min_home'] = $v['9'];
-            }
-            if (@$sort_filter['max_area'] < $v['10']) {
-                @$sort_filter['max_area'] = $v['10'];
-            }
-            if (!isset($sort_filter['min_area']) || @$sort_filter['min_area'] > $v['10']) {
-                @$sort_filter['min_area'] = $v['10'];
-            }
-            if (@$sort_filter['max_price'] < $v['29']) {
-                @$sort_filter['max_price'] = $v['29'];
-            }
-            if (!isset($sort_filter['min_price']) || @$sort_filter['min_price'] > $v['29']) {
-                @$sort_filter['min_price'] = $v['29'];
+            if (isset($v['29'])) {
+                if (@$sort_filter['max_price'] < $v['29']) {
+                    @$sort_filter['max_price'] = $v['29'];
+                }
+                if (!isset($sort_filter['min_price']) || @$sort_filter['min_price'] > $v['29']) {
+                    @$sort_filter['min_price'] = $v['29'];
+                }
             }
         }
 
@@ -536,21 +522,6 @@ class Search extends My_Controller {
                     $i++;
                 }
 
-                if (isset($data['area_max']) && isset($data['area_min'])) {
-                    if (($data['area_min'] <= $v['10']) && ($v['10'] <= $data['area_max'])) {
-                        $i++;
-                    }
-                } elseif (isset($data['area_max'])) {
-                    if ($data['area_max'] >= $v['10']) {
-                        $i++;
-                    }
-                } elseif (isset($data['area_min'])) {
-                    if ($data['area_min'] <= $v['10']) {
-                        $i++;
-                    }
-                } else {
-                    $i++;
-                }
 
                 if (isset($data['home_max']) && isset($data['home_min'])) {
                     if (($data['home_min'] <= $v['9']) && ($v['9'] <= $data['home_max'])) {
@@ -578,9 +549,11 @@ class Search extends My_Controller {
                 } else {
                     $i++;
                 }
-                if (isset($data['district']) && sizeof($data['district']) > 0) {
-                    foreach ($data['district'] as $f => $g) {
-                        if ($f == $v['district']) {
+
+
+                if (isset($data['underground']) && sizeof($data['underground']) > 0) {
+                    foreach ($data['underground'] as $f => $g) {
+                        if ($f == $v['underground']) {
                             $i++;
                             break;
                         }
@@ -589,8 +562,7 @@ class Search extends My_Controller {
                     $i++;
                 }
 
-
-                if ($i >= 5) {
+                if ($i >= 4) {
                     $xz[] = $v;
                 }
 
@@ -609,7 +581,6 @@ class Search extends My_Controller {
         }
         $this->session->set_userdata('objects', serialize($object_finded));
 
-//        $config["total_rows"] = sizeof($object_finded);
         $this->pagination->initialize($config);
         $this->data['filter'] = $sort_filter;
 //        $this->data['objects'] = array_slice($object_finded, $page, $config["per_page"]);

@@ -38,7 +38,7 @@
                                             if ($ob['ob_images'][0]['img_name']!= '') {
                                                 echo '<td class="img"><div class="close-co" id="'.$ob['id_objects'].'"></div><img src="/upload_files/objects_img/'.$ob['ob_images'][0]['img_name'].'" alt=""></td>';
                                             } else {
-                                                echo '<td class="img"><div class="close-co"></div><img src="/upload_files/objects_img/default_img.gif" alt=""></td>';
+                                                echo '<td class="img"><div class="close-co" id="'.$ob['id_objects'].'"></div><img src="/upload_files/objects_img/default_img.gif" alt=""></td>';
                                             }
                                         }
                                         ?>

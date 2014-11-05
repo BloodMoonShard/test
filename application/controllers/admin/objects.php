@@ -139,16 +139,16 @@ class Objects extends My_Controller {
         $data['msg_notif'] = $this->msg;
         $data['content'] = $content;
         $data['countries'] = $countries;
-        $this->load->model('highway_direction_model');
-        $data['highway_direction'] = "";
-        $highway_direction = $this->highway_direction_model->get_element();
-        if($highway_direction){
-            $data['highway_direction'] = '<div class="form-group"><label></label><select name="highway_direction">';
-            foreach($highway_direction as $value){
-                $data['highway_direction'] .= '<option value="'.$value['id_highway_direction'].'"></option>';
-            }
-            $data['highway_direction'] .= '</select></div>';
-        }
+//        $this->load->model('highway_direction_model');
+//        $data['highway_direction'] = "";
+//        $highway_direction = $this->highway_direction_model->get_element();
+//        if($highway_direction){
+//            $data['highway_direction'] = '<div class="form-group"><label></label><select name="highway_direction">';
+//            foreach($highway_direction as $value){
+//                $data['highway_direction'] .= '<option value="'.$value['id_highway_direction'].'"></option>';
+//            }
+//            $data['highway_direction'] .= '</select></div>';
+//        }
         $this->render_adm('admin/add_objects', $data);
     }
 
