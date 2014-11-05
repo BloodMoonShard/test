@@ -1574,11 +1574,18 @@ header .order-call .btn-order-call:hover {
     padding-bottom: 31px;
 }
 
+.catalog .catalog-content .block-services .text.real-estate-text-fix {
+    font-size: 10px;
+    line-height: 8px;
+    padding-bottom: 30px;
+}
+
 
 .catalog .catalog-content .catalog-content-headline {
     font-size: 24px;
     font-style: italic;
     margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 .catalog .catalog-content .catalog-content-headline h1 {

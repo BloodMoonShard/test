@@ -32,7 +32,7 @@
             <li class="current-page">Найдено объектов: <?= $counts; ?></li>
             <li class="delimiter"></li>
             <li class="home-link"><img src="/assets/w/design_img/home.png" alt="Домой"><a href="/">Главная</a></li>
-            <li class="search-link" id="but-search-all"><img src="/assets/w/design_img/search_black.png" alt="Поиск объектов"><a href="#">Поиск
+            <li class="search-link" id="but-search-apart"><img src="/assets/w/design_img/search_black.png" alt="Поиск объектов"><a href="#">Поиск
                     объектов</a></li>
             <li class="count-on-page">
                 <?php echo $get_per_page; ?>
@@ -205,14 +205,8 @@
                             ?>
                         </p>
 
-                        <div class="more-info">
-                            <a href="/details/<?= $v['id_objects'] ?>">Подробнее</a>
+                        <?php echo comparison_links($v['id_objects']); ?>
 
-                            <form action="" method="post">
-                                <input name="to-list" id="to-list" type="checkbox" value="1"><label
-                                    for="to-list">Сравнить</label>
-                            </form>
-                        </div>
                     </div>
                 </div>
             </div>
