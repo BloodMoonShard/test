@@ -113,6 +113,7 @@ $(document).ready(function () {
 
     $(".to-list").click(function () {
         set_comparison($(this));
+        console.log(111);
     });
 
     $(".close-co").click(function () {
@@ -186,8 +187,6 @@ $(document).ready(function () {
 
         if ($(this).parent().find(".hidden-filter-element").css('display') == 'none') {
             $(this).parent().find(".hidden-filter-element").animate({height: 'show'}, 500);
-            console.log($(this));
-
             $(this).find("span").css('color', '#626262');
             $(this).find(".toggle-filter-icon").addClass("opened-filter");
         }

@@ -83,7 +83,6 @@ class Ajax extends My_Controller
         $config['first_tag_close'] = '';
         $config['last_tag_open'] = '';
         $config['last_tag_close'] = '';
-
 //        $this->session->set_userdata($type, array());
         $data = @unserialize($this->session->userdata($type));
 //        var_dump($data);
@@ -122,6 +121,103 @@ class Ajax extends My_Controller
                             break;
                         case 'area_max':
                             $data['area_max'] = $p;
+                            break;
+                    }
+                }
+                break;
+
+            case 'real_estate':
+                foreach ($_POST as $k => $p) {
+                    switch ($k) {
+                        case 'district':
+                            if (isset($data[$k][$p])) {
+                                unset($data[$k][$p]);
+                            } else {
+                                $data[$k][$p] = 1;
+                            }
+                            break;
+                        case 'city':
+                            if (isset($data[$k][$p])) {
+                                unset($data[$k][$p]);
+                            } else {
+                                $data[$k][$p] = 1;
+                            }
+                            break;
+                        case 'home_min':
+                            $data['home_min'] = $p;
+                            break;
+                        case 'home_max':
+                            $data['home_min'] = $p;
+                            break;
+                        case 'price_min':
+                            $data['price_min'] = $p;
+                            break;
+                        case 'price_max':
+                            $data['price_max'] = $p;
+                            break;
+                    }
+                }
+                break;
+            case 'overseas_real_estate':
+                foreach ($_POST as $k => $p) {
+                    switch ($k) {
+                        case 'district':
+                            if (isset($data[$k][$p])) {
+                                unset($data[$k][$p]);
+                            } else {
+                                $data[$k][$p] = 1;
+                            }
+                            break;
+                        case 'city':
+                            if (isset($data[$k][$p])) {
+                                unset($data[$k][$p]);
+                            } else {
+                                $data[$k][$p] = 1;
+                            }
+                            break;
+                        case 'home_min':
+                            $data['home_min'] = $p;
+                            break;
+                        case 'home_max':
+                            $data['home_min'] = $p;
+                            break;
+                        case 'price_min':
+                            $data['price_min'] = $p;
+                            break;
+                        case 'price_max':
+                            $data['price_max'] = $p;
+                            break;
+                    }
+                }
+                break;
+            case 'search_func':
+                foreach ($_POST as $k => $p) {
+                    switch ($k) {
+                        case 'district':
+                            if (isset($data[$k][$p])) {
+                                unset($data[$k][$p]);
+                            } else {
+                                $data[$k][$p] = 1;
+                            }
+                            break;
+                        case 'city':
+                            if (isset($data[$k][$p])) {
+                                unset($data[$k][$p]);
+                            } else {
+                                $data[$k][$p] = 1;
+                            }
+                            break;
+                        case 'home_min':
+                            $data['home_min'] = $p;
+                            break;
+                        case 'home_max':
+                            $data['home_min'] = $p;
+                            break;
+                        case 'price_min':
+                            $data['price_min'] = $p;
+                            break;
+                        case 'price_max':
+                            $data['price_max'] = $p;
                             break;
                     }
                 }
@@ -275,9 +371,7 @@ class Ajax extends My_Controller
                 //Get total counts
                 $objects = unserialize($this->session->userdata('objects'));
                 $objects_filtered = array();
-
                 $count_valid = 0;
-
                 foreach ($objects as $v) {
                     $i = 0;
                     if (isset($data['price_max']) && isset($data['price_min'])) {
@@ -650,6 +744,307 @@ class Ajax extends My_Controller
                 break;
             case 'credit_broker':
 
+                break;
+
+            case 'real_estate':
+                $objects = unserialize($this->session->userdata('objects'));
+                $objects_filtered = array();
+                $count_valid = 0;
+                foreach ($objects as $v) {
+                    $i = 0;
+                    if (isset($data['price_max']) && isset($data['price_min'])) {
+                        if (($data['price_min'] <= $v['29']) && ($v['29'] <= $data['price_max'])) {
+                            $i++;
+                        }
+                    } elseif (isset($data['price_max'])) {
+                        if ($data['price_max'] >= $v['29']) {
+                            $i++;
+                        }
+                    } elseif (isset($data['price_min'])) {
+                        if ($data['price_min'] <= $v['29']) {
+                            $i++;
+                        }
+                    } else {
+                        $i++;
+                    }
+
+                    if (isset($data['area_max']) && isset($data['area_min'])) {
+                        if (($data['area_min'] <= $v['10']) && ($v['10'] <= $data['area_max'])) {
+                            $i++;
+                        }
+                    } elseif (isset($data['area_max'])) {
+                        if ($data['area_max'] >= $v['10']) {
+                            $i++;
+                        }
+                    } elseif (isset($data['area_min'])) {
+                        if ($data['area_min'] <= $v['10']) {
+                            $i++;
+                        }
+                    } else {
+                        $i++;
+                    }
+
+                    if (isset($data['home_max']) && isset($data['home_min'])) {
+                        if (($data['home_min'] <= $v['9']) && ($v['9'] <= $data['home_max'])) {
+                            $i++;
+                        }
+                    } elseif (isset($data['home_max'])) {
+                        if ($data['home_max'] >= $v['9']) {
+                            $i++;
+                        }
+                    } elseif (isset($data['home_min'])) {
+                        if ($data['home_min'] <= $v['9']) {
+                            $i++;
+                        }
+                    } else {
+                        $i++;
+                    }
+
+                    if (isset($data['city']) && sizeof($data['city']) > 0) {
+                        foreach ($data['city'] as $f => $g) {
+                            if ($f == $v['city']) {
+                                $i++;
+                                break;
+                            }
+                        }
+                    } else {
+                        $i++;
+                    }
+                    if (isset($data['district']) && sizeof($data['district']) > 0) {
+                        foreach ($data['district'] as $f => $g) {
+                            if ($f == $v['district']) {
+                                $i++;
+                                break;
+                            }
+                        }
+                    } else {
+                        $i++;
+                    }
+
+                    if ($v['type'] != $ses_data) {
+                        continue;
+                    }
+
+                    if ($i >= 5) {
+                        $objects_filtered[] = $v;
+                    }
+
+                }
+
+                $config["total_rows"] = sizeof($objects_filtered);
+                //Get result per page
+//                $objects = $this->type_model->get_catalog_objects_per_page($type, $ses_data, 0, $config["per_page"]);
+
+                $this->pagination->initialize($config);
+                $this->data['objects'] = array_slice($objects_filtered, 0, $config["per_page"]);
+                $this->data['counts'] = $this->type_model->get_catalog_objects($type);
+                $this->data["links"] = $this->pagination->create_links();
+                //Load img
+                $this->load->model('common_model');
+                foreach ($this->data['objects'] as $key=>$value) {
+                    $this->data['objects'][$key]['ob_images'] = $this->common_model->objectsImgGet($this->data['objects'][$key]['id_objects']);
+                }
+                $content = $this->load->view('web/catalog_items_real_estate', $this->data, true);
+                break;
+            case 'overseas_real_estate':
+                $objects = unserialize($this->session->userdata('objects'));
+                $objects_filtered = array();
+                $count_valid = 0;
+                foreach ($objects as $v) {
+                    $i = 0;
+                    if (isset($data['price_max']) && isset($data['price_min'])) {
+                        if (($data['price_min'] <= $v['29']) && ($v['29'] <= $data['price_max'])) {
+                            $i++;
+                        }
+                    } elseif (isset($data['price_max'])) {
+                        if ($data['price_max'] >= $v['29']) {
+                            $i++;
+                        }
+                    } elseif (isset($data['price_min'])) {
+                        if ($data['price_min'] <= $v['29']) {
+                            $i++;
+                        }
+                    } else {
+                        $i++;
+                    }
+
+                    if (isset($data['area_max']) && isset($data['area_min'])) {
+                        if (($data['area_min'] <= $v['10']) && ($v['10'] <= $data['area_max'])) {
+                            $i++;
+                        }
+                    } elseif (isset($data['area_max'])) {
+                        if ($data['area_max'] >= $v['10']) {
+                            $i++;
+                        }
+                    } elseif (isset($data['area_min'])) {
+                        if ($data['area_min'] <= $v['10']) {
+                            $i++;
+                        }
+                    } else {
+                        $i++;
+                    }
+
+                    if (isset($data['home_max']) && isset($data['home_min'])) {
+                        if (($data['home_min'] <= $v['9']) && ($v['9'] <= $data['home_max'])) {
+                            $i++;
+                        }
+                    } elseif (isset($data['home_max'])) {
+                        if ($data['home_max'] >= $v['9']) {
+                            $i++;
+                        }
+                    } elseif (isset($data['home_min'])) {
+                        if ($data['home_min'] <= $v['9']) {
+                            $i++;
+                        }
+                    } else {
+                        $i++;
+                    }
+
+                    if (isset($data['city']) && sizeof($data['city']) > 0) {
+                        foreach ($data['city'] as $f => $g) {
+                            if ($f == $v['city']) {
+                                $i++;
+                                break;
+                            }
+                        }
+                    } else {
+                        $i++;
+                    }
+                    if (isset($data['district']) && sizeof($data['district']) > 0) {
+                        foreach ($data['district'] as $f => $g) {
+                            if ($f == $v['district']) {
+                                $i++;
+                                break;
+                            }
+                        }
+                    } else {
+                        $i++;
+                    }
+
+                    if ($v['type'] != $ses_data) {
+                        continue;
+                    }
+
+                    if ($i >= 5) {
+                        $objects_filtered[] = $v;
+                    }
+
+                }
+
+                $config["total_rows"] = sizeof($objects_filtered);
+                //Get result per page
+//                $objects = $this->type_model->get_catalog_objects_per_page($type, $ses_data, 0, $config["per_page"]);
+
+                $this->pagination->initialize($config);
+                $this->data['objects'] = array_slice($objects_filtered, 0, $config["per_page"]);
+                $this->data['counts'] = $this->type_model->get_catalog_objects($type);
+                $this->data["links"] = $this->pagination->create_links();
+                //Load img
+                $this->load->model('common_model');
+                foreach ($this->data['objects'] as $key=>$value) {
+                    $this->data['objects'][$key]['ob_images'] = $this->common_model->objectsImgGet($this->data['objects'][$key]['id_objects']);
+                }
+                $content = $this->load->view('web/catalog_items_overseas_real_estate', $this->data, true);
+                break;
+            case 'search_func':
+                $objects = unserialize($this->session->userdata('objects'));
+                $objects_filtered = array();
+                $count_valid = 0;
+                foreach ($objects as $v) {
+                    $i = 0;
+                    if (isset($data['price_max']) && isset($data['price_min'])) {
+                        if (($data['price_min'] <= $v['29']) && ($v['29'] <= $data['price_max'])) {
+                            $i++;
+                        }
+                    } elseif (isset($data['price_max'])) {
+                        if ($data['price_max'] >= $v['29']) {
+                            $i++;
+                        }
+                    } elseif (isset($data['price_min'])) {
+                        if ($data['price_min'] <= $v['29']) {
+                            $i++;
+                        }
+                    } else {
+                        $i++;
+                    }
+
+                    if (isset($data['area_max']) && isset($data['area_min'])) {
+                        if (($data['area_min'] <= $v['10']) && ($v['10'] <= $data['area_max'])) {
+                            $i++;
+                        }
+                    } elseif (isset($data['area_max'])) {
+                        if ($data['area_max'] >= $v['10']) {
+                            $i++;
+                        }
+                    } elseif (isset($data['area_min'])) {
+                        if ($data['area_min'] <= $v['10']) {
+                            $i++;
+                        }
+                    } else {
+                        $i++;
+                    }
+
+                    if (isset($data['home_max']) && isset($data['home_min'])) {
+                        if (($data['home_min'] <= $v['9']) && ($v['9'] <= $data['home_max'])) {
+                            $i++;
+                        }
+                    } elseif (isset($data['home_max'])) {
+                        if ($data['home_max'] >= $v['9']) {
+                            $i++;
+                        }
+                    } elseif (isset($data['home_min'])) {
+                        if ($data['home_min'] <= $v['9']) {
+                            $i++;
+                        }
+                    } else {
+                        $i++;
+                    }
+
+                    if (isset($data['city']) && sizeof($data['city']) > 0) {
+                        foreach ($data['city'] as $f => $g) {
+                            if ($f == $v['city']) {
+                                $i++;
+                                break;
+                            }
+                        }
+                    } else {
+                        $i++;
+                    }
+                    if (isset($data['district']) && sizeof($data['district']) > 0) {
+                        foreach ($data['district'] as $f => $g) {
+                            if ($f == $v['district']) {
+                                $i++;
+                                break;
+                            }
+                        }
+                    } else {
+                        $i++;
+                    }
+
+                    if ($v['type'] != $ses_data) {
+                        continue;
+                    }
+
+                    if ($i >= 5) {
+                        $objects_filtered[] = $v;
+                    }
+
+                }
+
+                $config["total_rows"] = sizeof($objects_filtered);
+                //Get result per page
+//                $objects = $this->type_model->get_catalog_objects_per_page($type, $ses_data, 0, $config["per_page"]);
+
+                $this->pagination->initialize($config);
+                $this->data['objects'] = array_slice($objects_filtered, 0, $config["per_page"]);
+                $this->data['counts'] = $this->type_model->get_catalog_objects_search_version($type);
+                $this->data["links"] = $this->pagination->create_links();
+                //Load img
+                $this->load->model('common_model');
+                foreach ($this->data['objects'] as $key=>$value) {
+                    $this->data['objects'][$key]['ob_images'] = $this->common_model->objectsImgGet($this->data['objects'][$key]['id_objects']);
+                }
+                $content = $this->load->view('web/catalog_items_overseas_real_estate', $this->data, true);
                 break;
             case 'search':
                 $config["base_url"] = base_url() . "search";

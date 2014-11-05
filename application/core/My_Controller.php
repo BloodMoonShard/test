@@ -72,6 +72,8 @@ class My_Controller extends CI_Controller
         $this->db->select('city, city_id');
         $this->db->group_by('city');
         $res = $this->db->get('objects');
+        $data['list_city'] = '';
+        $data['list_room'] = '';
         foreach($res->result_array() as $k){
             if($k['city'] == '') continue;
             $data['list_city'] .=  "<option value='".$k['city_id']."'>".$k['city']."</option>";

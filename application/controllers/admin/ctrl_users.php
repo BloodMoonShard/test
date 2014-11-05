@@ -91,7 +91,7 @@ class Ctrl_users extends My_Controller {
     }
 
     public function manager_agents($id_manager) {
-        if($this->auth->get_user_id() != $id_manager) {
+        if(($this->auth->get_user_id() != $id_manager)&&($this->auth->get_user_role() != 1)) {
             redirect('/admin/ctrl_users');
         }
         $username = $this->users_model->getUser($id_manager);
@@ -107,7 +107,7 @@ class Ctrl_users extends My_Controller {
     }
 
     public function add_agent_to_manager($id_manager) {
-        if($this->auth->get_user_id() != $id_manager) {
+        if(($this->auth->get_user_id() != $id_manager)&&($this->auth->get_user_role() != 1)) {
             redirect('/admin/ctrl_users');
         }
         $option = '';
@@ -130,7 +130,7 @@ class Ctrl_users extends My_Controller {
     public function setAgentFree($id_agent) {
         $id_manager = $this->users_model->getManagerId($id_agent);
         $id_manager = $id_manager['id_manager'];
-        if($this->auth->get_user_id() != $id_manager) {
+        if(($this->auth->get_user_id() != $id_manager)&&($this->auth->get_user_role() != 1)) {
             redirect('/admin/ctrl_users');
         }
         $this->users_model->setFreeAgent($id_agent);

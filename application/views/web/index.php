@@ -38,7 +38,7 @@
                     </div>
                 </div>
                 </a>
-                <a href="#">
+                <a href="/type/real_estate">
                 <div class="block-services">
                     <div class="img-service real-estate">
                         <div class="text">
@@ -47,7 +47,7 @@
                     </div>
                 </div>
                 </a>
-                <a href="#">
+                <a href="/type/overseas_real_estate">
                 <div class="block-services">
                     <div class="img-service overseas-real-estate">
                         <div class="text">
