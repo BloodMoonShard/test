@@ -3,10 +3,11 @@
 class Type_model extends My_Model{
 
     function get_catalog_objects($type, $sort = false){
-        $this->db->select('objects.id_objects, objects.name_object, objects.city, objects.region, objects.district');
+        $this->db->select('objects.id_objects, objects.status_obj, objects.name_object, objects.city, objects.region, objects.district');
         $this->db->from('objects');
         $this->db->join('objects_type', 'objects.type = objects_type.id_objects_type', 'left');
         $this->db->join('objects_options', 'objects_options.id_objects = objects.id_objects', 'left');
+        $this->db->where('status_obj', 3);
         $this->db->where('objects_type.uri_name', $type);
         $this->db->group_by('objects.id_objects');
         if($sort){
@@ -22,7 +23,8 @@ class Type_model extends My_Model{
         $this->db->join('objects_options', 'objects_options.id_objects = objects.id_objects');
         $this->db->join('underground', 'objects.underground = underground.id_underground', 'left');
         $this->db->join('highway', 'objects.highway_list = highway.id_highway', 'left');
-        $this->db->select('objects.id_objects, objects.name_object, objects.city, objects.region, objects.district, objects.underground as underground, underground.name_underground as name_underground, objects.street, objects.building, objects.highway_list, highway.name as highway_name, objects.city_id');
+        $this->db->select('objects.id_objects, objects.status_obj, objects.name_object, objects.city, objects.region, objects.district, objects.underground as underground, underground.name_underground as name_underground, objects.street, objects.building, objects.highway_list, highway.name as highway_name, objects.city_id');
+        $this->db->where('status_obj', 3);
         $this->db->where('objects_type.uri_name', $type);
         $this->db->group_by('objects.id_objects');
         $this->db->order_by('objects.date_add', 'DESC');
@@ -93,11 +95,12 @@ class Type_model extends My_Model{
     }
 
     function get_catalog_objects_search_version($search_string, $sort = false){
-        $this->db->select('objects.id_objects, objects.name_object, objects.city, objects.region, objects.district');
+        $this->db->select('objects.id_objects, objects.status_obj, objects.name_object, objects.city, objects.region, objects.district');
         $this->db->from('objects');
         $this->db->join('objects_type', 'objects.type = objects_type.id_objects_type', 'left');
         $this->db->join('objects_options', 'objects_options.id_objects = objects.id_objects', 'left');
 //        $this->db->where('objects_type.uri_name', $type);
+        $this->db->where('status_obj', 3);
         $this->db->like('objects.city', $search_string, 'both');
         $this->db->group_by('objects.id_objects');
         if($sort){
@@ -113,8 +116,9 @@ class Type_model extends My_Model{
         $this->db->join('objects_options', 'objects_options.id_objects = objects.id_objects');
         $this->db->join('underground', 'objects.underground = underground.id_underground', 'left');
         $this->db->join('highway', 'objects.highway_list = highway.id_highway', 'left');
-        $this->db->select('objects.id_objects, objects.name_object, objects.city, objects.region, objects.district, objects.underground as underground, underground.name_underground as name_underground, objects.street, objects.building, objects.highway_list, highway.name as highway_name, objects.city_id');
+        $this->db->select('objects.id_objects, objects.status_obj, objects.name_object, objects.city, objects.region, objects.district, objects.underground as underground, underground.name_underground as name_underground, objects.street, objects.building, objects.highway_list, highway.name as highway_name, objects.city_id');
 //        $this->db->where('objects.city', $search_string);
+        $this->db->where('status_obj', 3);
         $this->db->like('objects.city', $search_string, 'both');
 //        $this->db->where('objects.city', $search_string);
         $this->db->group_by('objects.id_objects');

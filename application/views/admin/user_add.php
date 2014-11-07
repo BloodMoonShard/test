@@ -25,6 +25,8 @@
                     <input type="password" class="form-control" id="password" name="password">
                     <p class="help-block">Запишите, либо запомните пароль</p>
                 </div>
+
+                <?php if ($this->auth->get_user_role() == 1) { ?>
                 <div class="form-group">
                     <label for="user_role" class="control-label">Роль</label>
                     <select class="form-control" id="user_role" name="user_role">
@@ -34,6 +36,7 @@
                         } ?>
                     </select>
                 </div>
+                <?php } ?>
 
 
                 <button type="submit" class="btn btn-success">Готово</button>

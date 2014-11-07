@@ -36,7 +36,8 @@ class Auth_model extends CI_Model{
     }
 
     public function register($data){
-        return $this->db->insert($this->table_name, $data);
+        $this->db->insert($this->table_name, $data);
+        return $this->db->insert_id();
     }
 
     public function update_register_info($id_users, $data) {

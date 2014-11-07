@@ -37,10 +37,17 @@ class Ctrl_users extends My_Controller {
     }
 
     public function add_user() {
+
         $option['roles'] = $this->users_model->getRoles();
         $post = $this->input->post();
         if($post) {
-            $this->auth->registration($post);
+            if ($this->auth->get_user_role() == 4) {
+                $post['user_role'] = 3;
+                $id_agent = $this->auth->registration($post);
+                $this->users_model->setAgentToManager($this->auth->get_user_id(), $id_agent);
+             } else {
+                $this->auth->registration($post);
+            }
             redirect('/admin/ctrl_users', 'refresh');
         }
         $this->render_adm('admin/user_add.php', $option);

@@ -13,7 +13,7 @@ class Dashboard extends My_Controller {
 
     public function index()
     {
-        $this->render_adm('admin/dashboard', array());
+        redirect('/admin/objects', 'refresh');
     }
 }
 

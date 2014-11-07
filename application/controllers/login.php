@@ -12,7 +12,7 @@ class Login extends My_Controller{
             if(!$data = $this->auth->login($this->input->post())){
                 $data['error'] = $this->auth->error;
             }else{
-                redirect('/');
+                redirect('/admin');
             }
         }
         $this->render_common('common/auth/login', $data, array('login.css'));
