@@ -19,8 +19,8 @@
 <span>Показывать на странице:</span>
 <form action="" method="POST">
     <select name="count_on_page" class="count_on_page_select">
-        <option <?php if($selected == 2){ echo 'selected=selected';}?>>2</option>
-        <option <?php if($selected == 3){ echo 'selected=selected';}?>>3</option>
-        <option <?php if($selected == 4){ echo 'selected=selected';}?>>4</option>
+        <option <?php if($selected == 10){ echo 'selected=selected';}?>>10</option>
+        <option <?php if($selected == 20){ echo 'selected=selected';}?>>20</option>
+        <option <?php if($selected == 30){ echo 'selected=selected';}?>>30</option>
     </select>
 </form>

@@ -197,8 +197,8 @@ class My_Controller extends CI_Controller
         if ($dt = $this->session->userdata('per_page')) {
             $selected = $dt;
         } else {
-            $this->session->set_userdata('per_page', 2);
-            $selected = 2;
+            $this->session->set_userdata('per_page', 10);
+            $selected = 10;
         }
 //        $selected = 2;
 //        $this->session->set_userdata('per_page', 2);
