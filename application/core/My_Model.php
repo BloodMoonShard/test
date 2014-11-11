@@ -2,7 +2,7 @@
 
 class My_Model extends CI_Model{
 
-    function get_element($id = false, $role_id = false){
+    function get_element($id = false, $role_id = false, $order_by = false, $per_page = false, $page = false){
         if($id){
             $this->db->where($this->primary_key, $id);
             $result = $this->db->get($this->table_name);
@@ -12,6 +12,10 @@ class My_Model extends CI_Model{
                 return false;
             }
         }else{
+            if($order_by) {
+                $this->db->order_by('date_add', $order_by);
+            }
+
             if(isset($this->sortable)){
                 if(!isset($this->type_sort)){
                     $this->type_sort = 'ASC';
@@ -25,6 +29,11 @@ class My_Model extends CI_Model{
                     $this->db->where('id_users', $role_id);
                 }
             }
+
+            if (($per_page!=false) && (($page!=false)||($page==0))) {
+                $this->db->limit($per_page, $page);
+            }
+
             $result = $this->db->get($this->table_name);
             if($result->num_rows() > 0){
                 return $result->result_array();

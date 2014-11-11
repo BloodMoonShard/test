@@ -30,6 +30,14 @@ class Object_model extends My_Model{
         return false;
     }
 
+    function get_object_price($id) {
+        $this->db->from('objects_options');
+        $this->db->select('id_subcategory_value_input');
+        $this->db->where('id_objects', $id);
+        $this->db->where('id_subcategory', 29);
+        return $this->db->get()->row_array();
+    }
+
     function get_one_object($id){
         $this->db->select('*, objects_type.name as type_object, highway.name as highway_name');
         $this->db->from('objects');
@@ -91,5 +99,77 @@ class Object_model extends My_Model{
         $this->db->where('id_users', $id_users);
         $this->db->select('username');
         return $this->db->get('users')->row_array();
+    }
+
+    function get_all_objects_v2() {
+        if ($this->auth->get_user_role()==4) {
+            $agents_id = '';
+            $this->load->model('users_model');
+            $agents_list = $this->users_model->getMyAgents($this->auth->get_user_id());
+            foreach ($agents_list as $a) {
+                $agents_id[] = $a['id_agent'];
+            }
+            $agents_id[] = $this->auth->get_user_id();
+            $this->db->where_in('id_users', $agents_id);
+        }
+
+        if ($this->auth->get_user_role()==3) {
+            $this->db->where('id_users', $this->auth->get_user_id());
+        }
+        $this->db->order_by('order_date', 'desc');
+        return $this->db->get('objects')->result_array();
+    }
+
+    function get_objects_by_options_v2($post) {
+        $this->db->from('objects');
+        if (isset($post['id_objects'])) {
+            $this->db->where('id_objects', $post['id_objects']);
+        }
+        if (isset($post['article'])) {
+            $this->db->where('article', $post['article']);
+        }
+        if (isset($post['city'])) {
+            $this->db->like('city', $post['city'], 'both');
+        }
+        if ($this->auth->get_user_role()==4) {
+            $agents_id = '';
+            $this->load->model('users_model');
+            $agents_list = $this->users_model->getMyAgents($this->auth->get_user_id());
+            foreach ($agents_list as $a) {
+                $agents_id[] = $a['id_agent'];
+            }
+            $agents_id[] = $this->auth->get_user_id();
+            $this->db->where_in('id_users', $agents_id);
+        }
+
+        if ($this->auth->get_user_role()==3) {
+            $this->db->where('id_users', $this->auth->get_user_id());
+        }
+
+        if (isset($post['type_object'])) {
+            $this->db->where('type', $post['type_object']);
+        }
+
+        if (isset($post['status_obj'])) {
+            $this->db->where('status_obj', $post['status_obj']);
+        }
+
+        if (isset($post['search_sort'])) {
+            switch ($post['search_sort']) {
+                case 'sort_status':
+                    $this->db->order_by('status_obj', 'asc');
+                    break;
+            }
+        }
+
+        if (isset($post['date_sort_begin'])) {
+            $this->db->where('order_date >= ', $post['date_sort_begin']);
+        }
+        if (isset($post['date_sort_end'])) {
+            $this->db->where('order_date <= ', $post['date_sort_end']);
+        }
+
+
+        return $this->db->get()->result_array();
     }
 }

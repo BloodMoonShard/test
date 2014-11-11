@@ -24,8 +24,10 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <?php $counter=1; foreach ($users as $u) { ?>
-                                    <?php if ($this->auth->get_user_role() == 4) { ?>
+                                <?php $counter=0; foreach ($users as $u) { ?>
+                                    <?php if ($this->auth->get_user_role() == 4) {
+                                        if ($u['id_users']!=1) {
+                                        ?>
                                     <tr>
                                         <?php if(in_array($u['id_users'], $manager_vision)) { ?>
                                             <th><?php echo $counter; ?></th>
@@ -39,7 +41,7 @@
                                                 echo '<th><a href="/admin/ctrl_users/manager_agents/'.$u['id_users'].'">Посмотреть/изменить ('.$u['count_agents'].')</a></th>';
                                             }}?>
                                     </tr>
-                                    <?php }else { ?>
+                                    <?php }}else { if ($u['id_users']!=1) {?>
                                         <tr>
 
                                                 <th><?php echo $counter; ?></th>
@@ -53,7 +55,7 @@
                                                     echo '<th><a href="/admin/ctrl_users/manager_agents/'.$u['id_users'].'">Посмотреть/изменить ('.$u['count_agents'].')</a></th>';
                                                 }?>
                                         </tr>
-                                    <?php } $counter++;} ?>
+                                    <?php }} $counter++;} ?>
                                 </tbody>
                             </table>
                         </div>

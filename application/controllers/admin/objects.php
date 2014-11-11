@@ -12,6 +12,7 @@ class Objects extends My_Controller {
             redirect('/login');
         }
 
+        $this->load->library('pagination');
         $this->load->model('object_model');
         $this->load->model('users_model');
         $this->load->helper('date');
@@ -24,22 +25,63 @@ class Objects extends My_Controller {
         $role_id = $this->auth->get_user_role();
         $cur_user_id = $this->auth->get_user_id();
         $result_visible_manager[] = $cur_user_id;
+
+
+        $config['base_url'] = '/admin/objects/';
+        $config['total_rows'] = sizeof($this->object_model->get_element());
+        $config['per_page'] = 20;
+        $config['uri_segment'] = 3;
+        $config['num_links'] = 6;
+//            $config['query_string_segment'] = 'page';
+//            $config['full_tag_open'] = '<ul class="pagination">';
+//            $config['full_tag_close'] = '</ul>';
+        $config['first_link'] = 'Начало';
+//            $config['first_tag_open'] = '<li>';
+//            $config['first_tag_close'] = '</li>';
+        $config['last_link'] = ' Конец';
+//            $config['last_tag_open'] = '<li>';
+//            $config['last_tag_close'] = '</li>';
+        $config['next_link'] = '>';
+//            $config['next_tag_open'] = '<li>';
+//            $config['next_tag_close'] = '</li>';
+        $config['prev_link'] = '<';
+//            $config['prev_tag_open'] = '<li>';
+//            $config['prev_tag_close'] = '</li>';
+//            $config['cur_tag_open'] = '<li class="active"><a href="#">';
+//            $config['cur_tag_close'] = '</a></li>';
+//            $config['num_tag_open'] = '<li>';
+//            $config['num_tag_close'] = '</li>';
+        $this->pagination->initialize($config);
+        $data['pagination'] = $this->pagination->create_links();
+
+        if ($this->uri->segment(3) == '') {
+            $page = 0;
+        } else {
+            $page = $this->uri->segment(3);
+
+        }
+
+
+
         if ($role_id == 4) {
             $managers_agents = $this->users_model->getMyAgents($cur_user_id);
             foreach ($managers_agents as $m) {
                 $result_visible_manager[] = $m['id_agent'];
             }
-            $data['data'] = $this->object_model->get_element(false, $result_visible_manager);
+            $data['data'] = $this->object_model->get_element(false, $result_visible_manager, 'desc', $config['per_page'], $page);
         } elseif ($role_id == 3) {
-            $data['data'] = $this->object_model->get_element(false, $cur_user_id);
+            $data['data'] = $this->object_model->get_element(false, $cur_user_id, 'desc', $config['per_page'], $page);
         }
         if ($role_id == 1) {
-            $data['data'] = $this->object_model->get_element();
+            $data['data'] = $this->object_model->get_element(false, false, 'desc', $config['per_page'], $page);
         }
+
         foreach ($data['data'] as $key => $value) {
             if ($data['data'][$key]['status_obj']) {
                 $data['data'][$key]['status_obj'] = $this->users_model->getStatusName($data['data'][$key]['status_obj']);
                 $data['data'][$key]['status_obj'] = $data['data'][$key]['status_obj']['status'];
+                $data['data'][$key]['price'] = $this->object_model->get_object_price($data['data'][$key]['id_objects']);
+                $data['data'][$key]['price'] = $data['data'][$key]['price']['id_subcategory_value_input'];
             }
             $data['data'][$key]['username'] = $this->object_model->getUsername($data['data'][$key]['id_users']);
             $data['data'][$key]['username'] = $data['data'][$key]['username']['username'];
@@ -305,6 +347,63 @@ class Objects extends My_Controller {
         }
 
         $this->render_adm('admin/order_view', $data);
+    }
+
+    public function sampling_objects() {
+        $data['status_options'] = $this->object_model->get_status_options();
+        $data['objects_type_options'] = $this->object_model->get_objects_type_options();
+        $post = $this->input->post();
+        if ($post) {
+            $post['date_sort_begin'] = strtotime($post['date_sort_begin']);
+            $post['date_sort_end'] = strtotime($post['date_sort_end']);
+            if (strlen($post['id_objects'])==0) {
+                unset($post['id_objects']);
+            }
+            if (strlen($post['article'])==0) {
+                unset($post['article']);
+            }
+            if (strlen($post['status_obj'])==0) {
+                unset($post['status_obj']);
+            }
+            if (strlen($post['search_sort'])==0) {
+                unset($post['search_sort']);
+            }
+            if ($post['date_sort_begin'] == false) {
+                unset($post['date_sort_begin']);
+            }
+            if ($post['date_sort_end'] == false) {
+                unset($post['date_sort_end']);
+            }
+            if (strlen($post['type_object'])==0) {
+                unset($post['type_object']);
+            }
+//            var_dump($post);
+//            die();
+            if (sizeof($post) == 0) {
+                $data['result'] = $this->object_model->get_all_objects_v2();
+                $this->session->unset_userdata('selection_result');
+                $this->session->set_userdata('selection_result', $data['result'] );
+
+                $this->session->unset_userdata('options_selection');
+                $this->session->set_userdata('options_selection', $post);
+            } else {
+                $data['result'] = $this->object_model->get_objects_by_options_v2($post);
+                $this->session->unset_userdata('selection_result');
+                $this->session->set_userdata('selection_result', $data['result'] );
+
+                $this->session->unset_userdata('options_selection');
+                $this->session->set_userdata('options_selection', $post);
+            }
+        }
+
+
+        $this->render_adm('admin/sampling_objects', $data);
+    }
+
+    public function clear_ses_selection() {
+        $this->session->unset_userdata('options_selection');
+        $this->session->unset_userdata('selection_result');
+        redirect('/admin/objects/sampling_objects', 'refresh');
     }
 }
 
