@@ -106,6 +106,7 @@ class Object_model extends My_Model{
             $agents_id = '';
             $this->load->model('users_model');
             $agents_list = $this->users_model->getMyAgents($this->auth->get_user_id());
+            $agents_list = array_unique($agents_list);
             foreach ($agents_list as $a) {
                 $agents_id[] = $a['id_agent'];
             }
@@ -116,7 +117,7 @@ class Object_model extends My_Model{
         if ($this->auth->get_user_role()==3) {
             $this->db->where('id_users', $this->auth->get_user_id());
         }
-        $this->db->order_by('order_date', 'desc');
+        $this->db->order_by('date_add', 'desc');
         return $this->db->get('objects')->result_array();
     }
 
@@ -131,16 +132,25 @@ class Object_model extends My_Model{
         if (isset($post['city'])) {
             $this->db->like('city', $post['city'], 'both');
         }
-        if ($this->auth->get_user_role()==4) {
-            $agents_id = '';
-            $this->load->model('users_model');
-            $agents_list = $this->users_model->getMyAgents($this->auth->get_user_id());
-            foreach ($agents_list as $a) {
-                $agents_id[] = $a['id_agent'];
+
+        if (isset($post['users_obj'])) {
+            var_dump($post['users_obj']);
+            $this->db->where('id_users', $post['users_obj']);
+        } else {
+            if ($this->auth->get_user_role() == 4) {
+                $agents_id = '';
+                $this->load->model('users_model');
+                $agents_list = $this->users_model->getMyAgents($this->auth->get_user_id());
+                $agents_list = array_unique($agents_list);
+                foreach ($agents_list as $a) {
+                    $agents_id[] = $a['id_agent'];
+                }
+                $agents_id[] = $this->auth->get_user_id();
+                $this->db->from('objects');
+                $this->db->where_in('id_users', $agents_id);
             }
-            $agents_id[] = $this->auth->get_user_id();
-            $this->db->where_in('id_users', $agents_id);
         }
+
 
         if ($this->auth->get_user_role()==3) {
             $this->db->where('id_users', $this->auth->get_user_id());
@@ -168,7 +178,6 @@ class Object_model extends My_Model{
         if (isset($post['date_sort_end'])) {
             $this->db->where('order_date <= ', $post['date_sort_end']);
         }
-
 
         return $this->db->get()->result_array();
     }

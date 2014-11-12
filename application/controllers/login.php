@@ -12,6 +12,8 @@ class Login extends My_Controller{
             if(!$data = $this->auth->login($this->input->post())){
                 $data['error'] = $this->auth->error;
             }else{
+                $this->session->unset_userdata('selection_result');
+                $this->session->unset_userdata('options_selection');
                 redirect('/admin');
             }
         }

@@ -350,6 +350,28 @@ class Objects extends My_Controller {
     }
 
     public function sampling_objects() {
+        $this->load->model('users_model');
+        $role_id = $this->auth->get_user_role();
+        $cur_user_id = $this->auth->get_user_id();
+        if ($role_id == 4) {
+            $managers_agents = $this->users_model->getMyAgents($cur_user_id);
+            foreach ($managers_agents as $m) {
+                $result_visible_manager[]['id_users'] = $m['id_agent'];
+            }
+            $result_visible_manager[]['id_users'] = $cur_user_id;
+            $data['list_users'] = $result_visible_manager;
+
+            foreach ($data['list_users'] as $key=>$value) {
+                $data['list_users'][$key]['username'] = $this->object_model->getUsername($data['list_users'][$key]['id_users']);
+                $data['list_users'][$key]['username'] = $data['list_users'][$key]['username']['username'];
+            }
+        }
+
+        if ($role_id == 1) {
+            $data['list_users'] = $this->users_model->getAllUsers();
+        }
+
+
         $data['status_options'] = $this->object_model->get_status_options();
         $data['objects_type_options'] = $this->object_model->get_objects_type_options();
         $post = $this->input->post();
@@ -377,10 +399,26 @@ class Objects extends My_Controller {
             if (strlen($post['type_object'])==0) {
                 unset($post['type_object']);
             }
-//            var_dump($post);
-//            die();
+
+            if (strlen($post['users_obj'])==0) {
+                unset($post['users_obj']);
+            }
+
             if (sizeof($post) == 0) {
                 $data['result'] = $this->object_model->get_all_objects_v2();
+
+                foreach ($data['result'] as $key => $value) {
+                    if ($data['result'][$key]['status_obj']) {
+                        $data['result'][$key]['status_obj'] = $this->users_model->getStatusName($data['result'][$key]['status_obj']);
+                        $data['result'][$key]['status_obj'] = $data['result'][$key]['status_obj']['status'];
+                        $data['result'][$key]['price'] = $this->object_model->get_object_price($data['result'][$key]['id_objects']);
+                        $data['result'][$key]['price'] = $data['result'][$key]['price']['id_subcategory_value_input'];
+                    }
+                    $data['result'][$key]['username'] = $this->object_model->getUsername($data['result'][$key]['id_users']);
+                    $data['result'][$key]['username'] = $data['result'][$key]['username']['username'];
+                }
+
+
                 $this->session->unset_userdata('selection_result');
                 $this->session->set_userdata('selection_result', $data['result'] );
 
@@ -388,6 +426,18 @@ class Objects extends My_Controller {
                 $this->session->set_userdata('options_selection', $post);
             } else {
                 $data['result'] = $this->object_model->get_objects_by_options_v2($post);
+
+                foreach ($data['result'] as $key => $value) {
+                    if ($data['result'][$key]['status_obj']) {
+                        $data['result'][$key]['status_obj'] = $this->users_model->getStatusName($data['result'][$key]['status_obj']);
+                        $data['result'][$key]['status_obj'] = $data['result'][$key]['status_obj']['status'];
+                        $data['result'][$key]['price'] = $this->object_model->get_object_price($data['result'][$key]['id_objects']);
+                        $data['result'][$key]['price'] = $data['result'][$key]['price']['id_subcategory_value_input'];
+                    }
+                    $data['result'][$key]['username'] = $this->object_model->getUsername($data['result'][$key]['id_users']);
+                    $data['result'][$key]['username'] = $data['result'][$key]['username']['username'];
+                }
+
                 $this->session->unset_userdata('selection_result');
                 $this->session->set_userdata('selection_result', $data['result'] );
 

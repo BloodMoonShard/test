@@ -1,5 +1,7 @@
-<?php $options_s = $this->session->userdata('options_selection');
-$selection_result = $this->session->userdata('selection_result');?>
+<?php
+$options_s = $this->session->userdata('options_selection');
+$selection_result = $this->session->userdata('selection_result');
+?>
 <div id="page-wrapper">
 <div class="row">
     <div class="col-lg-12">
@@ -43,6 +45,25 @@ $selection_result = $this->session->userdata('selection_result');?>
                     </div>
                 </div>
 
+                <?php if($this->auth->get_user_role() != 3) { ?>
+
+                <div class="form-group">
+                    <label for="users_obj" class="col-lg-4 control-label">Объекты добавил:</label>
+                    <div class="col-lg-8">
+                        <select class="form-control" id="users_obj" name="users_obj">
+                            <option value="">Неважно</option>
+                            <?php foreach ($list_users as $lu) {
+                                $check = '';
+                                if (isset($options_s['users_obj'])) {
+                                    if ($options_s['users_obj'] == $lu['id_users'])
+                                        $check = 'selected';
+                                }
+                                echo '<option value="' . $lu['id_users'] . '" ' . $check . ' >' . $lu['username'] . '</option>';
+                            } ?>
+                        </select>
+                    </div>
+                </div>
+                <?php } ?>
             </div>
             <div class="col-lg-4">
                 <div class="form-group">
@@ -125,7 +146,7 @@ $selection_result = $this->session->userdata('selection_result');?>
                 <div class="form-group">
                     <div class="col-lg-offset-5 col-lg-7">
                         <button type="submit" class="btn btn-success">Подбор</button>
-                        <a href="/admin/orders/clear_ses_search" class="btn btn-info">Очистить</a>
+                        <a href="/admin/objects/clear_ses_selection" class="btn btn-info">Очистить</a>
                     </div>
                 </div>
             </div>
@@ -134,48 +155,69 @@ $selection_result = $this->session->userdata('selection_result');?>
     </div>
 </div>
     <div class="row">
-        <div class="panel panel-default">
+       <div class="panel panel-default">
             <div class="panel-body">
-                <?php if ($search_result) { ?>
+                <?php if ($selection_result) { ?>
                     <div class="table-responsive">
-                        <table class="table table-bordered table-hover table-striped tablesorter">
+                        <table class="table table-hover">
                             <thead>
                             <tr>
-                                <th>ID</th>
-                                <th>Покупатель</th>
-                                <!--                                    <th>Статус объекта</th>-->
-                                <th>Исполнитель</th>
-                                <th>Дополнительная информация</th>
-                                <th>Комментарии</th>
-                                <th>Дата создания заказа</th>
+                                <th>#</th>
+                                <th>Имя</th>
+                                <th>Дата создания</th>
+                                <th>Статус объекта</th>
+                                <th>Цена</th>
+                                <th>Разместил</th>
+                                <th>Действия</th>
+                                <th>Заказ</th>
                             </tr>
                             </thead>
                             <tbody>
-                            <?php
-                            foreach ($search_result as $r) { ?>
-                                <tr>
-                                    <th><a class="text-danger" href="/admin/objects/control_order/<?php echo $r['id_objects']; ?>"><?php echo $r['id_objects']; ?></a></th>
-                                    <th><?php echo $r['buyer']; ?></th>
-                                    <!--                                        <th>--><?php //echo $r['status_obj']; ?><!--</th>-->
-                                    <th><?php echo $r['performer']; ?></th>
-                                    <th><?php echo $r['additional_info']; ?></th>
-                                    <th><?php echo $r['comment']; ?></th>
-                                    <th><?php echo date("d-m-Y", $r['order_date']); ?></th>
-                                </tr>
-                            <?php
-                            } ?>
+                            <?php if(sizeof($selection_result) > 0){
+                                foreach($selection_result as $d){
+                                    $color_tr = '';
+                                    if ($d['status_obj'] == 'Показ') {$color_tr = 'class="success"';}
+                                    if ($d['status_obj'] == 'Отклонено') {$color_tr = 'class="danger"';}
+                                    if ($d['status_obj'] == 'На модерации') {$color_tr = 'class="warning"';}
+                                    ?>
+                                    <tr <?php echo $color_tr; ?>>
+                                        <td><?= $d['id_objects']?></td>
+                                        <td><?= $d['name_object']?></td>
+                                        <td><?= $d['date_add']?></td>
+                                        <td><?php if($d['status_obj'] != null){echo $d['status_obj'];}else{echo "-";}?></td>
+                                        <td>
+                                            <?php if($d['price']) {
+                                                echo $d['price'].'  руб.';
+                                            }else {
+                                                echo '-';
+                                            } ?>
+
+                                        </td>
+                                        <td><?= $d['username']?></td>
+                                        <td class="text-center">
+                                            <a href="/admin/objects/edit_object/<?= $d['id_objects']?>"><i class="glyphicon glyphicon-pencil"></i></a>
+                                            <a href="/admin/objects/rm_object/<?= $d['id_objects']?>"><i class="glyphicon glyphicon-remove"></i></a>
+                                        </td>
+                                        <td class="text-center">
+                                            <a class="<?php if($d['order_flag']!=0) {echo 'text-success';} ?>" href="/admin/objects/control_order/<?= $d['id_objects']?>"><i class="glyphicon glyphicon-eye-open"></i></a>
+                                        </td>
+                                    </tr>
+                                <?php }
+                            }?>
                             </tbody>
                         </table>
                     </div>
-
                 <?php
                 } else {
-                    if (($options_s!=false) && ($search_result==false)) {
+                    if (($options_s!=false) && ($selection_result==false)) {
                         echo '<div class="col-lg-8 col-lg-offset-1"><p class="lead">Ничего не найдено, попробуйте изменить параметры поиска</p></div>';
                     }}  ?>
             </div>
         </div>
     </div>
+    <hr class="divider">
+    <a class="btn btn-default" href="/admin/objects">Обратно</a>
+
     <!-- /.col-lg-12 -->
 </div>
 <!-- /.row -->

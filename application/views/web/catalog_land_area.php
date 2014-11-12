@@ -214,7 +214,9 @@
                     <h2><?= $v['name_object'] ?></h2>
                 </div>
                 <div class="content clearfix">
-                    <img src="/upload_files/objects_img/<?php echo @$v['ob_images'][0]['img_name'] ?>" alt="">
+                    <a href="/details/<?php echo $v['id_objects']; ?>">
+                        <img src="/upload_files/objects_img/<?php echo @$v['ob_images'][0]['img_name'] ?>" alt="">
+                    </a>
 
                     <div class="specifications">
                         <div class="spec-line">
