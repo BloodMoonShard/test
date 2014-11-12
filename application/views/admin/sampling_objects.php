@@ -74,8 +74,9 @@ $selection_result = $this->session->userdata('selection_result');
                             <option value="">Неважно</option>
                             <?php foreach ($objects_type_options as $ot) {
                                 $check = '';
+
                                 if (isset($options_s['type_object'])) {
-                                    if ($options_s['type_object'] == $ot['id'])
+                                    if ($options_s['type_object'] == $ot['id_objects_type'])
                                         $check = 'selected';
                                 }
                                 echo '<option value="' . $ot['id_objects_type'] . '" ' . $check . ' >' . $ot['name'] . '</option>';
